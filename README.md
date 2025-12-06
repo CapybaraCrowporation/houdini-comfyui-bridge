@@ -122,17 +122,21 @@ Ensure you have the following installed:
 - **Houdini**: H20.5.613+ or H21.0.465+
 - **ComfyUI**: v0.3.33+
 
-### Step 1: Clone the Repository
+### Step 1: Install Houdini and Comfyui
 
-### Step 2: Install Houdini Dependencies
+[Install guide 1](docs/Installation_1_Houdini_and_ComfyUI.md)
 
-### Step 2: Install ComfyUI Dependencies
+### Step 2: Install Houdini plugin and ComfyUI Custom node
+
+[Install guide 2](docs/Installation_2_Plugin.md)
 
 ## 🎯 Quick Start
 
 ### Basic Usage
 
-### Advanced Options
+[First steps 1](docs/First_steps_1.md)
+[First steps 2](docs/First_steps_2.md)
+[First steps 3](docs/First_steps_3.md)
 
 ---
 
