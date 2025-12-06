@@ -32,7 +32,7 @@ This is a toolset that allows you to bring the best of ComfyUI directly into Hou
 
 - **✨ Feature 2**: Import and export from comfyUI with ease. Generate images, meshes, audio and more.
 
-- **✨ Feature 3**: TOPs submitter allows users to develop custom pipelines that combine Houdini and ComfyUI
+- **✨ Feature 3**: TOPs submitter allows users to develop custom pipelines that CG with Diffusion and Generative AI
 
 
 ---
