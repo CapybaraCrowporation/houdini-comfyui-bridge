@@ -1,8 +1,7 @@
-# Your Project Name
 
 <!-- Add your logo here -->
 <p align="center">
-  <img src="./assets/logo.png" alt="Project Logo" width="200"/>
+  <img src="./Readme_assets/Houdini_bridge_comfyui.png" alt="Project Logo" width="600"/>
 </p>
 
 <!-- Project badges/links -->
@@ -19,34 +18,31 @@
 ## 📹 Demo Video
 
 <!-- Embed your video demo here -->
-https://github.com/user-attachments/assets/your-video-file.mp4
 
-> Replace with your own video file or use an embedded video player
+https://github.com/user-attachments/assets/61a780b8-4845-447e-acba-fb87de8dd643
 
 ---
 
 ## 🚀 Introduction
 
-We are excited to introduce **Your Project Name**, a revolutionary tool/model/application that [brief description of what your project does].
+We are happy to annouce that Houdini ComfyUI Bridge is now Open source. 
+This is a toolset that allows you to bring the best of ComfyUI directly into Houdini. 
 
-Key features and innovations include:
+- **✨ Feature 1**: Load comfyUI nodes directly into COPs
 
-- **✨ Feature 1**: Description of your first major feature or innovation. Explain how it improves upon existing solutions or provides unique value.
+- **✨ Feature 2**: Import and export from comfyUI with ease. Generate images, meshes, audio and more.
 
-- **✨ Feature 2**: Description of your second major feature. Include technical details that make your project stand out.
+- **✨ Feature 3**: TOPs submitter allows users to develop custom pipelines that combine Houdini and ComfyUI
 
-- **✨ Feature 3**: Description of your third major feature. Highlight performance improvements, efficiency gains, or unique capabilities.
-
-- **✨ Feature 4**: Description of your fourth major feature. Emphasize user benefits or practical applications.
 
 ---
 
 ## 📰 Latest News
 
-- **Dec 01, 2024**: 🎉 Initial release of [Project Name] v1.0! Check out our [release notes](#).
-- **Nov 15, 2024**: 📝 Published our technical paper on [arXiv](#). Read more about our methodology.
-- **Nov 01, 2024**: 🚧 Project repository created. Development in progress.
-- **Oct 20, 2024**: 💡 Project conception and initial research phase begins.
+- **Dec 27, 2025**: 🎉 Initial release of Houdini ComfyUI Bridge v1.0! Check out our [release notes](#).
+- **Dec 16, 2024**: 📝 SIGGRAPH Asia 2025 live demo.
+- **Nov 01, 2024**: 🚧 Hive Equinox presentation, demoing complex workflows.
+- **May 15, 2025**: 💡 First public demonstration at Toronto Houdini User Group.
 
 ---
 
@@ -55,48 +51,54 @@ Key features and innovations include:
 Development roadmap and completed milestones:
 
 **Core Features**
-- [x] Basic functionality implementation
-- [x] Unit tests and documentation
-- [ ] Advanced feature set
-- [ ] Performance optimization
-- [ ] Multi-platform support
+- [x] Import Comfy Core nodes
+- [x] Support to third party nodes
+- [x] Input to parameter promotion
+- [ ] Support to Comfy Paid API
+- [ ] Support to nodes with more than 16 inputs
 
 **Integration & Tools**
-- [x] Command-line interface
-- [ ] Web interface
-- [ ] API development
-- [ ] Docker containerization
-- [ ] Cloud deployment support
+- [x] Import and export Images
+- [x] Import and export Meshes
+- [x] Generic exporter for arbritary exports like audio, video and more
+- [x] Sample example for points picker
+- [x] Import and export Image sequences and batches
 
 **Documentation & Community**
 - [x] README and getting started guide
-- [ ] Comprehensive API documentation
-- [ ] Tutorial videos
-- [ ] Community forum setup
+- [x] Tutorial videos
+- [ ] Discord Forum setup
 - [ ] Contribution guidelines
+
+**Current limitations**
+- [x] No support to nodes that use JavaScript
 
 ---
 
 ## ❓ FAQ
 
-### What is [Your Project Name]?
+### What is Houdini ComfyUi?
 
-[Your Project Name] is a [brief description]. It's designed for [target audience] who need [primary use case].
+Houdini ComfyUI Bridge is a professional-grade generative AI integration for Houdini's node-based environment. It's designed for VFX artists and creative professionals who need to leverage AI image generation within their existing production pipelines, using familiar tools like depth maps, cryptomattes, and automation workflows without relying on web-based services or pay-per-generation models.
 
 ### What are the system requirements?
 
 - **OS**: Linux (Ubuntu 20.04+), macOS, or Windows 10/11
-- **GPU**: NVIDIA GPU with at least 8GB VRAM (recommended)
-- **RAM**: 16GB minimum, 32GB recommended
-- **Storage**: 50GB free space
+- **Houdini**: H20.5.613+ or H21.0.465+
+- **ComfyUI**: v0.3.33+
+
+### Is this a SideFX iniciative?
+
+- **NO** This is a community project kickstarted by Rafael Drelich Valentim and Anatolii Iudanov.
 
 ### How do I get started?
 
 Check out our [Installation](#-installation) section below for step-by-step instructions.
+Also visit the public miro board for video tutorials
 
 ### Can I use this for commercial purposes?
 
-Yes! This project is licensed under the Apache 2.0 License. See the [License](#-license-agreement) section for details.
+Yes! This project is licensed under the GLP v3.
 
 ### How can I contribute?
 
@@ -115,105 +117,52 @@ We welcome contributions! Please see our contribution guidelines and submit a pu
 ### Prerequisites
 
 Ensure you have the following installed:
-- Python 3.8 or higher
-- pip package manager
-- Git
+- **OS**: Linux (Ubuntu 20.04+), macOS, or Windows 10/11
+- **Houdini**: H20.5.613+ or H21.0.465+
+- **ComfyUI**: v0.3.33+
 
 ### Step 1: Clone the Repository
 
-```bash
-git clone https://github.com/yourusername/yourproject.git
-cd yourproject
-```
+### Step 2: Install Houdini Dependencies
 
-### Step 2: Install Dependencies
-
-```bash
-# Create a virtual environment (recommended)
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# Install required packages
-pip install -r requirements.txt
-```
-
-### Step 3: Download Models (if applicable)
-
-```bash
-# Using provided download script
-python download_models.py
-
-# Or manually from HuggingFace
-huggingface-cli download yourusername/yourmodel --local-dir ./models
-```
-
-### Step 4: Verify Installation
-
-```bash
-# Run a quick test
-python test_installation.py
-```
-
----
+### Step 2: Install ComfyUI Dependencies
 
 ## 🎯 Quick Start
 
 ### Basic Usage
 
-```bash
-# Example command
-python run.py --input examples/sample.jpg --output results/
-```
-
 ### Advanced Options
-
-```bash
-# With custom parameters
-python run.py \
-  --input examples/sample.jpg \
-  --output results/ \
-  --model_path ./models/yourmodel \
-  --config configs/default.yaml \
-  --gpu 0
-```
-
-### Using the API
-
-```python
-from yourproject import YourModel
-
-# Initialize model
-model = YourModel(model_path='./models/yourmodel')
-
-# Run inference
-result = model.process(input_data)
-
-# Save results
-result.save('output.png')
-```
 
 ---
 
 ## 📄 License Agreement
-
-This project is licensed under the **Apache 2.0 License**.
+This project is licensed under the **GNU General Public License v3.0 (GPL-3.0)**.
 
 ### Key Terms:
-
 - ✅ **Commercial Use**: You may use this software for commercial purposes
 - ✅ **Modification**: You may modify the source code
 - ✅ **Distribution**: You may distribute this software
-- ✅ **Patent Use**: You receive a license to any patent claims
+- ✅ **Patent Use**: Contributors grant you a patent license for their contributions
+- 🔄 **Copyleft**: Derivative works must also be licensed under GPL v3
+- 📖 **Source Code Disclosure**: You must provide source code when distributing
 - ⚠️ **Liability**: The software is provided "as is" without warranty
-- ⚠️ **Trademark**: You may not use project trademarks without permission
+- ⚠️ **No Sublicensing**: You cannot apply different license terms to derivative works
 
 ### Your Responsibilities:
+When you distribute this software or derivative works, you must:
+- Provide the complete source code or make it readily available
+- Keep all copyright notices and license information intact
+- License the entire work under GPL v3
+- State any changes you made to the original code
+- Include a copy of the GPL v3 license with your distribution
+- Not impose additional restrictions on recipients' rights
 
-You are responsible for ensuring your use of this software:
-- Complies with all applicable laws and regulations
-- Does not infringe on third-party rights
-- Does not generate harmful, misleading, or illegal content
-- Includes proper attribution when required
+### Freedom Philosophy:
+This license ensures that you and all downstream users have the freedom to:
+- Run the software for any purpose
+- Study and modify the source code
+- Share copies with others
+- Distribute your modified versions
 
 For the complete license text, see [LICENSE.txt](LICENSE.txt).
 
@@ -223,11 +172,8 @@ For the complete license text, see [LICENSE.txt](LICENSE.txt).
 
 We would like to express our gratitude to:
 
-- **[Project/Library 1]**: For providing [specific contribution, e.g., "the foundational model architecture"]
-- **[Project/Library 2]**: For [specific contribution, e.g., "excellent preprocessing tools"]
-- **[Organization/Team]**: For [specific contribution, e.g., "funding and research support"]
+- **ComfyUI**: For providing a node based arquitecture for Generative AI.
 - **Open Source Community**: For invaluable feedback and contributions
-- **Research Partners**: [List any academic or industry partners]
 
 Special thanks to all contributors who have helped improve this project through code, documentation, and bug reports.
 
@@ -239,11 +185,9 @@ We'd love to hear from you!
 
 - **GitHub Issues**: [Report bugs or request features](https://github.com/yourusername/yourproject/issues)
 - **Discord**: [Join our community](https://discord.gg/your-invite-link)
-- **Email**: contact@yourproject.com
-- **Twitter/X**: [@yourproject](https://twitter.com/yourproject)
-- **LinkedIn**: [Your Organization](https://linkedin.com/company/yourorg)
+- **LinkedIn**: [Your Organization](https://www.linkedin.com/in/rafaeldrelich/)
 
-For business inquiries or partnership opportunities, please email: business@yourproject.com
+For business inquiries or partnership opportunities, please email: rafaeldrelich@gmail.com
 
 ---
 
@@ -252,18 +196,30 @@ For business inquiries or partnership opportunities, please email: business@your
 If you use this project in your research, please cite:
 
 ```bibtex
-@article{yourproject2024,
-  title={Your Project: A Revolutionary Approach to [Problem Domain]},
-  author={Your Name and Collaborators},
-  journal={arXiv preprint arXiv:XXXX.XXXXX},
-  year={2024}
+@inproceedings{10.1145/3757371.3763259,
+author = {Drelich Valentim, Rafael},
+title = {CGAI: How generative AI is reshaping digital media and artists practices},
+year = {2025},
+isbn = {9798400721311},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3757371.3763259},
+doi = {10.1145/3757371.3763259},
+abstract = {Current Web-based AI image and video generation services are reshaping creative production practices in digital media, animation, and visual effects. Although these platforms offer natural language interfaces, rapid generation, and style mimicry capabilities, they lack artist-focused tools such as masks, layers, and direct integration with 3D assets. This course examines the fundamental shift that occurs as generative AI technologies converge with traditional computer graphics practices, revealing strategies for creative professionals to leverage existing production infrastructure and achieve precise control over generative AI systems. We present a novel CG-AI framework that integrates ComfyUI into Houdini’s Copernicus image processing context, allowing users to exchange data between Houdini and ComfyUI while remaining entirely within a Houdini session. Through live demonstrations, attendees will learn how creative professionals can initiate processes in 3D environments using Houdini, then leverage traditional render passes as conditioning inputs for AI image generation in ComfyUI. This establishes hybrid workflows that reframe generative AI from a replacement technology to a powerful creative support tool [Shneiderman 2002], demonstrating how creative practices can evolve alongside emerging technologies rather than being displaced by them.},
+booktitle = {SIGGRAPH Asia 2025 Courses},
+articleno = {1},
+numpages = {4},
+keywords = {Generative AI, Houdini, Comfyui, 3D, Visual Effects, Computer Graphics, Diffusion Models, ControlNet, Inpainting, AI Education, Visual Programming, Creative Workflows},
+location = {
+},
+series = {SA Courses '25}
 }
 ```
 
 ---
 
 <p align="center">
-  Made with ❤️ by the [Your Project] Team
+  Made with ❤️ by the Capybara Crowporation Team
 </p>
 
 <p align="center">
