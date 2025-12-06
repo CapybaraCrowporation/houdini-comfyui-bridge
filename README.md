@@ -86,6 +86,7 @@ Houdini ComfyUI Bridge is a professional-grade generative AI integration for Hou
 - **OS**: Linux (Ubuntu 20.04+), macOS, or Windows 10/11
 - **Houdini**: H20.5.613+ or H21.0.465+
 - **ComfyUI**: v0.3.33+
+- **Python**: Python 3.11+
 
 ### Is this a SideFX iniciative?
 
