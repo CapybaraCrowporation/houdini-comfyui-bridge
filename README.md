@@ -192,9 +192,9 @@ We'd love to hear from you!
 
 - **GitHub Issues**: [Report bugs or request features](https://github.com/yourusername/yourproject/issues)
 - **Discord**: [Join our community](https://discord.gg/your-invite-link)
-- **LinkedIn**: [Your Organization](https://www.linkedin.com/in/rafaeldrelich/)
+- **LinkedIn**: [Reach Out!](https://www.linkedin.com/in/rafaeldrelich/)
 
-For business inquiries or partnership opportunities, please email: rafaeldrelich@gmail.com
+For business inquiries or partnership opportunities, please email:
 
 ---
 
@@ -202,25 +202,7 @@ For business inquiries or partnership opportunities, please email: rafaeldrelich
 
 If you use this project in your research, please cite:
 
-```bibtex
-@inproceedings{10.1145/3757371.3763259,
-author = {Drelich Valentim, Rafael},
-title = {CGAI: How generative AI is reshaping digital media and artists practices},
-year = {2025},
-isbn = {9798400721311},
-publisher = {Association for Computing Machinery},
-address = {New York, NY, USA},
-url = {https://doi.org/10.1145/3757371.3763259},
-doi = {10.1145/3757371.3763259},
-abstract = {Current Web-based AI image and video generation services are reshaping creative production practices in digital media, animation, and visual effects. Although these platforms offer natural language interfaces, rapid generation, and style mimicry capabilities, they lack artist-focused tools such as masks, layers, and direct integration with 3D assets. This course examines the fundamental shift that occurs as generative AI technologies converge with traditional computer graphics practices, revealing strategies for creative professionals to leverage existing production infrastructure and achieve precise control over generative AI systems. We present a novel CG-AI framework that integrates ComfyUI into Houdini’s Copernicus image processing context, allowing users to exchange data between Houdini and ComfyUI while remaining entirely within a Houdini session. Through live demonstrations, attendees will learn how creative professionals can initiate processes in 3D environments using Houdini, then leverage traditional render passes as conditioning inputs for AI image generation in ComfyUI. This establishes hybrid workflows that reframe generative AI from a replacement technology to a powerful creative support tool [Shneiderman 2002], demonstrating how creative practices can evolve alongside emerging technologies rather than being displaced by them.},
-booktitle = {SIGGRAPH Asia 2025 Courses},
-articleno = {1},
-numpages = {4},
-keywords = {Generative AI, Houdini, Comfyui, 3D, Visual Effects, Computer Graphics, Diffusion Models, ControlNet, Inpainting, AI Education, Visual Programming, Creative Workflows},
-location = {
-},
-series = {SA Courses '25}
-}
+
 ```
 
 ---
