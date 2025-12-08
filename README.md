@@ -55,7 +55,6 @@ Development roadmap and completed milestones:
 - [x] Support to third party nodes
 - [x] Input to parameter promotion
 - [ ] Support to Comfy Paid API
-- [ ] Support to nodes with more than 16 inputs
 
 **Integration & Tools**
 - [x] Import and export Images
