@@ -1,0 +1,117 @@
+import uuid
+import hou
+from houdini_comfyui_connection.compound_graph_core import GraphPartData, ImageInfo, GraphPorcessingInputKey, GraphProcessingContext, ImageType, get_output_index_from_input, NonGraphSource
+
+
+comfyui_partial_graph_is_custom_node = True
+
+def process_graph_node(
+    subnode,
+    node_to_graph: dict[hou.Node, GraphPartData],
+    nodes_to_upload: dict[GraphPorcessingInputKey, tuple[hou.Node, ImageInfo]],
+    context_vars: dict[str, str|float|int],
+    *,
+    long_op: hou.InterruptableOperation|None = None,
+):
+    bake_cc = subnode.evalParm('bake_ocio')
+    upload_node = subnode.node('input_upload1')
+
+    frame_range = subnode.parmTuple('f').eval()
+
+    if frame_range[1] < frame_range[0]:
+        raise ValueError(f'frame range is invalid at {subnode.path()}')
+
+    graph = {}
+    load_node_ids = []
+    next_id = 0
+    in_source = get_output_index_from_input(subnode, 0)
+    if in_source is None:
+        # for now just upload black i guess, use self as node for input key
+        # TODO: this is a temporary hacky solution
+        #  cuz of this unconnected range nodes will produce unique black sequence each
+        in_source = NonGraphSource(subnode, 0, ImageType.RGBA)
+    
+    for frame in range(frame_range[0], frame_range[1] + 1):
+        source_context = GraphPorcessingInputKey(in_source.node, in_source.output, GraphProcessingContext(float(frame), bake_cc))
+        if source_context in nodes_to_upload:
+            image_name = nodes_to_upload[source_context][1].filename
+        else:
+            image_name = f"{upload_node.node('DATA').evalParm('cui_image_subdir')}/{uuid.uuid4()}.png"
+            nodes_to_upload[source_context] = (
+                upload_node,
+                ImageInfo(
+                    image_name,
+                    frame=frame,
+                    bake_cc=bake_cc,
+                ),
+            )
+        load_node = _get_image_load_graph(str(next_id), image_name)
+        load_node_ids.append(str(next_id))
+        graph.update(load_node)
+        next_id += 1
+
+    # if just a single image - that's it
+    if len(load_node_ids) == 1:
+        node_to_graph[subnode] = GraphPartData(
+            graph,
+            {0: (load_node_ids[0], 0)},
+            {},
+            {},
+        )
+        return
+
+    prev_batcher_id = str(next_id)
+    next_id += 1
+    prev_batcher = _get_image_batch_graph(
+        prev_batcher_id,
+        [load_node_ids[0], 0],
+        [load_node_ids[1], 0],
+    )
+    graph.update(prev_batcher)
+    for load_node_id in load_node_ids[2:]:
+        batch_graph_id = str(next_id)
+        next_id += 1
+        batch_graph = _get_image_batch_graph(
+            batch_graph_id,
+            [prev_batcher_id, 0],
+            [load_node_id, 0],
+        )
+        graph.update(batch_graph)
+        prev_batcher = batch_graph
+        prev_batcher_id = batch_graph_id
+
+    node_to_graph[subnode] = GraphPartData(
+        graph,
+        {0: (prev_batcher_id, 0)},
+        {},
+        {},
+    )
+
+
+def _get_image_load_graph(nid: str, cui_image_path: str) -> dict:
+    return {
+        nid: {
+            "inputs": {
+                "image": cui_image_path
+            },
+            "class_type": "LoadImage",
+            "_meta": {
+                "title": "Load Image"
+            }
+        }
+    }
+
+
+def _get_image_batch_graph(nid: str, input1, input2):
+     return {
+        nid: {
+            "inputs": {
+                "image1": input1,
+                "image2": input2,
+            },
+            "class_type": "ImageBatch",
+            "_meta": {
+                "title": "bababatchchch"
+            }
+        }
+    }

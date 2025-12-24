@@ -1,0 +1,24 @@
+{
+	"values":["20.5.410"
+	],
+	"indexes":{
+		"hdaroot/ropnet/render_me.userdata":0,
+		"hdaroot/result2/switch2.userdata":0,
+		"hdaroot/ropnet.userdata":0,
+		"hdaroot/result2/gltf1.userdata":0,
+		"hdaroot/result2/non_loadable.userdata":0,
+		"hdaroot/graph.userdata":0,
+		"hdaroot/prms.userdata":0,
+		"hdaroot/result2.userdata":0,
+		"hdaroot/result2/file1.userdata":0,
+		"hdaroot/graph/outputs.userdata":0,
+		"hdaroot/graph/inputs.userdata":0,
+		"hdaroot/result2/alembic1.userdata":0,
+		"hdaroot/result2/null2.userdata":0,
+		"hdaroot/result1.userdata":0,
+		"hdaroot/result2/switch1.userdata":0,
+		"hdaroot/outputs.userdata":0,
+		"hdaroot/inputs.userdata":0,
+		"hdaroot/result2/out.userdata":0
+	}
+}

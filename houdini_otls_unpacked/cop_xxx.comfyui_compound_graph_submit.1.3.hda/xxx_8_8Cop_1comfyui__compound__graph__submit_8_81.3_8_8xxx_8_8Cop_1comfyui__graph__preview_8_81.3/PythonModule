@@ -1,0 +1,37 @@
+import hou
+import traceback
+import json
+from houdini_comfyui_connection.graph_submission import BadInputSubstituteError, ResultNotFound, GraphValidationError, delete_input_image, delete_output_image, delete_prompt_history, download_result, submit_graph_and_get_result, FunctionalityNotAvailable, FailedToDeleteImage, delete_input_image, delete_output_image, delete_prompt_history
+from houdini_comfyui_connection.ui_tools import show_error
+from houdini_comfyui_connection.compound_graph_tools import update_comfy_nodes_definitions, find_nearest_compound_graph_parent
+from houdini_comfyui_connection.compound_graph_core import compute_compound_graph_node
+
+
+def preview_btn_callback(node):
+    # get parent compound graph node
+    main_node = find_nearest_compound_graph_parent(node)
+    loader_node = node.node('result1')
+    try:
+        with hou.InterruptableOperation('generating result...', 'working...', open_interrupt_dialog=True) as op:
+            compute_compound_graph_node(main_node, long_op=op, override_output_node=node, override_result_loader_nodes=[loader_node])
+    except ResultNotFound as e:
+        show_error(
+            'Expected result was not found. Internal error probably happened, check comfy server logs.',
+            details=f'"{e.key}" in result of the given graph:\n{json.dumps(e.res, indent=4)}'
+        )
+        return
+    except json.JSONDecodeError as e:
+        show_error(f'graph is a badly formatted json: {e}')
+        return
+    except BadInputSubstituteError as e:
+        show_error(f'error replacing inputs: {e}')
+        return
+    except GraphValidationError as e:
+        show_error(e.format_error_summary(), details=json.dumps(e.raw_error, indent=4), title='graph is not valid')
+        return
+    except hou.OperationInterrupted:
+        show_error("operation was interrupted")
+        return
+    except Exception as e:
+        show_error(f'failed to submit graph: {e}', details=traceback.format_exc())
+        return

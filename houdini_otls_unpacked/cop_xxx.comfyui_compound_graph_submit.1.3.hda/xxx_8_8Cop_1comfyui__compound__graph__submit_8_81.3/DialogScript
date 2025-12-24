@@ -1,0 +1,74 @@
+# Dialog script for xxx::comfyui_compound_graph_submit::1.3 automatically generated
+
+{
+    name	xxx::comfyui_compound_graph_submit::1.3
+    script	xxx::comfyui_compound_graph_submit::1.3
+    label	"ComfyUI Compound Graph Submit"
+
+    input	input1	src
+    output	output1	dst
+    output	output2	geo
+    signature	default	Default	{ RGBA }	{ RGBA Geometry }
+
+    help {
+	""
+    }
+
+    parm {
+        name    "base_url"
+        label   "ComfyUI Address"
+        type    string
+        default { "http://127.0.0.1:8188" }
+        parmtag { "script_callback_language" "python" }
+    }
+    parm {
+        name    "result_dir"
+        label   "Directory for downloading results"
+        type    directory
+        default { "$HIP/houdini_cui_connection/$HIPNAME" }
+        parmtag { "script_callback_language" "python" }
+    }
+    parm {
+        name    "result_suffix"
+        label   "File Suffix"
+        type    string
+        default { "" }
+        parmtag { "script_callback_language" "python" }
+    }
+    parm {
+        name    "image_batch_index"
+        label   "Batch Index"
+        type    integer
+        default { "0" }
+        range   { 0! 100 }
+        parmtag { "script_callback_language" "python" }
+    }
+    parm {
+        name    "cleanup_server_images"
+        label   "Cleanup Temporary Server Images"
+        type    toggle
+        default { "on" }
+    }
+    groupcollapsible {
+        name    "definitions"
+        label   "Node Definitions"
+
+        parm {
+            name    "update_node_defs"
+            label   "Update Node Definitions"
+            type    button
+            default { "0" }
+            parmtag { "script_callback" "hou.phm().update_node_defs_btn_callback(hou.pwd())" }
+            parmtag { "script_callback_language" "python" }
+        }
+    }
+
+    parm {
+        name    "compute"
+        label   "Compute"
+        type    button
+        default { "0" }
+        parmtag { "script_callback" "hou.phm().submit_btn_callback(hou.pwd())" }
+        parmtag { "script_callback_language" "python" }
+    }
+}

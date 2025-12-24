@@ -1,0 +1,32 @@
+# Dialog script for xxx::Cop/comfyui_compound_graph_submit::1.3::xxx::comfyui_graph_preview::1.3 automatically generated
+
+{
+    name	xxx::Cop/comfyui_compound_graph_submit::1.3::xxx::comfyui_graph_preview::1.3
+    script	xxx::Cop/comfyui_compound_graph_submit::1.3::xxx::comfyui_graph_preview::1.3
+    label	"ComfyUI Graph Preview"
+
+    input	input1	src
+    output	output1	"New Output"
+    signature	default	Default	{ RGBA }	{ RGBA }
+
+    help {
+	""
+    }
+
+    parm {
+        name    "compute"
+        label   "Generate Preview"
+        type    button
+        default { "0" }
+        parmtag { "script_callback" "hou.phm().preview_btn_callback(hou.pwd())" }
+        parmtag { "script_callback_language" "python" }
+    }
+    parm {
+        name    "image_batch_index"
+        label   "Batch Index"
+        type    integer
+        default { "0" }
+        range   { 0! 100 }
+        parmtag { "script_callback_language" "python" }
+    }
+}

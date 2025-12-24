@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<menuDocument>
+  <menu>
+    <subMenu id="hou_comfyui_compound_parm_submenu">
+      <insertBefore />
+      <label>ComfyUI</label>
+      <expression><![CDATA[
+from houdini_comfyui_connection.compound_graph_tools import parm_menu_parm_to_input_callback_should_show
+return parm_menu_parm_to_input_callback_should_show(kwargs)
+      ]]></expression>
+
+      <scriptItem id="hou_comfyui.parm_to_input">
+        <label>Convert Parameter To Input</label>
+        <scriptCode><![CDATA[
+from houdini_comfyui_connection.compound_graph_tools import parm_menu_parm_to_input_callback
+parm_menu_parm_to_input_callback(kwargs)
+        ]]></scriptCode>
+      </scriptItem>
+      
+      <scriptItem id="hou_comfyui.parm_enum_editable_set">
+        <label>Make Enum Editable</label>
+        <expression><![CDATA[
+from houdini_comfyui_connection.compound_graph_tools import parm_enum_editable_set_callback_should_show
+return parm_enum_editable_set_callback_should_show(kwargs)
+        ]]></expression>
+
+        <scriptCode><![CDATA[
+from houdini_comfyui_connection.compound_graph_tools import parm_enum_editable_set_callback
+parm_enum_editable_set_callback(kwargs)
+        ]]></scriptCode>
+      </scriptItem>
+    </subMenu>
+  </menu>
+</menuDocument>

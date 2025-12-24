@@ -1,0 +1,210 @@
+import hou
+import traceback
+
+
+def find_child_by_type(parent: hou.Node, type_name: tuple[str, str, str, str]) -> hou.Node:
+    for subnode in parent.children():
+        if subnode.type().nameComponents() == type_name:
+            return subnode
+    else:
+        raise KeyError('node of given type not found')
+
+
+def wrap_in_hda(node: hou.Node, type_main_name: str, type_version: tuple[int, ...], type_label: str, hda_file_name: str = 'Embedded') -> hou.Node:
+    """
+    this does wrap into subnet first, and then makes a HDA out of it
+    """
+    parent = hou.parent()
+    type_scope, type_ns, _, _ = node.type().nameComponents()
+    type_full_name = '::'.join((type_scope, type_ns, type_main_name, '.'.join(str(x) for x in type_version)))
+
+    # first check if already in asset.
+    if parent.parm('__hidden_cui_subnet_mark__') and parent.type().name() == type_full_name:
+        raise NotImplementedError("hda update is not yet implemented")
+    subnet = wrap_in_subnet(node)
+    ptg = subnet.parmTemplateGroup()
+    parm_templates = []
+    if folter_pt := ptg.findFolder('Inputs'):
+        parm_templates.extend(folter_pt.parmTemplates())
+
+    new_node = subnet.createDigitalAsset(type_full_name, hda_file_name, type_label, compress_contents=True, comment='autocreated', create_backup=False)
+
+    ptg = new_node.type().definition().parmTemplateGroup()
+    for pt in parm_templates:
+        ptg.addParmTemplate(pt)
+    new_node.type().definition().setParmTemplateGroup(ptg, create_backup=False)
+
+    return new_node
+
+
+def wrap_in_subnet(node: hou.Node) -> hou.Node:
+    parent = node.parent()
+    
+    if parent.type().name() == 'subnet' and parent.parm('__hidden_cui_subnet_mark__'):
+        subnet = parent
+    else:
+        # instead of relying on name, we'll rely on type name as it's guaranteed to be only one node of this type in the subnet
+        node_type_name = node.type().nameComponents()
+        subnet = parent.collapseIntoSubnet([node])
+        node = find_child_by_type(subnet, node_type_name)
+        
+        input_node = subnet.createNode('input')
+        output_node = subnet.createNode('output')
+        subnet.layoutChildren()
+    
+    input_node = find_child_by_type(subnet, ('', '', 'input', ''))
+    output_node = find_child_by_type(subnet, ('', '', 'output', ''))
+
+    i = 1
+    max_input_num = -1
+    used_inputs: list[tuple[str|None, bool, str, int]] = [(None, False, '', -1)] * len(node.inputConnectors())
+
+    # get a default ptg from a temporary subnet
+    tmp_node = subnet.createNode('subnet')
+    ptg = tmp_node.parmTemplateGroup()
+    tmp_node.destroy()
+    # this ensures standard parm templates are created (it's a thing with subnet)
+    standard_pts = ptg.parmTemplates()
+    ptg.addParmTemplate(hou.FolderParmTemplate('graph_inputs', 'Inputs'))
+    ptg.addParmTemplate(hou.FolderParmTemplate('standard', 'Standard'))
+    ptg.appendToFolder('Inputs', hou.ToggleParmTemplate('__hidden_cui_subnet_mark__', '__hidden_cui_subnet_mark__', is_hidden=True))
+    for pt in standard_pts:
+        ptg.remove(pt)
+        ptg.appendToFolder('Standard', pt)
+
+    while parm := node.parm(f'cui_i_node_input_{i}'):
+        extra_tags = {'hou_comfyui_inner_input_i': str(i)}
+        inp_type = node.evalParm(f'cui_i_value_type_{i}')
+        if inp_type.startswith('input'):
+            input_num = int(inp_type[5:]) - 1
+            max_input_num = max(max_input_num, input_num)
+            used_inputs[input_num] = (f'{parm.eval()} ({node.evalParm(f"cui_i_meta_intype_{i}")})', node.evalParm(f'cui_i_meta_isimage_{i}'), node.evalParm(f"cui_i_meta_intype_{i}"), i)
+        elif inp_type == 'int':
+            val_parm = node.parm(f'cui_i_value_int_{i}')
+            range_min, range_max = node.parmTuple(f'cui_i_meta_intrange_{i}').eval()
+            if range_max <= range_min:
+                # if invalid - set default range
+                range_max = range_min + 10
+            ptg.appendToFolder('Inputs', hou.IntParmTemplate(f'input_parm_{i}', parm.eval(), 1, min=range_min, max=range_max, default_value=(val_parm.eval(),), tags=extra_tags))
+            val_parm.setExpression(f'ch("../input_parm_{i}")', language=hou.exprLanguage.Hscript)
+        elif inp_type == 'textint':
+            val_parm = node.parm(f'cui_i_value_textint_{i}')
+            ptg.appendToFolder(
+                'Inputs',
+                hou.StringParmTemplate(
+                    f'input_parm_{i}',
+                    parm.eval(),
+                    1,
+                    default_value=(val_parm.eval(),),
+                    script_callback=r'''import re;kwargs['parm'].set(re.sub(r'(?<!^)\D|(?<=^)[^-\d]', '', kwargs['parm'].eval()))''',
+                    script_callback_language=hou.scriptLanguage.Python,
+                    tags=extra_tags,
+                )
+            )
+            val_parm.setExpression(f'chs("../input_parm_{i}")', language=hou.exprLanguage.Hscript)
+        elif inp_type == 'float':
+            val_parm = node.parm(f'cui_i_value_float_{i}')
+            range_min, range_max = node.parmTuple(f'cui_i_meta_floatrange_{i}').eval()
+            if range_max <= range_min:
+                # if invalid - set default range
+                range_max = range_min + 1.0
+            ptg.appendToFolder('Inputs', hou.FloatParmTemplate(f'input_parm_{i}', parm.eval(), 1, min=range_min, max=range_max, default_value=(val_parm.eval(),), tags=extra_tags))
+            val_parm.setExpression(f'ch("../input_parm_{i}")', language=hou.exprLanguage.Hscript)
+        elif inp_type == 'text':
+            val_parm = node.parm(f'cui_i_value_text_{i}')
+            is_multiline = bool(node.parm(f'cui_i_meta_textmultiline_{i}').eval())
+            menu_items = []
+            if menuvals_parm := node.parm(f'cui_i_meta_textvals_{i}'):
+                for j in range(menuvals_parm.eval()):
+                    menu_val = node.parm(f'cui_i_meta_textval_{i}_{j+1}').eval()
+                    menu_items.append(menu_val)
+            ptg.appendToFolder(
+                'Inputs',
+                hou.StringParmTemplate(
+                    f'input_parm_{i}',
+                    parm.eval(),
+                    1,
+                    default_value=(val_parm.eval(),),
+                    tags={'editor': '1' if is_multiline else '0', **extra_tags},
+                    menu_items=menu_items,
+                )
+            )
+            val_parm.setExpression(f'chs("../input_parm_{i}")', language=hou.exprLanguage.Hscript)
+        elif inp_type == 'bool':
+            val_parm = node.parm(f'cui_i_value_bool_{i}')
+            ptg.appendToFolder('Inputs', hou.ToggleParmTemplate(f'input_parm_{i}', parm.eval(), default_value=bool(val_parm.eval()), tags=extra_tags))
+            val_parm.setExpression(f'ch("../input_parm_{i}")', language=hou.exprLanguage.Hscript)
+        else:
+            raise NotImplementedError(f'unknown input type "{inp_type}"')
+        i += 1
+
+    # also create parameters with input/output metadata
+    for i, (input_name, is_image, _, idx) in enumerate(used_inputs):
+        extra_tags = {'hou_comfyui_inner_input_i': str(idx)}
+        if input_name is None:
+            continue
+        if is_image:
+            # promote "bake ocio" toggle
+            orig_parm = node.parm(f'cui_i_meta_bakecc_{idx}')
+            ptg.appendToFolder('Inputs', hou.ToggleParmTemplate(
+                f'input_{i+1}_bake_ocio',
+                f'bake ocio for "{input_name}"',
+                default_value=bool(orig_parm.eval()),
+                tags=extra_tags,
+            ))
+            orig_parm.setExpression(f'ch("../input_{i+1}_bake_ocio")')
+
+        ptg.appendToFolder('Inputs', hou.StringParmTemplate(
+            f'input_meta_typename_{i+1}',
+            f'input {i+1} type name',
+            1,
+            default_expression=(f'chs({node.name()}/cui_i_meta_intype_{idx})',),
+            is_hidden=True,
+            tags=extra_tags,
+        ))
+    for i in range(node.evalParm('cui_outputs')):
+        extra_tags = {'hou_comfyui_inner_input_i': str(i+1)}
+        ptg.appendToFolder('Inputs', hou.StringParmTemplate(
+            f'output_meta_typename_{i+1}',
+            f'output {i+1} type name',
+            1,
+            default_expression=(f'chs({node.name()}/cui_o_meta_outtype_{i+1})',),
+            is_hidden=True,
+            tags=extra_tags,
+        ))
+    subnet.setParmTemplateGroup(ptg)
+
+    # connect inputs and outputs
+    subnet.parm('inputs').set(max_input_num + 1)
+    for i, (input_name, is_image, input_type, _) in enumerate(used_inputs):
+        if input_name is None:
+            continue
+        subnet.parm(f'inputlabel{i+1}').set(input_name)
+        if is_image:
+            if input_type == 'MASK':  # show masks as mono inputs
+                subnet.parm(f'inputtype{i+1}').set('float')
+            else:
+                subnet.parm(f'inputtype{i+1}').set('vector4')
+        else:
+            subnet.parm(f'inputtype{i+1}').set('vector2')
+        node.setInput(i, input_node, i)
+    subnet.parm('outputs').set(node.evalParm('cui_outputs'))
+    for i in range(node.evalParm('cui_outputs')):
+        subnet.parm(f'outputlabel{i+1}').set(node.evalParm(f'cui_o_meta_outputname_{i+1}'))
+        if node.evalParm(f'cui_o_meta_isimage_{i+1}'):
+            if node.evalParm(f'cui_o_meta_outtype_{i+1}') == 'MASK':
+                subnet.parm(f'outputtype{i+1}').set('float')
+            else:
+                subnet.parm(f'outputtype{i+1}').set('vector4')
+        else:
+            subnet.parm(f'outputtype{i+1}').set('vector2')
+        output_node.setInput(i, node, i)
+
+    return subnet
+
+
+def do_wrap_in_subnet_callback(node):
+    try:
+        wrap_in_subnet(node)
+    except Exception as e:
+        hou.ui.displayMessage(f'failed to create/update a wrapper: {e}', title='failed to wrap!', details=traceback.format_exc(), severity=hou.severityType.Error)

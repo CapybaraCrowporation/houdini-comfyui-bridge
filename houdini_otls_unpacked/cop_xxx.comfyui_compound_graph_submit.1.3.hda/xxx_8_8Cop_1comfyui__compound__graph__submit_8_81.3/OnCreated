@@ -1,0 +1,9 @@
+import hou
+from houdini_comfyui_connection.compound_graph_tools import compound_graph_child_created_callback
+
+
+def add_child_event_callback(node):
+    node.node('graph').addEventCallback((hou.nodeEventType.ChildCreated,), compound_graph_child_created_callback)
+
+
+add_child_event_callback(kwargs['node'])

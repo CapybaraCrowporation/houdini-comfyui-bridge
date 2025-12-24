@@ -1,0 +1,74 @@
+import os
+import hou
+import traceback
+import json
+from houdini_comfyui_connection.graph_submission import BadInputSubstituteError, ResultNotFound, GraphValidationError, delete_input_image, delete_output_image, delete_prompt_history, download_result, submit_graph_and_get_result, FunctionalityNotAvailable, FailedToDeleteImage, delete_input_image, delete_output_image, delete_prompt_history
+from houdini_comfyui_connection.ui_tools import show_error
+from houdini_comfyui_connection.compound_graph_tools import update_comfy_nodes_definitions
+from houdini_comfyui_connection.compound_graph_core import SubmitVariableNotFoundError
+from houdini_comfyui_connection.compound_graph_core import compute_compound_graph_node as compute_node
+
+
+
+def submit_btn_callback(node):
+    try:
+        with hou.InterruptableOperation('generating result...', 'working...', open_interrupt_dialog=True) as op:
+            compute_node(node, long_op=op)
+    except ResultNotFound as e:
+        show_error(
+            'Expected result was not found. Internal error probably happened, check comfy server logs.',
+            details=f'"{e.key}" in result of the given graph:\n{json.dumps(e.res, indent=4)}'
+        )
+        return
+    except json.JSONDecodeError as e:
+        show_error(f'graph is a badly formatted json: {e}')
+        return
+    except BadInputSubstituteError as e:
+        show_error(f'error replacing inputs: {e}')
+        return
+    except GraphValidationError as e:
+        show_error(e.format_error_summary(), details=json.dumps(e.raw_error, indent=4), title='graph is not valid')
+        return
+    except SubmitVariableNotFoundError as e:
+        show_error(f'submission variable {e} not found')
+        return
+    except hou.OperationInterrupted:
+        show_error("operation was interrupted")
+        return
+    except Exception as e:
+        show_error(f'failed to submit graph: {e}', details=traceback.format_exc())
+        return
+
+
+def update_node_defs_btn_callback(node):
+    try:
+        with hou.InterruptableOperation('generating assets...', 'generating assets...', open_interrupt_dialog=True) as op:
+            host = node.evalParm('base_url').rstrip('/ ')
+            update_comfy_nodes_definitions(host, op,
+                tool_name_prefix='xxx::Cop/comfyui_compound_graph_submit::1.3::',
+                network_op_type='xxx::Cop/comfyui_compound_graph_submit::1.3::xxx::Cop/comfyui_partial_graph::1.3',
+                network_output_op_type='xxx::Cop/comfyui_compound_graph_submit::1.3::xxx::Cop/comfyui_partial_graph_outputs::1.0::xxx::Cop/comfyui_util_token',
+            )
+    except Exception as e:
+        show_error(f'failed to submit graph: {e}', details=traceback.format_exc())
+        return
+
+
+def helper_result_get_ext(result_node: hou.Node) -> str|None:
+    ext = result_node.cachedUserData('comfyui_wrapper_downloaded_ext')
+    if ext is not None:
+        return ext
+    noext_path = result_node.evalParm('filename_base')
+    base_dir = os.path.dirname(noext_path)
+    base_name = os.path.basename(noext_path)
+    if not os.path.exists(base_dir):
+        return None
+    candidates = [os.path.splitext(x)[1][1:] for x in os.listdir(base_dir) if os.path.splitext(x)[0] == base_name]
+    if len(candidates) == 0:
+        return None
+    # having more than one candidate is not a standard case
+    if len(candidates) > 1:
+        print('warning: multiple file candidates for result load', candidates)
+    result_node.setCachedUserData('comfyui_wrapper_downloaded_ext', candidates[0])
+    return candidates[0]
+    

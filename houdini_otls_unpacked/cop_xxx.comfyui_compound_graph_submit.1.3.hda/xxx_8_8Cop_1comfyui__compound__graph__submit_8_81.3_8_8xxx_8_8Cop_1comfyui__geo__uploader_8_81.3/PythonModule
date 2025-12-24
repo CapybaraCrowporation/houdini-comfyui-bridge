@@ -1,0 +1,114 @@
+import uuid
+import hou
+from pathlib import Path
+import shutil
+import tempfile
+from houdini_comfyui_connection.compound_graph_core import GeometryUploadInfo, UploadInfo, GraphPartData, GraphPorcessingInputKey, GraphProcessingContext, ImageType, get_output_index_from_input, NonGraphSource
+from houdini_comfyui_connection.upload_common import upload_image
+
+comfyui_partial_graph_is_custom_node = True
+
+
+def get_geo_type(node) -> str:
+    geo_type_val = node.evalParm('geotype1')
+    if geo_type_val == 0:
+        return 'glb'
+    elif geo_type_val == 1:
+        return 'obj'
+    else:
+        raise NotImplementedError(f'geo type value {geo_type_val} is not implemented')
+
+
+def process_graph_node(
+    subnode,
+    node_to_graph: dict[hou.Node, GraphPartData],
+    nodes_to_upload: dict[GraphPorcessingInputKey, tuple[hou.Node, UploadInfo]],
+    context_vars: dict[str, str|float|int],
+    *,
+    long_op: hou.InterruptableOperation|None = None,
+):
+    in_source = subnode.inputConnectors()[0]
+    if not in_source:
+        raise ValueError(f'No geometry plugged at {subnode.path()}')
+    in_source = in_source[0]  # COP plug cannot have multiple inputs
+
+    geo_type = get_geo_type(subnode)
+    if geo_type == 'glb':
+        ext = 'glb'
+    elif geo_type == 'obj':
+        ext = 'obj'
+    else:
+        raise NotImplementedError(f'geo type {geo_type} is not implemented')
+
+    source_context = GraphPorcessingInputKey(in_source.inputNode(), in_source.outputIndex(), GraphProcessingContext(hou.frame(), False))
+    if source_context in nodes_to_upload:
+        image_name = nodes_to_upload[source_context][1].filename
+    else:
+        image_name = f'{uuid.uuid4()}.{ext}'
+        if subdir_name := subnode.evalParm('cui_image_subdir'):
+            image_name = f'{subdir_name}/{image_name}'
+        nodes_to_upload[source_context] = (
+            subnode,
+            GeometryUploadInfo(
+                image_name,
+                frame=hou.frame(),
+            ),
+        )
+
+    node_to_graph[subnode] = GraphPartData(
+        _get_path_to_abs_graph('0', image_name),
+        {0: ('0', 0), 1: ('0', 1)},
+        {},
+        {},
+    )
+
+def upload_input_to(node: hou.Node, host: str, subdir: str, filename: str):
+    host = host.rstrip('/ ')
+
+    # cook and upload
+    geo_type = get_geo_type(node)
+    if geo_type == 'glb':
+        ropnode = node.node('to_cook/glb')
+    elif geo_type == 'obj':
+        ropnode = node.node('to_cook/obj')
+    else:
+        raise NotImplementedError(f'geo type {geo_type} is not implemented')
+    
+    base_path = Path(tempfile.mkdtemp('-hou-connection'))
+    file_path = base_path / filename
+
+    ropnode.render(
+        output_file=str(file_path),
+    )
+
+    upload_image(host, file_path, subdir, filename)
+
+    shutil.rmtree(base_path)
+
+
+def _get_path_to_abs_graph(nid: str, text: str) -> dict:
+    return {
+        nid: {
+            'inputs': {
+                'rel_path': text,
+            },
+            'class_type': 'HouCuiInputPathToAbsolute',
+            '_meta': {
+                'title': 'the node that does that one thing'
+            }
+        }
+    }
+
+
+def _get_string_constant_graph(nid: str, text: str) -> dict:
+    return {
+        nid: {
+            "inputs": {
+                "value": text,
+            },
+            "class_type": "PrimitiveString",
+            "_meta": {
+                "title": "something string"
+            }
+        }
+    }
