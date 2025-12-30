@@ -47,7 +47,7 @@ This is a toolset that allows you to bring the best of ComfyUI directly into Hou
 ---
 ## ☕ Sponsors
 
-Liked the project and would like to support it?! <a href="hcbridgep@gmail.com">Reach out</a> and lets chat!
+Liked the project and would like to support it?! Reach out to hcbridgep@gmail.com and let's chat!
 
 ## 📋 To-Do List
 
