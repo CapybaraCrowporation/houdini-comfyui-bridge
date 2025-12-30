@@ -173,17 +173,6 @@ For the complete license text, see [LICENSE.txt](LICENSE.txt).
 
 ---
 
-## 🙏 Acknowledgments
-
-We would like to express our gratitude to:
-
-- **ComfyUI**: For providing a node based arquitecture for Generative AI.
-- **Open Source Community**: For invaluable feedback and contributions
-
-Special thanks to all contributors who have helped improve this project through code, documentation, and bug reports.
-
----
-
 ## 📞 Contact
 
 We'd love to hear from you!
