@@ -92,7 +92,7 @@ Houdini ComfyUI Bridge is a professional-grade generative AI integration for Hou
 
 ### Is this a SideFX iniciative?
 
-- **NO**, This is a community project kickstarted by Rafael Drelich Valentim and Anatolii Iudanov.
+- **NO**, This is a community project kickstarted by <a href="https://www.linkedin.com/in/rafaeldrelich/">Rafael Drelich Valentim</a> and <a href="https://www.linkedin.com/in/xapkohheh/">Anatolii Iudanov</a>.
 
 ### How do I get started?
 
