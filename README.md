@@ -39,7 +39,7 @@ This is a toolset that allows you to bring the best of ComfyUI directly into Hou
 
 ## 📰 Latest News
 
-- **Dec 31, 2025**: 🎉 Initial release of Houdini ComfyUI Bridge v1.0! Check out our [release notes](#).
+- **Dec 31, 2025**: 🎉 Initial release of Houdini ComfyUI Bridge v0.5.2!
 - **Dec 16, 2024**: 📝 SIGGRAPH Asia 2025 Course presentation and live demo.
 - **Nov 01, 2024**: 🚧 Hive Equinox, Hive AI presentations, demoing video workflows.
 - **May 15, 2025**: 💡 First public demonstration at Toronto Houdini User Group.
