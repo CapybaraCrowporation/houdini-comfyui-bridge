@@ -1,16 +1,16 @@
 
 <!-- Add your logo here -->
 <p align="center">
-  <img src="./Readme_assets/Houdini_bridge_comfyui.png" alt="Project Logo" width="600"/>
+  <img src="./Readme_assets/Houdini_bridge_comfyui.png" alt="Project Logo" width="400"/>
 </p>
 
 <!-- Project badges/links -->
 <p align="center">
   🌐 <a href="https://yourwebsite.com">Website</a> | 
-  💻 <a href="https://github.com/yourusername/yourproject">GitHub</a> | 
-  📑 <a href="#">Paper</a> | 
-  📘 <a href="#">Documentation</a> | 
-  💬 <a href="#">Discord</a>
+  💻 <a href="https://github.com/CapybaraCrowporation/houdini-comfyui-bridge/">Github</a> | 
+  📑 <a href="https://dl.acm.org/doi/full/10.1145/3757371.3763259">Paper</a> | 
+  📘 <a href="https://miro.com/app/board/uXjVIq_PjD0=/?share_link_id=820428212897">Miro Board Resources</a> | 
+  💬 <a href="https://discord.gg/gcrDwUBhnT">Discord</a>
 </p>
 
 ---
@@ -25,7 +25,7 @@ https://github.com/user-attachments/assets/61a780b8-4845-447e-acba-fb87de8dd643
 
 ## 🚀 Introduction
 
-We are happy to annouce that Houdini ComfyUI Bridge is now Open source. 
+We are happy to annouce that Houdini ComfyUI Bridge is now open source. 
 This is a toolset that allows you to bring the best of ComfyUI directly into Houdini. 
 
 - **✨ Feature 1**: Load comfyUI nodes directly into COPs
@@ -39,12 +39,15 @@ This is a toolset that allows you to bring the best of ComfyUI directly into Hou
 
 ## 📰 Latest News
 
-- **Dec 27, 2025**: 🎉 Initial release of Houdini ComfyUI Bridge v1.0! Check out our [release notes](#).
-- **Dec 16, 2024**: 📝 SIGGRAPH Asia 2025 live demo.
-- **Nov 01, 2024**: 🚧 Hive Equinox presentation, demoing complex workflows.
+- **Dec 31, 2025**: 🎉 Initial release of Houdini ComfyUI Bridge v1.0! Check out our [release notes](#).
+- **Dec 16, 2024**: 📝 SIGGRAPH Asia 2025 Course presentation and live demo.
+- **Nov 01, 2024**: 🚧 Hive Equinox, Hive AI presentations, demoing video workflows.
 - **May 15, 2025**: 💡 First public demonstration at Toronto Houdini User Group.
 
 ---
+## ☕ Sponsors
+
+Liked the project and would like to support it?! <a href="hcbridgep@gmail.com">Reach out</a> and lets chat!
 
 ## 📋 To-Do List
 
@@ -66,7 +69,7 @@ Development roadmap and completed milestones:
 **Documentation & Community**
 - [x] README and getting started guide
 - [x] Tutorial videos
-- [ ] Discord Forum setup
+- [x] Discord Forum setup
 - [ ] Contribution guidelines
 
 **Current limitations**
@@ -104,12 +107,6 @@ Yes! This project is licensed under the GLP v3.
 
 We welcome contributions! Please see our contribution guidelines and submit a pull request.
 
-### Where can I get help?
-
-- Join our [Discord community](#)
-- Open an issue on [GitHub](#)
-- Check our [documentation](#)
-
 ---
 
 ## 🔧 Installation
@@ -130,6 +127,8 @@ Ensure you have the following installed:
 [Install guide 2](docs/Installation_2_Plugin.md)
 
 ## 🎯 Quick Start
+
+Follow the directions below or check out out <a href="https://miro.com/app/board/uXjVIq_PjD0=/?share_link_id=503797400507">Miro Board</a> for detailed instructions and videos.
 
 ### Basic Usage
 
@@ -195,15 +194,6 @@ We'd love to hear from you!
 
 For business inquiries or partnership opportunities, please email:
 
----
-
-## 📊 Citation
-
-If you use this project in your research, please cite:
-
-
-```
-```
 ---
 
 <p align="center">
