@@ -177,7 +177,7 @@ For the complete license text, see [LICENSE.txt](LICENSE.txt).
 
 We'd love to hear from you!
 
-- **GitHub Issues**: [Report bugs or request features](https://github.com/yourusername/yourproject/issues)
+- **GitHub Issues**: [Report bugs or request features](https://github.com/CapybaraCrowporation/houdini-comfyui-bridge/issues)
 - **Discord**: <a href="https://discord.gg/gcrDwUBhnT">Join the community</a>
 - **LinkedIn**: [Reach Out!](https://www.linkedin.com/in/rafaeldrelich/)
 
