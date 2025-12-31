@@ -1,0 +1,11 @@
+""
+INDEX__SECTION	INDEX_SECTION
+houdini.hdalibrary	houdini.hdalibrary
+xxx_8_8Cop_1comfyui__compound__graph__submit_8_81.3	xxx::Cop/comfyui_compound_graph_submit::1.3
+xxx_8_8Cop_1comfyui__compound__graph__submit_8_81.3_8_8xxx_8_8Cop_1comfyui__graph__preview_8_81.3	xxx::Cop/comfyui_compound_graph_submit::1.3::xxx::Cop/comfyui_graph_preview::1.3
+xxx_8_8Cop_1comfyui__compound__graph__submit_8_81.3_8_8xxx_8_8Cop_1comfyui__partial__graph_8_81.3	xxx::Cop/comfyui_compound_graph_submit::1.3::xxx::Cop/comfyui_partial_graph::1.3
+xxx_8_8Cop_1comfyui__compound__graph__submit_8_81.3_8_8xxx_8_8Cop_1comfyui__range__to__batch_8_81.3	xxx::Cop/comfyui_compound_graph_submit::1.3::xxx::Cop/comfyui_range_to_batch::1.3
+xxx_8_8Cop_1comfyui__compound__graph__submit_8_81.3_8_8xxx_8_8Cop_1comfyui__partial__graph_8_81.4	xxx::Cop/comfyui_compound_graph_submit::1.3::xxx::Cop/comfyui_partial_graph::1.4
+xxx_8_8Cop_1comfyui__compound__graph__submit_8_81.3_8_8xxx_8_8Cop_1comfyui__geo__uploader_8_81.3	xxx::Cop/comfyui_compound_graph_submit::1.3::xxx::Cop/comfyui_geo_uploader::1.3
+xxx_8_8Cop_1comfyui__compound__graph__submit_8_81.3_8_8xxx_8_8Cop_1comfyui__partial__graph__outputs_8_81.0	xxx::Cop/comfyui_compound_graph_submit::1.3::xxx::Cop/comfyui_partial_graph_outputs::1.0
+xxx_8_8Cop_1comfyui__compound__graph__submit_8_81.3_8_8xxx_8_8Cop_1comfyui__partial__graph__outputs_8_81.0_8_8xxx_8_8Cop_1comfyui__util__token	xxx::Cop/comfyui_compound_graph_submit::1.3::xxx::Cop/comfyui_partial_graph_outputs::1.0::xxx::Cop/comfyui_util_token

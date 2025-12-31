@@ -1,0 +1,234 @@
+# Dialog script for xxx::comfyui_graph_submit::1.2 automatically generated
+
+{
+    name	xxx::comfyui_graph_submit::1.2
+    script	xxx::comfyui_graph_submit::1.2
+    label	"ComfyUI Graph Submit"
+
+    input	input1	input1
+    input	input2	input2
+    input	input3	input3
+    input	input4	input4
+    input	input5	input5
+    input	input6	input6
+    input	input7	input7
+    input	input8	input8
+    output	output1	dst
+    signature	default	Default	{ RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA }	{ RGBA }
+
+    help {
+	""
+    }
+
+    parm {
+        name    "base_url"
+        label   "ComfyUI Address"
+        type    string
+        default { "http://127.0.0.1:8188" }
+        parmtag { "script_callback_language" "python" }
+    }
+    parm {
+        name    "result_dir"
+        label   "Directory for downloading results"
+        type    directory
+        default { "$HIP/houdini_cui_connection/$HIPNAME" }
+        parmtag { "script_callback_language" "python" }
+    }
+    parm {
+        name    "result_suffix"
+        label   "File Suffix"
+        type    string
+        default { "" }
+        parmtag { "script_callback_language" "python" }
+    }
+    parm {
+        name    "cleanup_server_images"
+        label   "Cleanup Temporary Server Images"
+        type    toggle
+        default { "on" }
+    }
+    parm {
+        name    "compute"
+        label   "Compute"
+        type    button
+        default { "0" }
+        parmtag { "script_callback" "hou.phm().compute_btn_callback(hou.pwd())" }
+        parmtag { "script_callback_language" "python" }
+    }
+    groupsimple {
+        name    "folder_inputs"
+        label   "Inputs"
+
+        multiparm {
+            name    "cui_inputs"
+            label    "inputs"
+
+            parm {
+                name    "cui_i_node_title_#"
+                label   "Node Title #"
+                type    string
+                joinnext
+                default { "" }
+                parmtag { "script_callback_language" "python" }
+            }
+            parm {
+                name    "cui_i_node_input_#"
+                label   "Input"
+                type    string
+                joinnext
+                default { "" }
+                parmtag { "script_callback_language" "python" }
+            }
+            parm {
+                name    "cui_i_value_type_#"
+                label   "Type"
+                type    string
+                nolabel
+                joinnext
+                default { "int" }
+                menu {
+                    "int"       "int"
+                    "float"     "float"
+                    "text"      "text"
+                    "image1"    "image input 1"
+                    "image2"    "image input 2"
+                    "image3"    "image input 3"
+                    "image4"    "image input 4"
+                    "image5"    "image input 5"
+                    "image6"    "image input 6"
+                    "image7"    "image input 7"
+                    "image8"    "image input 8"
+                }
+                parmtag { "script_callback_language" "python" }
+            }
+            parm {
+                name    "cui_i_value_int_#"
+                label   "cui_i_value_int_#"
+                type    integer
+                nolabel
+                default { "0" }
+                hidewhen "{ cui_i_value_type_# != int }"
+                range   { 0 10 }
+                parmtag { "script_callback_language" "python" }
+            }
+            parm {
+                name    "cui_i_value_float_#"
+                label   "cui_i_value_float_#"
+                type    float
+                nolabel
+                default { "0" }
+                hidewhen "{ cui_i_value_type_# != float }"
+                range   { 0 10 }
+                parmtag { "script_callback_language" "python" }
+            }
+            parm {
+                name    "cui_i_value_text_#"
+                label   "cui_i_value_text_#"
+                type    string
+                nolabel
+                default { "" }
+                hidewhen "{ cui_i_value_type_# != text }"
+                parmtag { "script_callback_language" "python" }
+            }
+        }
+
+    }
+
+    groupsimple {
+        name    "folder_outputs"
+        label   "Outputs"
+
+        parm {
+            name    "output1"
+            label   "Output 1"
+            type    string
+            default { "" }
+            parmtag { "script_callback_language" "python" }
+        }
+    }
+
+    groupcollapsible {
+        name    "input_params"
+        label   "Input Options"
+
+        parm {
+            name    "bake_ocio_input1"
+            label   "Input1: Bake OCIO into image (unckeck for utility images)"
+            type    toggle
+            default { "on" }
+            parmtag { "autoscope" "0000000000000000" }
+            parmtag { "script_callback_language" "python" }
+        }
+        parm {
+            name    "bake_ocio_input2"
+            label   "Input2: Bake OCIO into image (unckeck for utility images)"
+            type    toggle
+            default { "on" }
+            parmtag { "autoscope" "0000000000000000" }
+            parmtag { "script_callback_language" "python" }
+        }
+        parm {
+            name    "bake_ocio_input3"
+            label   "Input3: Bake OCIO into image (unckeck for utility images)"
+            type    toggle
+            default { "on" }
+            parmtag { "autoscope" "0000000000000000" }
+            parmtag { "script_callback_language" "python" }
+        }
+        parm {
+            name    "bake_ocio_input4"
+            label   "Input4: Bake OCIO into image (unckeck for utility images)"
+            type    toggle
+            default { "on" }
+            parmtag { "autoscope" "0000000000000000" }
+            parmtag { "script_callback_language" "python" }
+        }
+        parm {
+            name    "bake_ocio_input5"
+            label   "Input5: Bake OCIO into image (unckeck for utility images)"
+            type    toggle
+            default { "on" }
+            parmtag { "autoscope" "0000000000000000" }
+            parmtag { "script_callback_language" "python" }
+        }
+        parm {
+            name    "bake_ocio_input6"
+            label   "Input6: Bake OCIO into image (unckeck for utility images)"
+            type    toggle
+            default { "on" }
+            parmtag { "autoscope" "0000000000000000" }
+            parmtag { "script_callback_language" "python" }
+        }
+        parm {
+            name    "bake_ocio_input7"
+            label   "Input7: Bake OCIO into image (unckeck for utility images)"
+            type    toggle
+            default { "on" }
+            parmtag { "autoscope" "0000000000000000" }
+            parmtag { "script_callback_language" "python" }
+        }
+        parm {
+            name    "bake_ocio_input8"
+            label   "Input8: Bake OCIO into image (unckeck for utility images)"
+            type    toggle
+            default { "on" }
+            parmtag { "autoscope" "0000000000000000" }
+            parmtag { "script_callback_language" "python" }
+        }
+    }
+
+    parm {
+        name    "sepparm"
+        label   "Separator"
+        type    separator
+        default { "" }
+    }
+    parm {
+        name    "cui_graph"
+        label   "ComfyUI Graph (API form)"
+        type    string
+        default { "" }
+        parmtag { "editor" "1" }
+        parmtag { "script_callback_language" "python" }
+    }
+}

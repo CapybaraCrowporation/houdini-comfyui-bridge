@@ -1,0 +1,16 @@
+# Dialog script for xxx::Cop/comfyui_compound_graph_submit::1.3::xxx::Cop/comfyui_partial_graph_outputs::1.0::xxx::comfyui_util_token automatically generated
+
+{
+    name	xxx::Cop/comfyui_compound_graph_submit::1.3::xxx::Cop/comfyui_partial_graph_outputs::1.0::xxx::comfyui_util_token
+    script	xxx::Cop/comfyui_compound_graph_submit::1.3::xxx::Cop/comfyui_partial_graph_outputs::1.0::xxx::comfyui_util_token
+    label	"util empty node"
+
+    input	input1	input1
+    output	output1	output1
+    signature	default	Default	{ UV }	{ UV }
+
+    help {
+	""
+    }
+
+}

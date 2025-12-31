@@ -1,0 +1,14 @@
+Operator:     xxx::comfyui_graph_submit::1.2
+Label:        ComfyUI Graph Submit
+Path:         oplib:/xxx::Cop/comfyui_graph_submit::1.2?xxx::Cop/comfyui_graph_submit::1.2
+Icon:         COP_xxx-comfyui_graph_submit-1.0
+Table:        Cop
+License:      
+Extra:        
+User:         
+Inputs:       0 to 8
+Subnet:       true
+Python:       false
+Empty:        false
+Modified:     Sat Apr 12 11:15:57 2025
+

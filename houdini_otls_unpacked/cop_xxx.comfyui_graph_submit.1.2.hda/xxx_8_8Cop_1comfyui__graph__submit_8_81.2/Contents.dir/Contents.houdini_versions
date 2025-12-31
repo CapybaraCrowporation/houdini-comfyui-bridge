@@ -1,0 +1,11 @@
+{
+	"values":["20.5.410"
+	],
+	"indexes":{
+		"hdaroot/inputs.userdata":0,
+		"hdaroot/result1.userdata":0,
+		"hdaroot/ropnet.userdata":0,
+		"hdaroot/outputs.userdata":0,
+		"hdaroot/ropnet/render_me.userdata":0
+	}
+}

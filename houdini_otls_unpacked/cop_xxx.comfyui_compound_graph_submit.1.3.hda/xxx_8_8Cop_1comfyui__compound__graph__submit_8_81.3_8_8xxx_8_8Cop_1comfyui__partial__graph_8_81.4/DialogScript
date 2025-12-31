@@ -1,0 +1,501 @@
+# Dialog script for xxx::Cop/comfyui_compound_graph_submit::1.3::xxx::comfyui_partial_graph::1.4 automatically generated
+
+{
+    name	xxx::Cop/comfyui_compound_graph_submit::1.3::xxx::comfyui_partial_graph::1.4
+    script	xxx::Cop/comfyui_compound_graph_submit::1.3::xxx::comfyui_partial_graph::1.4
+    label	"ComfyUI Partial Graph"
+
+    input	input1	input1
+    input	input2	input2
+    input	input3	input3
+    input	input4	input4
+    input	input5	input5
+    input	input6	input6
+    input	input7	input7
+    input	input8	input8
+    input	input9	input9
+    input	input10	input10
+    input	input11	input11
+    input	input12	input12
+    input	input13	input13
+    input	input14	input14
+    input	input15	input15
+    input	input16	input16
+    input	input17	input17
+    input	input18	input18
+    input	input19	input19
+    input	input20	input20
+    input	input21	input21
+    input	input22	input22
+    input	input23	input23
+    input	input24	input24
+    input	input25	input25
+    input	input26	input26
+    input	input27	input27
+    input	input28	input28
+    input	input29	input29
+    input	input30	input30
+    input	input31	input31
+    input	input32	input32
+    input	input33	input33
+    input	input34	input34
+    input	input35	input35
+    input	input36	input36
+    input	input37	input37
+    input	input38	input38
+    input	input39	input39
+    input	input40	input40
+    input	input41	input41
+    input	input42	input42
+    input	input43	input43
+    input	input44	input44
+    input	input45	input45
+    input	input46	input46
+    input	input47	input47
+    input	input48	input48
+    input	input49	input49
+    input	input50	input50
+    input	input51	input51
+    input	input52	input52
+    input	input53	input53
+    input	input54	input54
+    input	input55	input55
+    input	input56	input56
+    input	input57	input57
+    input	input58	input58
+    input	input59	input59
+    input	input60	input60
+    input	input61	input61
+    input	input62	input62
+    input	input63	input63
+    input	input64	input64
+    output	output1	output1
+    output	output2	output2
+    output	output3	output3
+    output	output4	output4
+    output	output5	output5
+    output	output6	output6
+    output	output7	output7
+    output	output8	output8
+    output	output9	output9
+    output	output10	output10
+    output	output11	output11
+    output	output12	output12
+    output	output13	output13
+    output	output14	output14
+    output	output15	output15
+    output	output16	output16
+    output	output17	output17
+    output	output18	output18
+    output	output19	output19
+    output	output20	output20
+    output	output21	output21
+    output	output22	output22
+    output	output23	output23
+    output	output24	output24
+    output	output25	output25
+    output	output26	output26
+    output	output27	output27
+    output	output28	output28
+    output	output29	output29
+    output	output30	output30
+    output	output31	output31
+    output	output32	output32
+    output	output33	output33
+    output	output34	output34
+    output	output35	output35
+    output	output36	output36
+    output	output37	output37
+    output	output38	output38
+    output	output39	output39
+    output	output40	output40
+    output	output41	output41
+    output	output42	output42
+    output	output43	output43
+    output	output44	output44
+    output	output45	output45
+    output	output46	output46
+    output	output47	output47
+    output	output48	output48
+    output	output49	output49
+    output	output50	output50
+    output	output51	output51
+    output	output52	output52
+    output	output53	output53
+    output	output54	output54
+    output	output55	output55
+    output	output56	output56
+    output	output57	output57
+    output	output58	output58
+    output	output59	output59
+    output	output60	output60
+    output	output61	output61
+    output	output62	output62
+    output	output63	output63
+    output	output64	output64
+    signature	default	Default	{ RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA }	{ RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA RGBA }
+
+    help {
+	""
+    }
+
+    parm {
+        name    "do_wrap_in_subnet"
+        label   "Wrap Into Subnet"
+        type    button
+        default { "0" }
+        parmtag { "script_callback" "hou.phm().do_wrap_in_subnet_callback(hou.pwd())" }
+        parmtag { "script_callback_language" "python" }
+    }
+    parm {
+        name    "cui_meta_python_module"
+        label   "Meta python_module"
+        type    string
+        default { "" }
+        parmtag { "script_callback_language" "python" }
+    }
+    parm {
+        name    "cui_meta_category"
+        label   "Meta category"
+        type    string
+        default { "" }
+        parmtag { "script_callback_language" "python" }
+    }
+    groupsimple {
+        name    "folder_inputs"
+        label   "Inputs"
+
+        multiparm {
+            name    "cui_inputs"
+            label    "inputs"
+
+            parm {
+                name    "cui_i_node_title_#"
+                label   "Node Title #"
+                type    string
+                joinnext
+                default { "" }
+                parmtag { "script_callback_language" "python" }
+            }
+            parm {
+                name    "cui_i_node_input_#"
+                label   "Input"
+                type    string
+                joinnext
+                default { "" }
+                parmtag { "script_callback_language" "python" }
+            }
+            parm {
+                name    "cui_i_value_type_#"
+                label   "Type"
+                type    string
+                nolabel
+                joinnext
+                default { "int" }
+                menu {
+                    "int"       "int"
+                    "textint"   "textint"
+                    "float"     "float"
+                    "text"      "text"
+                    "bool"      "bool"
+                    "input1"    "input 1"
+                    "input2"    "input 2"
+                    "input3"    "input 3"
+                    "input4"    "input 4"
+                    "input5"    "input 5"
+                    "input6"    "input 6"
+                    "input7"    "input 7"
+                    "input8"    "input 8"
+                    "input9"    "input 9"
+                    "input10"   "input 10"
+                    "input11"   "input 11"
+                    "input12"   "input 12"
+                    "input13"   "input 13"
+                    "input14"   "input 14"
+                    "input15"   "input 15"
+                    "input16"   "input 16"
+                    "input17"   "input 17"
+                    "input18"   "input 18"
+                    "input19"   "input 19"
+                    "input20"   "input 20"
+                    "input21"   "input 21"
+                    "input22"   "input 22"
+                    "input23"   "input 23"
+                    "input24"   "input 24"
+                    "input25"   "input 25"
+                    "input26"   "input 26"
+                    "input27"   "input 27"
+                    "input28"   "input 28"
+                    "input29"   "input 29"
+                    "input30"   "input 30"
+                    "input31"   "input 31"
+                    "input32"   "input 32"
+                    "input33"   "input 33"
+                    "input34"   "input 34"
+                    "input35"   "input 35"
+                    "input36"   "input 36"
+                    "input37"   "input 37"
+                    "input38"   "input 38"
+                    "input39"   "input 39"
+                    "input40"   "input 40"
+                    "input41"   "input 41"
+                    "input42"   "input 42"
+                    "input43"   "input 43"
+                    "input44"   "input 44"
+                    "input45"   "input 45"
+                    "input46"   "input 46"
+                    "input47"   "input 47"
+                    "input48"   "input 48"
+                    "input49"   "input 49"
+                    "input50"   "input 50"
+                    "input51"   "input 51"
+                    "input52"   "input 52"
+                    "input53"   "input 53"
+                    "input54"   "input 54"
+                    "input55"   "input 55"
+                    "input56"   "input 56"
+                    "input57"   "input 57"
+                    "input58"   "input 58"
+                    "input59"   "input 59"
+                    "input60"   "input 60"
+                    "input61"   "input 61"
+                    "input62"   "input 62"
+                    "input63"   "input 63"
+                    "input64"   "input 64"
+                }
+                parmtag { "script_callback_language" "python" }
+            }
+            parm {
+                name    "cui_i_value_int_#"
+                label   "cui_i_value_int_#"
+                type    integer
+                nolabel
+                joinnext
+                default { "0" }
+                hidewhen "{ cui_i_value_type_# != int }"
+                range   { 0 10 }
+                parmtag { "script_callback_language" "python" }
+            }
+            parm {
+                name    "cui_i_value_textint_#"
+                label   "cui_i_value_textint_#"
+                type    string
+                nolabel
+                joinnext
+                default { "0" }
+                hidewhen "{ cui_i_value_type_# != textint }"
+                parmtag { "script_callback_language" "python" }
+            }
+            parm {
+                name    "cui_i_value_float_#"
+                label   "cui_i_value_float_#"
+                type    float
+                nolabel
+                joinnext
+                default { "0" }
+                hidewhen "{ cui_i_value_type_# != float }"
+                range   { 0 10 }
+                parmtag { "script_callback_language" "python" }
+            }
+            parm {
+                name    "cui_i_value_text_#"
+                label   "cui_i_value_text_#"
+                type    string
+                nolabel
+                joinnext
+                default { "" }
+                hidewhen "{ cui_i_value_type_# != text }"
+                parmtag { "script_callback_language" "python" }
+            }
+            parm {
+                name    "cui_i_value_bool_#"
+                label   "cui_i_value_bool_#"
+                type    toggle
+                nolabel
+                default { "0" }
+                hidewhen "{ cui_i_value_type_# != bool }"
+                parmtag { "script_callback_language" "python" }
+            }
+            groupcollapsible {
+                name    "folder_meta#"
+                label   "input metadata"
+
+                parm {
+                    name    "cui_i_meta_orig_value_type_#"
+                    label   "Original Value Type Value"
+                    type    string
+                    invisible
+                    default { "" }
+                }
+                parm {
+                    name    "cui_i_meta_textmultiline_#"
+                    label   "Multiline Text"
+                    type    toggle
+                    default { "1" }
+                    hidewhen "{ cui_i_value_type_# != text }"
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
+                    name    "cui_i_meta_usetextvals_#"
+                    label   "Use Text Values"
+                    type    toggle
+                    joinnext
+                    default { "0" }
+                    hidewhen "{ cui_i_value_type_# != text }"
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
+                    name    "cui_i_meta_userdatatextvals_#"
+                    label   "Userdata Text Values"
+                    type    toggle
+                    joinnext
+                    default { "0" }
+                    hidewhen "{ cui_i_value_type_# != text } { cui_i_meta_usetextvals_# == 0 }"
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
+                    name    "cui_i_meta_textvalseditable_#"
+                    label   "Text Values Editable"
+                    type    toggle
+                    default { "0" }
+                    hidewhen "{ cui_i_value_type_# != text } { cui_i_meta_usetextvals_# == 0 }"
+                    parmtag { "script_callback_language" "python" }
+                }
+                multiparm {
+                    name    "cui_i_meta_textvals_#"
+                    label    "Text Values"
+                    hidewhen "{ cui_i_value_type_# != text } { cui_i_meta_userdatatextvals_# == 1 }"
+
+                    parm {
+                        name    "cui_i_meta_textval_#_#"
+                        label   "Label"
+                        type    string
+                        nolabel
+                        default { "" }
+                        parmtag { "script_callback_language" "python" }
+                    }
+                }
+
+                parm {
+                    name    "cui_i_meta_textvals_update_#"
+                    label   "Update Values"
+                    type    button
+                    default { "0" }
+                    hidewhen "{ cui_i_value_type_# != text }"
+                    parmtag { "script_callback" "hou.phm().update_input_text_values_callback(hou.pwd(), kwargs['script_multiparm_index'])" }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
+                    name    "cui_i_meta_isimage_#"
+                    label   "Is Image"
+                    type    toggle
+                    joinnext
+                    default { "0" }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
+                    name    "cui_i_meta_bakecc_#"
+                    label   "Bake OCIO stuff in"
+                    type    toggle
+                    default { "1" }
+                    hidewhen "{ cui_i_meta_isimage_# == 0 }"
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
+                    name    "cui_i_meta_floatrange_#"
+                    label   "Range min/max"
+                    type    vector2
+                    size    2
+                    default { "0" "1" }
+                    hidewhen "{ cui_i_value_type_# != float }"
+                    range   { -1 1 }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
+                    name    "cui_i_meta_intrange_#"
+                    label   "Range min/max"
+                    type    intvector2
+                    size    2
+                    default { "0" "100" }
+                    hidewhen "{ cui_i_value_type_# != int }"
+                    range   { -1 1 }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
+                    name    "cui_i_meta_intype_#"
+                    label   "Input Type"
+                    type    string
+                    default { "" }
+                    parmtag { "script_callback_language" "python" }
+                }
+            }
+
+        }
+
+    }
+
+    groupsimple {
+        name    "folder_outputs"
+        label   "Outputs"
+
+        multiparm {
+            name    "cui_outputs"
+            label    "outputs"
+
+            parm {
+                name    "cui_o_node_title_#"
+                label   "Node Title #"
+                type    string
+                joinnext
+                default { "" }
+                parmtag { "script_callback_language" "python" }
+            }
+            parm {
+                name    "cui_o_node_output_#"
+                label   "Output Index"
+                type    integer
+                default { "0" }
+                range   { 0 10 }
+                parmtag { "script_callback_language" "python" }
+            }
+            groupcollapsible {
+                name    "folder_o_meta#"
+                label   "output metadata"
+
+                parm {
+                    name    "cui_o_meta_outputname_#"
+                    label   "name"
+                    type    string
+                    joinnext
+                    default { "" }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
+                    name    "cui_o_meta_isimage_#"
+                    label   "Is Image"
+                    type    toggle
+                    default { "0" }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
+                    name    "cui_o_meta_outtype_#"
+                    label   "Output Type"
+                    type    string
+                    default { "" }
+                    parmtag { "script_callback_language" "python" }
+                }
+            }
+
+        }
+
+    }
+
+    parm {
+        name    "cui_graph"
+        label   "ComfyUI Graph (API form)"
+        type    string
+        default { "" }
+        parmtag { "editor" "1" }
+        parmtag { "script_callback_language" "python" }
+    }
+}

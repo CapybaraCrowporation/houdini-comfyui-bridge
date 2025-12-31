@@ -1,0 +1,42 @@
+# Dialog script for xxx::Cop/comfyui_compound_graph_submit::1.3::xxx::comfyui_partial_graph_outputs::1.0 automatically generated
+
+{
+    name	xxx::Cop/comfyui_compound_graph_submit::1.3::xxx::comfyui_partial_graph_outputs::1.0
+    script	xxx::Cop/comfyui_compound_graph_submit::1.3::xxx::comfyui_partial_graph_outputs::1.0
+    label	"ComfyUI Partial Graph Outputs"
+
+    input	input1	input1
+    input	input2	input2
+    input	input3	input3
+    input	input4	input4
+    output	output1	output1
+    signature	default	Default	{ UV UV UV UV }	{ UV }
+    signature	foo0	Foo1	{ RGBA UV UV UV }	{ UV }
+    signature	foo1	Foo2	{ UV RGBA UV UV }	{ UV }
+    signature	foo2	Foo3	{ UV UV RGBA UV }	{ UV }
+    signature	foo3	Foo4	{ UV UV UV RGBA }	{ UV }
+    signature	foo4	Foo5	{ RGBA RGBA UV UV }	{ UV }
+    signature	foo5	Foo6	{ RGBA UV RGBA UV }	{ UV }
+    signature	foo6	Foo7	{ RGBA UV UV RGBA }	{ UV }
+    signature	foo7	Foo8	{ UV RGBA RGBA UV }	{ UV }
+    signature	foo8	Foo8	{ UV RGBA UV RGBA }	{ UV }
+    signature	foo9	Foo8	{ UV UV RGBA RGBA }	{ UV }
+    signature	fooA	FooA	{ RGBA RGBA RGBA UV }	{ UV }
+    signature	fooB	FooB	{ RGBA RGBA UV RGBA }	{ UV }
+    signature	fooC	FooC	{ RGBA UV RGBA RGBA }	{ UV }
+    signature	fooD	FooD	{ UV RGBA RGBA RGBA }	{ UV }
+    signature	fooE	FooE	{ RGBA RGBA RGBA RGBA }	{ UV }
+    
+    help {
+	""
+    }
+
+    parm {
+        name    "cui_o_meta_outtype_1"
+        label   "output type"
+        type    string
+        invisible
+        default { "STRING" }
+        parmtag { "script_callback_language" "python" }
+    }
+}

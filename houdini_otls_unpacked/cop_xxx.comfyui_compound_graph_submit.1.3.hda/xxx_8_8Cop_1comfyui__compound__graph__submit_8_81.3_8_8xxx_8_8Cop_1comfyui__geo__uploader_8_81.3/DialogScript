@@ -1,0 +1,98 @@
+# Dialog script for xxx::Cop/comfyui_compound_graph_submit::1.3::xxx::comfyui_geo_uploader::1.3 automatically generated
+
+{
+    name	xxx::Cop/comfyui_compound_graph_submit::1.3::xxx::comfyui_geo_uploader::1.3
+    script	xxx::Cop/comfyui_compound_graph_submit::1.3::xxx::comfyui_geo_uploader::1.3
+    label	"ComfyUI Geometry Uploader"
+
+    input	input1	Geo
+    output	output1	relative
+    output	output2	absolute
+    signature	default	Default	{ Geometry }	{ UV UV }
+
+    help {
+	""
+    }
+
+    parm {
+        name    "cui_image_subdir"
+        label   "Subdirectory"
+        type    string
+        default { "houdini_connect" }
+        parmtag { "script_callback_language" "python" }
+    }
+    parm {
+        name    "cui_o_meta_outtype_1"
+        label   "nonaurbusiness"
+        type    string
+        invisible
+        default { "STRING" }
+        parmtag { "script_callback_language" "python" }
+    }
+    parm {
+        name    "cui_o_meta_outtype_2"
+        label   "nonaurbusiness"
+        type    string
+        invisible
+        default { "STRING" }
+        parmtag { "script_callback_language" "python" }
+    }
+    groupradio {
+        name    "geotype"
+        label   "GLB"
+
+        parm {
+            name    "customattribs"
+            label   "Export Custom Attributes"
+            type    toggle
+            default { "on" }
+            parmtag { "autoscope" "0000000000000000" }
+            parmtag { "script_callback_language" "python" }
+        }
+        parm {
+            name    "exportnames"
+            label   "Export Node Names"
+            type    toggle
+            default { "on" }
+            parmtag { "autoscope" "0000000000000000" }
+            parmtag { "script_callback_language" "python" }
+        }
+        parm {
+            name    "exportmeshnames"
+            label   "Export Mesh Names"
+            type    toggle
+            default { "on" }
+            parmtag { "autoscope" "0000000000000000" }
+            parmtag { "script_callback_language" "python" }
+        }
+        parm {
+            name    "meshnamessource"
+            label   "Mesh Names Source"
+            type    ordinal
+            default { "node" }
+            disablewhen "{ exportmeshnames == 0 }"
+            menu {
+                "node"      "Node Name"
+                "attribute" "Attribute"
+            }
+            parmtag { "autoscope" "0000000000000000" }
+            parmtag { "script_callback_language" "python" }
+        }
+        parm {
+            name    "meshnamesattribute"
+            label   "Mesh Name Attribute"
+            type    string
+            default { "name" }
+            disablewhen "{ meshnamessource != attribute } { exportmeshnames == 0 }"
+            parmtag { "autoscope" "0000000000000000" }
+            parmtag { "script_callback_language" "python" }
+        }
+    }
+
+    groupradio {
+        name    "geotype_1"
+        label   "OBJ"
+
+    }
+
+}

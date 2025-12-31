@@ -1,0 +1,140 @@
+import traceback
+import hou
+import requests
+import json
+import time
+from pathlib import Path
+from houdini_comfyui_connection.graph_submission import BadInputSubstituteError, ResultNotFound, FunctionalityNotAvailable, delete_output_image, submit_graph_and_get_result, download_result, delete_input_image, delete_output_image, delete_prompt_history
+from houdini_comfyui_connection.ui_tools import show_error
+
+    
+def replace_params_in_graph(graph_data: dict, inputs_to_replace: dict):
+    for node_id, node_data in graph_data.items():
+        if (title := node_data.get('_meta').get('title')) and title in inputs_to_replace:
+            for input_name, value in inputs_to_replace[title].items():
+                if input_name not in node_data.get('inputs', ()):
+                    raise BadInputSubstituteError(f'node {title} has no input {input_name}')
+                if isinstance(node_data['inputs'][input_name], list):  # means it's connected, so ignore it
+                    raise BadInputSubstituteError(f'node {title} has no input {input_name}')
+                node_data['inputs'][input_name] = value
+
+        
+def compute_node(node, long_op=None):
+    host = node.evalParm('base_url').rstrip('/ ')
+    graph_data = json.loads(node.evalParm('cui_graph'))
+    do_cleanup = node.parm('cleanup_server_images').eval()
+    
+    inputs_to_replace = {}
+    inputs_to_upload = set()
+    for i in range(1, 1+node.evalParm('cui_inputs')):
+        title = node.evalParm(f'cui_i_node_title_{i}')
+        input_name = node.evalParm(f'cui_i_node_input_{i}')
+        val_type = node.evalParm(f'cui_i_value_type_{i}')
+        val = None
+        if val_type == 'int':
+            val = node.evalParm(f'cui_i_value_int_{i}')
+        elif val_type == 'float':
+            val = node.evalParm(f'cui_i_value_float_{i}')
+        elif val_type == 'text':
+            val = node.evalParm(f'cui_i_value_text_{i}')
+        elif val_type.startswith('image'):
+            image_num = int(val_type[5:])
+            inputs_to_upload.add(image_num)
+            val = node.node(f'input_upload{image_num}/DATA').evalParm('cui_image_path')
+        else:
+            raise RuntimeError(f'unknown value type "{val_type}"')
+        assert val is not None
+        
+        inputs_to_replace.setdefault(title, {})[input_name] = val
+    
+    # replace input
+    replace_params_in_graph(graph_data, inputs_to_replace)
+    # do actual image upload
+    if long_op:
+        long_op.updateLongProgress(-1, "Cooking and Uploading inputs...")
+    for i, input_num in enumerate(inputs_to_upload):
+        upload_node = node.node(f'input_upload{input_num}')
+        upload_node.hdaModule().upload_input(upload_node)
+        if long_op:
+            long_op.updateLongProgress(-1, "Cooking and Uploading inputs...")
+            long_op.updateProgress(i / len(inputs_to_upload))
+    # submit graph
+    res, prompt_id = submit_graph_and_get_result(host, graph_data, long_op)
+
+    assert res is not None
+    
+    # get result
+    if long_op:
+        long_op.updateLongProgress(-1, "Downloading result...")
+    for i in range(1, 1+1):
+        outnode = node.node(f'result{i}')
+        outpath = Path(outnode.evalParm('filename'))
+        if key := node.evalParm(f'output{i}'):
+            pass
+        else:
+            key = list(res.keys())[0]
+        
+        if key not in res:
+            raise ResultNotFound(key, res)
+            
+        download_result(host, res[key][0]['filename'], res[key][0]['subfolder'], outpath)
+        outnode.parm('reload').pressButton()
+
+    if do_cleanup:
+        for i, input_num in enumerate(inputs_to_upload):
+            if long_op:
+                long_op.updateLongProgress(-1, "Cleaning up temporary images")
+                long_op.updateProgress(i / len(inputs_to_upload))
+            upload_node = node.node(f'input_upload{input_num}')
+            try:
+                delete_input_image(
+                    host,
+                    upload_node.hdaModule().comfyui_image_name(upload_node),
+                    upload_node.hdaModule().comfyui_image_subdir(upload_node),
+                )
+            except FunctionalityNotAvailable:
+                print('[WARNING] failed to remove temp input image from comfyui: server does not support deletion')
+
+        if long_op:
+            long_op.updateLongProgress(-1, "Cleaning up prompt history")
+        delete_prompt_history(host, prompt_id)
+        #  comfy backend cache does not check image existance, and there is no clear stable way of cleaning cache,
+        #  so we have to leave output images as is for now
+
+
+def compute_btn_callback(node):
+    try:
+        with hou.InterruptableOperation('generating result...', 'generating result...', open_interrupt_dialog=True) as op:
+            compute_node(node, op)
+    except ResultNotFound as e:
+        show_error(
+            'Expected result was not found. Internal error probably happened, check comfy server logs.',
+            details=f'"{e.key}" not in result of the given graph:\n{json.dumps(e.res, indent=4)}'
+        )
+        return
+    except json.JSONDecodeError as e:
+        show_error(f'graph is a badly formatted json: {e}')
+        return
+    except BadInputSubstituteError as e:
+        show_error(f'error replacing inputs: {e}')
+        return
+    except hou.OperationInterrupted:
+        show_error("operation was interrupted")
+        return
+    except Exception as e:
+        show_error(f'failed to submit graph: {e}', details=traceback.format_exc())
+        return
+
+
+def test_get_prompt_btn_callback(node):
+    host = node.evalParm('base_url').rstrip('/ ')
+    prompt_id = node.evalParm('prompt_id')
+    
+    resp = requests.get(f'{host}/prompt')
+    print(resp.json())
+    
+    resp = requests.get(f'{host}/queue')
+    print(resp.json())
+    
+    resp = requests.get(f'{host}/history/{prompt_id}')
+    print(resp.json())

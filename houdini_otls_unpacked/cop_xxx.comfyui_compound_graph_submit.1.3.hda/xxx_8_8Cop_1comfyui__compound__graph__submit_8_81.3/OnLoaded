@@ -1,0 +1,19 @@
+import hou
+from houdini_comfyui_connection.compound_graph_tools import compound_graph_child_created_callback, is_subnet_wrapper, partial_node_rewire_callback
+
+
+def add_child_event_callback(node):
+    node.node('graph').addEventCallback((hou.nodeEventType.ChildCreated,), compound_graph_child_created_callback)
+
+
+def put_callbacks_on_existing_nodes(node):
+    for child_node in node.node('graph').children():
+        if not is_subnet_wrapper(child_node):
+            continue
+        child_node.addEventCallback((hou.nodeEventType.InputRewired,), partial_node_rewire_callback)
+
+
+add_child_event_callback(kwargs['node'])
+
+# also on loaded we need to put callbacks on all existing nodes
+put_callbacks_on_existing_nodes(kwargs['node'])

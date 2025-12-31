@@ -1,0 +1,21 @@
+{
+    "cop_xxx.comfyui_demo_prompt_gen": "",
+    "cop_xxx.comfyui_diffusion_rendering_FLUX": "",
+    "cop_xxx.comfyui_diffusion_rendering_SDXL_inpainting": "",
+    "cop_xxx.comfyui_inpainting_IPA": "",
+    "cop_xxx.diffusion_rendering": "",
+    "cop_xxx.generate_image": "",
+
+    "lop_xxx.comfyui_hy3d_generate_asset": ">=1.1",
+    "cop_xxx.autodepth": ">=1.0",
+    "cop_xxx.comfyui_batch_upload_control": ">=1.0",
+    "cop_xxx.comfyui_compound_graph_submit": ">=1.3",
+    "cop_xxx.comfyui_compute_in_order": ">=1.0",
+    "cop_xxx.comfyui_diffusion_rendering_SDXL": ">=1.2",
+    "cop_xxx.comfyui_generate_image_SDXL": ">=1.2",
+    "cop_xxx.comfyui_graph_submit": ">=1.2",
+    "cop_xxx.comfyui_image_upload": ">=1.2",
+    "cop_xxx.comfyui_tile_texture": ">=2.0",
+    "cop_xxx.pick_points": ">=1.0",
+    "top_xxx.comfyui_submit_graph": ">=1.0"
+}

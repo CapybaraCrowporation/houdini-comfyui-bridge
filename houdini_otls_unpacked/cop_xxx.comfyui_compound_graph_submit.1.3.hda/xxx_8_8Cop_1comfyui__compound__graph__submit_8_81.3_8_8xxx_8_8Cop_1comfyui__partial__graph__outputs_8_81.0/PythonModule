@@ -1,0 +1,82 @@
+import uuid
+import hou
+from pathlib import Path
+import shutil
+import tempfile
+from houdini_comfyui_connection.compound_graph_core import GraphPartData, GraphPorcessingInputKey, UploadInfo, get_output_index_from_input, process_graph_node as super_process_graph_node, submit_compound_graph
+from houdini_comfyui_connection.compound_graph_tools import subnet_wrapper_wrapped_node, find_nearest_compound_graph_parent
+from houdini_comfyui_connection.graph_submission import delete_prompt_history
+from houdini_comfyui_connection.upload_common import upload_image
+
+comfyui_partial_graph_is_custom_node = True
+
+
+def process_graph_node(
+    subnode,
+    node_to_graph: dict[hou.Node, GraphPartData],
+    nodes_to_upload: dict[GraphPorcessingInputKey, tuple[hou.Node, UploadInfo]],
+    context_vars: dict[str, str|float|int],
+    *,
+    long_op: hou.InterruptableOperation|None = None,
+):
+    # process the normal way
+    my_outputs_node = subnode.node('graph').subnetOutputs()[0]
+    #super_process_graph_node(my_outputs_node, node_to_graph, nodes_to_upload)
+
+    in_source = get_output_index_from_input(my_outputs_node, 0)
+    if in_source is None:
+        raise RuntimeError('something must be connected to output inside output container!')
+
+    super_process_graph_node(in_source.node, node_to_graph, nodes_to_upload, context_vars, long_op=long_op)
+
+    # then we add output nodes inside this subnode to graph
+    # recursive graph submission!
+    local_outputs = []
+    for child in subnode.node('graph').children():
+        if child.userData('comfyui_wrapper_type') != 'output':
+            continue
+        local_outputs.append(child)
+    if local_outputs:
+        comp_parent = find_nearest_compound_graph_parent(subnode)
+        assert comp_parent is not None
+        host = comp_parent.evalParm('base_url').rstrip('/ ')
+        do_cleanup = comp_parent.parm('cleanup_server_images').eval()
+        res, prompt_id, _, outputs = submit_compound_graph(
+            host,
+            None,
+            long_op,
+            context_vars=context_vars,
+            reuse_upload_nodes=nodes_to_upload,
+            explicit_roots=[subnet_wrapper_wrapped_node(x) for x in local_outputs],
+        )
+        for key, local_output in zip(outputs, local_outputs):
+            for res_type, res_data in res[key].items():
+                context_vars[f'{local_output.path()}:{res_type}:len'] = len(res_data)
+                for i, val in enumerate(res_data):
+                    varname_base = f'{local_output.path()}:{res_type}:{i}'
+                    if isinstance(val, dict):
+                        for valkey, valval in val.items():
+                            context_vars[f'{varname_base}:{valkey}'] = valval
+                    else:
+                        context_vars[varname_base] = str(val)
+        if do_cleanup:
+            delete_prompt_history(host, prompt_id)
+
+    node_to_graph[subnode] = GraphPartData(
+        _get_passthrough_graph('0'),
+        {0: ('0', 0)},
+        {('0', 'str_in'): (in_source.node, in_source.output)},
+        {},
+    )
+
+
+def _get_passthrough_graph(nid: str):
+    return {
+            nid: {
+                'inputs': {},
+                'class_type': 'HouStringPassThrough',
+                '_meta': {
+                    'title': 'the node that does that one thing'
+                }
+            }
+        }

@@ -1,0 +1,4417 @@
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY"
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename=".OPfallbacks"
+Content-Type: application/external-reference
+
+.OPfallbacks
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename=".OPdummydefs"
+Content-Type: application/external-reference
+
+.OPdummydefs
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="node_type"
+Content-Type: text/plain
+
+Cop
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot.init"
+Content-Type: text/plain
+
+type = xxx::Cop/comfyui_compound_graph_submit::1.2::xxx::comfyui_partial_graph::1.2
+matchesdef = 0
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot.def"
+Content-Type: text/plain
+
+comment ""
+position 2.39777 -0.765018
+connectornextid 0
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+}
+inputs
+{
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input1.init"
+Content-Type: text/plain
+
+type = input
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input1.def"
+Content-Type: text/plain
+
+comment ""
+position -1.60553 -6.18006
+connectornextid 64
+flags =  lock off model off template off footprint off xray off bypass off display on render on highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+0 "output1"
+1 "output2"
+2 "output3"
+3 "output4"
+4 "output5"
+5 "output6"
+6 "output7"
+7 "output8"
+8 "output9"
+9 "output10"
+10 "output11"
+11 "output12"
+12 "output13"
+13 "output14"
+14 "output15"
+15 "output16"
+16 "output17"
+17 "output18"
+18 "output19"
+19 "output20"
+20 "output21"
+21 "output22"
+22 "output23"
+23 "output24"
+24 "output25"
+25 "output26"
+26 "output27"
+27 "output28"
+28 "output29"
+29 "output30"
+30 "output31"
+31 "output32"
+32 "output33"
+33 "output34"
+34 "output35"
+35 "output36"
+36 "output37"
+37 "output38"
+38 "output39"
+39 "output40"
+40 "output41"
+41 "output42"
+42 "output43"
+43 "output44"
+44 "output45"
+45 "output46"
+46 "output47"
+47 "output48"
+48 "output49"
+49 "output50"
+50 "output51"
+51 "output52"
+52 "output53"
+53 "output54"
+54 "output55"
+55 "output56"
+56 "output57"
+57 "output58"
+58 "output59"
+59 "output60"
+60 "output61"
+61 "output62"
+62 "output63"
+63 "output64"
+}
+inputsNamed3
+{
+}
+inputs
+{
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input1.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input1.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":"___EXTERNAL___"
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/output1.init"
+Content-Type: text/plain
+
+type = output
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/output1.def"
+Content-Type: text/plain
+
+comment ""
+position 10.1554 4.20573
+connectornextid 0
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+}
+inputs
+{
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/output1.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/output1.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":"___EXTERNAL___"
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload1.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload1.def"
+Content-Type: text/plain
+
+comment ""
+position 4.58147 9.41162
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 0 1 "input1"
+}
+inputs
+{
+0 	input1 0 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload1.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload1.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload2.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload2.def"
+Content-Type: text/plain
+
+comment ""
+position 4.6074 7.56573
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 1 1 "input1"
+}
+inputs
+{
+0 	input1 1 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload2.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload2.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload3.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload3.def"
+Content-Type: text/plain
+
+comment ""
+position 4.6074 5.88573
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 2 1 "input1"
+}
+inputs
+{
+0 	input1 2 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload3.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload3.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload4.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload4.def"
+Content-Type: text/plain
+
+comment ""
+position 4.6074 4.20573
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 3 1 "input1"
+}
+inputs
+{
+0 	input1 3 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload4.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload4.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload5.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload5.def"
+Content-Type: text/plain
+
+comment ""
+position 4.6074 2.52573
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 4 1 "input1"
+}
+inputs
+{
+0 	input1 4 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload5.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload5.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload6.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload6.def"
+Content-Type: text/plain
+
+comment ""
+position 4.6074 0.845734
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 5 1 "input1"
+}
+inputs
+{
+0 	input1 5 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload6.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload6.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload7.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload7.def"
+Content-Type: text/plain
+
+comment ""
+position 4.6074 -0.834266
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 6 1 "input1"
+}
+inputs
+{
+0 	input1 6 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload7.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload7.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload8.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload8.def"
+Content-Type: text/plain
+
+comment ""
+position 4.6074 -2.51427
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 7 1 "input1"
+}
+inputs
+{
+0 	input1 7 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload8.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload8.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload9.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload9.def"
+Content-Type: text/plain
+
+comment ""
+position 4.6074 -4.33417
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 8 1 "input1"
+}
+inputs
+{
+0 	input1 8 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload9.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload9.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload10.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload10.def"
+Content-Type: text/plain
+
+comment ""
+position 4.63333 -6.18006
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 9 1 "input1"
+}
+inputs
+{
+0 	input1 9 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload10.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload10.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload11.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload11.def"
+Content-Type: text/plain
+
+comment ""
+position 4.63333 -7.86006
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 10 1 "input1"
+}
+inputs
+{
+0 	input1 10 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload11.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload11.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload12.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload12.def"
+Content-Type: text/plain
+
+comment ""
+position 4.63333 -9.54006
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 11 1 "input1"
+}
+inputs
+{
+0 	input1 11 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload12.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload12.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload13.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload13.def"
+Content-Type: text/plain
+
+comment ""
+position 4.63333 -11.2201
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 12 1 "input1"
+}
+inputs
+{
+0 	input1 12 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload13.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload13.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload14.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload14.def"
+Content-Type: text/plain
+
+comment ""
+position 4.63333 -12.9001
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 13 1 "input1"
+}
+inputs
+{
+0 	input1 13 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload14.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload14.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload15.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload15.def"
+Content-Type: text/plain
+
+comment ""
+position 4.63333 -14.5801
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 14 1 "input1"
+}
+inputs
+{
+0 	input1 14 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload15.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload15.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload16.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload16.def"
+Content-Type: text/plain
+
+comment ""
+position 4.63333 -16.2601
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 15 1 "input1"
+}
+inputs
+{
+0 	input1 15 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload16.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload16.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload17.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload17.def"
+Content-Type: text/plain
+
+comment ""
+position 4.63333 -18.2601
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 16 1 "input1"
+}
+inputs
+{
+0 	input1 16 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload17.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload17.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload18.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload18.def"
+Content-Type: text/plain
+
+comment ""
+position 4.63333 -20.2601
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 17 1 "input1"
+}
+inputs
+{
+0 	input1 17 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload18.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload18.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload19.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload19.def"
+Content-Type: text/plain
+
+comment ""
+position 4.63333 -22.2601
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 18 1 "input1"
+}
+inputs
+{
+0 	input1 18 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload19.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload19.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload20.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload20.def"
+Content-Type: text/plain
+
+comment ""
+position 4.63333 -24.2601
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 19 1 "input1"
+}
+inputs
+{
+0 	input1 19 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload20.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload20.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload21.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload21.def"
+Content-Type: text/plain
+
+comment ""
+position 4.63333 -26.2601
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 20 1 "input1"
+}
+inputs
+{
+0 	input1 20 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload21.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload21.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload22.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload22.def"
+Content-Type: text/plain
+
+comment ""
+position 4.63333 -28.2601
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 21 1 "input1"
+}
+inputs
+{
+0 	input1 21 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload22.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload22.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload23.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload23.def"
+Content-Type: text/plain
+
+comment ""
+position 4.63333 -30.2601
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 22 1 "input1"
+}
+inputs
+{
+0 	input1 22 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload23.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload23.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload24.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload24.def"
+Content-Type: text/plain
+
+comment ""
+position 4.63333 -32.2601
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 23 1 "input1"
+}
+inputs
+{
+0 	input1 23 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload24.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload24.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload25.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload25.def"
+Content-Type: text/plain
+
+comment ""
+position 4.63333 -34.2601
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 24 1 "input1"
+}
+inputs
+{
+0 	input1 24 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload25.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload25.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload26.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload26.def"
+Content-Type: text/plain
+
+comment ""
+position 4.63333 -36.2601
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 25 1 "input1"
+}
+inputs
+{
+0 	input1 25 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload26.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload26.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload27.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload27.def"
+Content-Type: text/plain
+
+comment ""
+position 4.63333 -38.2601
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 26 1 "input1"
+}
+inputs
+{
+0 	input1 26 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload27.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload27.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload28.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload28.def"
+Content-Type: text/plain
+
+comment ""
+position 4.63333 -40.2601
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 27 1 "input1"
+}
+inputs
+{
+0 	input1 27 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload28.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload28.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload29.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload29.def"
+Content-Type: text/plain
+
+comment ""
+position 4.63333 -42.2601
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 28 1 "input1"
+}
+inputs
+{
+0 	input1 28 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload29.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload29.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload30.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload30.def"
+Content-Type: text/plain
+
+comment ""
+position 4.63333 -44.2601
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 29 1 "input1"
+}
+inputs
+{
+0 	input1 29 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload30.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload30.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload31.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload31.def"
+Content-Type: text/plain
+
+comment ""
+position 4.63333 -46.2601
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 30 1 "input1"
+}
+inputs
+{
+0 	input1 30 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload31.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload31.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload32.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload32.def"
+Content-Type: text/plain
+
+comment ""
+position 4.63333 -48.2601
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 31 1 "input1"
+}
+inputs
+{
+0 	input1 31 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload32.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload32.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload33.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload33.def"
+Content-Type: text/plain
+
+comment ""
+position 4.63333 -50.2601
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 32 1 "input1"
+}
+inputs
+{
+0 	input1 32 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload33.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload33.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload34.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload34.def"
+Content-Type: text/plain
+
+comment ""
+position 4.63333 -52.2601
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 33 1 "input1"
+}
+inputs
+{
+0 	input1 33 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload34.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload34.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload35.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload35.def"
+Content-Type: text/plain
+
+comment ""
+position 4.63333 -54.2601
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 34 1 "input1"
+}
+inputs
+{
+0 	input1 34 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload35.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload35.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload36.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload36.def"
+Content-Type: text/plain
+
+comment ""
+position 4.63333 -56.2601
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 35 1 "input1"
+}
+inputs
+{
+0 	input1 35 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload36.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload36.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload37.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload37.def"
+Content-Type: text/plain
+
+comment ""
+position 4.63333 -58.2601
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 36 1 "input1"
+}
+inputs
+{
+0 	input1 36 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload37.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload37.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload38.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload38.def"
+Content-Type: text/plain
+
+comment ""
+position 4.63333 -60.2601
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 37 1 "input1"
+}
+inputs
+{
+0 	input1 37 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload38.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload38.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload39.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload39.def"
+Content-Type: text/plain
+
+comment ""
+position 4.63333 -62.2601
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 38 1 "input1"
+}
+inputs
+{
+0 	input1 38 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload39.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload39.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload40.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload40.def"
+Content-Type: text/plain
+
+comment ""
+position 4.63333 -64.2601
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 39 1 "input1"
+}
+inputs
+{
+0 	input1 39 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload40.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload40.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload41.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload41.def"
+Content-Type: text/plain
+
+comment ""
+position 4.63333 -66.2601
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 40 1 "input1"
+}
+inputs
+{
+0 	input1 40 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload41.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload41.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload42.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload42.def"
+Content-Type: text/plain
+
+comment ""
+position 4.63333 -68.2601
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 41 1 "input1"
+}
+inputs
+{
+0 	input1 41 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload42.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload42.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload43.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload43.def"
+Content-Type: text/plain
+
+comment ""
+position 4.63333 -70.2601
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 42 1 "input1"
+}
+inputs
+{
+0 	input1 42 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload43.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload43.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload44.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload44.def"
+Content-Type: text/plain
+
+comment ""
+position 4.63333 -72.2601
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 43 1 "input1"
+}
+inputs
+{
+0 	input1 43 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload44.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload44.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload45.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload45.def"
+Content-Type: text/plain
+
+comment ""
+position 4.63333 -74.2601
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 44 1 "input1"
+}
+inputs
+{
+0 	input1 44 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload45.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload45.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload46.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload46.def"
+Content-Type: text/plain
+
+comment ""
+position 4.63333 -76.2601
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 45 1 "input1"
+}
+inputs
+{
+0 	input1 45 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload46.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload46.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload47.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload47.def"
+Content-Type: text/plain
+
+comment ""
+position 4.63333 -78.2601
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 46 1 "input1"
+}
+inputs
+{
+0 	input1 46 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload47.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload47.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload48.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload48.def"
+Content-Type: text/plain
+
+comment ""
+position 4.63333 -80.2601
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 47 1 "input1"
+}
+inputs
+{
+0 	input1 47 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload48.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload48.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload49.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload49.def"
+Content-Type: text/plain
+
+comment ""
+position 4.63333 -82.2601
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 48 1 "input1"
+}
+inputs
+{
+0 	input1 48 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload49.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload49.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload50.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload50.def"
+Content-Type: text/plain
+
+comment ""
+position 4.63333 -84.2601
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 49 1 "input1"
+}
+inputs
+{
+0 	input1 49 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload50.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload50.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload51.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload51.def"
+Content-Type: text/plain
+
+comment ""
+position 4.63333 -86.2601
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 50 1 "input1"
+}
+inputs
+{
+0 	input1 50 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload51.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload51.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload52.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload52.def"
+Content-Type: text/plain
+
+comment ""
+position 4.63333 -88.2601
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 51 1 "input1"
+}
+inputs
+{
+0 	input1 51 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload52.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload52.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload53.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload53.def"
+Content-Type: text/plain
+
+comment ""
+position 4.63333 -90.2601
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 52 1 "input1"
+}
+inputs
+{
+0 	input1 52 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload53.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload53.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload54.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload54.def"
+Content-Type: text/plain
+
+comment ""
+position 4.63333 -92.2601
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 53 1 "input1"
+}
+inputs
+{
+0 	input1 53 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload54.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload54.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload55.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload55.def"
+Content-Type: text/plain
+
+comment ""
+position 4.63333 -94.2601
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 54 1 "input1"
+}
+inputs
+{
+0 	input1 54 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload55.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload55.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload56.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload56.def"
+Content-Type: text/plain
+
+comment ""
+position 4.63333 -96.2601
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 55 1 "input1"
+}
+inputs
+{
+0 	input1 55 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload56.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload56.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload57.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload57.def"
+Content-Type: text/plain
+
+comment ""
+position 4.63333 -98.2601
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 56 1 "input1"
+}
+inputs
+{
+0 	input1 56 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload57.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload57.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload58.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload58.def"
+Content-Type: text/plain
+
+comment ""
+position 4.63333 -100.2601
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 57 1 "input1"
+}
+inputs
+{
+0 	input1 57 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload58.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload58.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload59.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload59.def"
+Content-Type: text/plain
+
+comment ""
+position 4.63333 -102.2601
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 58 1 "input1"
+}
+inputs
+{
+0 	input1 58 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload59.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload59.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload60.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload60.def"
+Content-Type: text/plain
+
+comment ""
+position 4.63333 -104.2601
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 59 1 "input1"
+}
+inputs
+{
+0 	input1 59 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload60.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload60.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload61.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload61.def"
+Content-Type: text/plain
+
+comment ""
+position 4.63333 -106.2601
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 60 1 "input1"
+}
+inputs
+{
+0 	input1 60 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload61.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload61.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload62.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload62.def"
+Content-Type: text/plain
+
+comment ""
+position 4.63333 -108.2601
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 61 1 "input1"
+}
+inputs
+{
+0 	input1 61 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload62.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload62.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload63.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload63.def"
+Content-Type: text/plain
+
+comment ""
+position 4.63333 -110.2601
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 62 1 "input1"
+}
+inputs
+{
+0 	input1 62 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload63.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload63.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload64.init"
+Content-Type: text/plain
+
+type = xxx::comfyui_image_upload::1.2
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload64.def"
+Content-Type: text/plain
+
+comment ""
+position 4.63333 -112.2601
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress off colordefault on exposed on lowdetail off mediumdetail off highdetail on
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	input1 63 1 "input1"
+}
+inputs
+{
+0 	input1 63 1
+}
+stat
+{
+  create -1
+  modify -1
+  author xapkohheh@localhost
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload64.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+base_url	[ 0	locks=0	autoscope=0 ]	(	http://127.0.0.1:8188	)
+cui_image_subdir	[ 0	locks=0	autoscope=0 ]	(	houdini_connect	)
+result_suffix	[ 0	locks=0	autoscope=0 ]	(	""	)
+bake_ocio	[ 0	locks=0	autoscope=0 ]	(	"on"	)
+upload	[ 0	locks=0 ]	(	0	)
+sepparm	[ 0	locks=0 ]	(	)
+cui_create_loader	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/input_upload64.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot.order"
+Content-Type: text/plain
+
+18
+input1
+output1
+input_upload1
+input_upload2
+input_upload3
+input_upload4
+input_upload5
+input_upload6
+input_upload7
+input_upload8
+input_upload9
+input_upload10
+input_upload11
+input_upload12
+input_upload13
+input_upload14
+input_upload15
+input_upload16
+input_upload17
+input_upload18
+input_upload19
+input_upload20
+input_upload21
+input_upload22
+input_upload23
+input_upload24
+input_upload25
+input_upload26
+input_upload27
+input_upload28
+input_upload29
+input_upload30
+input_upload31
+input_upload32
+input_upload33
+input_upload34
+input_upload35
+input_upload36
+input_upload37
+input_upload38
+input_upload39
+input_upload40
+input_upload41
+input_upload42
+input_upload43
+input_upload44
+input_upload45
+input_upload46
+input_upload47
+input_upload48
+input_upload49
+input_upload50
+input_upload51
+input_upload52
+input_upload53
+input_upload54
+input_upload55
+input_upload56
+input_upload57
+input_upload58
+input_upload59
+input_upload60
+input_upload61
+input_upload62
+input_upload63
+input_upload64
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot.net"
+Content-Type: text/plain
+
+1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY--

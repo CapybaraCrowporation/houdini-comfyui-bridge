@@ -1,0 +1,229 @@
+import hou  # type: ignore
+import traceback
+import json
+from houdini_comfyui_connection.node_data import get_node_data, set_node_data
+from houdini_comfyui_connection.compound_graph_tools import get_single_node_definition, find_nearest_compound_graph_parent, update_comfy_nodes_definitions
+from houdini_comfyui_connection.compound_graph_core import title_to_key
+from houdini_comfyui_connection.subnet_wrapper_helper import propagate_single_parameter
+
+
+def find_child_by_type(parent: hou.Node, type_name: tuple[str, str, str, str]) -> hou.Node:
+    for subnode in parent.children():
+        if subnode.type().nameComponents() == type_name:
+            return subnode
+    else:
+        raise KeyError('node of given type not found')
+
+
+def wrap_in_hda(node: hou.Node, type_main_name: str, type_version: tuple[int, ...], type_label: str, hda_file_name: str = 'Embedded') -> hou.Node:
+    """
+    this does wrap into subnet first, and then makes a HDA out of it
+    """
+    parent = hou.parent()
+    type_scope, type_ns, _, _ = node.type().nameComponents()
+    type_full_name = '::'.join((type_scope, type_ns, type_main_name, '.'.join(str(x) for x in type_version)))
+
+    # first check if already in asset.
+    if parent.parm('__hidden_cui_subnet_mark__') and parent.type().name() == type_full_name:
+        raise NotImplementedError("hda update is not yet implemented")
+    subnet = wrap_in_subnet(node)
+    ptg = subnet.parmTemplateGroup()
+    parm_templates = []
+    if folter_pt := ptg.findFolder('Inputs'):
+        parm_templates.extend(folter_pt.parmTemplates())
+
+    new_node = subnet.createDigitalAsset(type_full_name, hda_file_name, type_label, compress_contents=True, comment='autocreated', create_backup=False)
+
+    ptg = new_node.type().definition().parmTemplateGroup()
+    for pt in parm_templates:
+        ptg.addParmTemplate(pt)
+    new_node.type().definition().setParmTemplateGroup(ptg, create_backup=False)
+
+    return new_node
+
+
+def wrap_in_subnet(node: hou.Node) -> hou.Node:
+    parent = node.parent()
+
+    if parent.type().name() == 'subnet' and parent.parm('__hidden_cui_subnet_mark__'):
+        subnet = parent
+    else:
+        # instead of relying on name, we'll rely on type name as it's guaranteed to be only one node of this type in the subnet
+        node_type_name = node.type().nameComponents()
+        subnet = parent.collapseIntoSubnet([node])
+        node = find_child_by_type(subnet, node_type_name)
+
+        input_node = subnet.createNode('input')
+        output_node = subnet.createNode('output')
+        subnet.layoutChildren()
+
+    input_node = find_child_by_type(subnet, ('', '', 'input', ''))
+    output_node = find_child_by_type(subnet, ('', '', 'output', ''))
+
+    i = 1
+    max_input_num = -1
+    used_inputs: list[tuple[str|None, bool, str, int]] = [(None, False, '', -1)] * len(node.inputConnectors())
+
+    # get a default ptg from a temporary subnet
+    tmp_node = subnet.createNode('subnet')
+    ptg = tmp_node.parmTemplateGroup()
+    tmp_node.destroy()
+    # this ensures standard parm templates are created (it's a thing with subnet)
+    standard_pts = ptg.parmTemplates()
+    ptg.addParmTemplate(hou.FolderParmTemplate('graph_inputs', 'Inputs'))
+    ptg.addParmTemplate(hou.FolderParmTemplate('standard', 'Standard'))
+    ptg.appendToFolder('Inputs', hou.ToggleParmTemplate('__hidden_cui_subnet_mark__', '__hidden_cui_subnet_mark__', is_hidden=True))
+    for pt in standard_pts:
+        ptg.remove(pt)
+        ptg.appendToFolder('Standard', pt)
+
+    while parm := node.parm(f'cui_i_node_input_{i}'):
+        extra_tags = {'hou_comfyui_inner_input_i': str(i)}
+        inp_type = node.evalParm(f'cui_i_value_type_{i}')
+        if inp_type.startswith('input'):
+            input_num = int(inp_type[5:]) - 1
+            max_input_num = max(max_input_num, input_num)
+            used_inputs[input_num] = (f'{parm.eval()} ({node.evalParm(f"cui_i_meta_intype_{i}")})', node.evalParm(f'cui_i_meta_isimage_{i}'), node.evalParm(f"cui_i_meta_intype_{i}"), i)
+        else:
+            pt = propagate_single_parameter(node, i, i, also_connect_node_to_it=True)
+            assert pt is not None
+            ptg.appendToFolder('Inputs', pt)
+        i += 1
+
+    # also create parameters with input/output metadata
+    for i, (input_name, is_image, _, idx) in enumerate(used_inputs):
+        extra_tags = {'hou_comfyui_inner_input_i': str(idx)}
+        if input_name is None:
+            continue
+        if is_image:
+            # promote "bake ocio" toggle
+            orig_parm = node.parm(f'cui_i_meta_bakecc_{idx}')
+            ptg.appendToFolder('Inputs', hou.ToggleParmTemplate(
+                f'input_{i+1}_bake_ocio',
+                f'bake ocio for "{input_name}"',
+                default_value=bool(orig_parm.eval()),
+                tags=extra_tags,
+            ))
+            orig_parm.setExpression(f'ch("../input_{i+1}_bake_ocio")')
+
+        ptg.appendToFolder('Inputs', hou.StringParmTemplate(
+            f'input_meta_typename_{i+1}',
+            f'input {i+1} type name',
+            1,
+            default_expression=(f'chs({node.name()}/cui_i_meta_intype_{idx})',),
+            is_hidden=True,
+            tags=extra_tags,
+        ))
+    for i in range(node.evalParm('cui_outputs')):
+        extra_tags = {'hou_comfyui_inner_input_i': str(i+1)}
+        ptg.appendToFolder('Inputs', hou.StringParmTemplate(
+            f'output_meta_typename_{i+1}',
+            f'output {i+1} type name',
+            1,
+            default_expression=(f'chs({node.name()}/cui_o_meta_outtype_{i+1})',),
+            is_hidden=True,
+            tags=extra_tags,
+        ))
+    subnet.setParmTemplateGroup(ptg)
+
+    # connect inputs and outputs
+    subnet.parm('inputs').set(max_input_num + 1)
+    for i, (input_name, is_image, input_type, _) in enumerate(used_inputs):
+        if input_name is None:
+            continue
+        subnet.parm(f'inputlabel{i+1}').set(input_name)
+        if is_image:
+            if input_type == 'MASK':  # show masks as mono inputs
+                subnet.parm(f'inputtype{i+1}').set('float')
+            else:
+                subnet.parm(f'inputtype{i+1}').set('vector4')
+        else:
+            subnet.parm(f'inputtype{i+1}').set('vector2')
+        node.setInput(i, input_node, i)
+    subnet.parm('outputs').set(node.evalParm('cui_outputs'))
+    for i in range(node.evalParm('cui_outputs')):
+        subnet.parm(f'outputlabel{i+1}').set(node.evalParm(f'cui_o_meta_outputname_{i+1}'))
+        if node.evalParm(f'cui_o_meta_isimage_{i+1}'):
+            if node.evalParm(f'cui_o_meta_outtype_{i+1}') == 'MASK':
+                subnet.parm(f'outputtype{i+1}').set('float')
+            else:
+                subnet.parm(f'outputtype{i+1}').set('vector4')
+        else:
+            subnet.parm(f'outputtype{i+1}').set('vector2')
+        output_node.setInput(i, node, i)
+
+    # set comment
+    if inner_python_module := node.evalParm('cui_meta_python_module'):
+        comment = ''
+        if '.' in inner_python_module:  # else assume it's core node, no comment to display
+            pmbase, pmname = inner_python_module.split('.', 1)
+            if pmbase == 'custom_nodes':
+                comment = pmname
+        subnet.setComment(comment)
+        subnet.setGenericFlag(hou.nodeFlag.DisplayComment, True)
+
+    return subnet
+
+
+def do_wrap_in_subnet_callback(node):
+    try:
+        wrap_in_subnet(node)
+    except Exception as e:
+        hou.ui.displayMessage(f'failed to create/update a wrapper: {e}', title='failed to wrap!', details=traceback.format_exc(), severity=hou.severityType.Error)
+
+
+def update_input_text_values_callback(node, input_muliparm_index, *, update_tool_also: bool = False):
+    parent_submitter = find_nearest_compound_graph_parent(node)
+    assert parent_submitter is not None
+
+    host = parent_submitter.evalParm('base_url').rstrip('/')
+    graph = json.loads(node.evalParm('cui_graph'))
+    node_data = graph[title_to_key(graph, node.evalParm(f'cui_i_node_title_{input_muliparm_index}'))]
+    input_name = node.evalParm(f'cui_i_node_input_{input_muliparm_index}')
+    node_type = node_data['class_type']
+
+    def_data = get_single_node_definition(host, node_type)
+
+    input_data = def_data.get('input', {})
+    input_def = {
+        **input_data.get('required', {}),
+        **input_data.get('optional', {}),
+    }.get(input_name)
+
+    if input_def is None:
+        raise KeyError(f'"{input_name}" is not an input of "{node_type}"')
+
+    if not isinstance(input_def[0], list):
+        ValueError(f'"{input_name}" of "{node_type}" is not an enum')
+
+    values = input_def[0]
+    if isinstance(values, list):  # old style combos
+        pass
+    elif values == 'COMBO':
+        values = input_def[1].get('options', [])
+    else:
+        raise RuntimeError('unexpected input value', values)
+    values_changed = False
+
+    # update values in partial graph
+    if node.evalParm(f'cui_i_meta_userdatatextvals_{input_muliparm_index}'):
+        values_data = json.dumps(values)
+        values_changed = values_data != get_node_data(node, f'_hou_cui_input_{input_muliparm_index}_textvals')
+        set_node_data(node, f'_hou_cui_input_{input_muliparm_index}_textvals', values_data)
+    else:
+        parm = node.parm(f'cui_i_meta_textvals_{input_muliparm_index}')
+        values_changed = parm.eval() != len(values)
+        parm.set(len(values))
+        for i, value in enumerate(values, 1):
+            parm = node.parm(f'cui_i_meta_textval_{input_muliparm_index}_{i}')
+            values_changed = values_changed or parm.eval() != value
+            parm.set(value)
+
+    # update tool
+    if update_tool_also and values_changed:
+        update_comfy_nodes_definitions(
+            host,
+            None,
+            tool_name_prefix=f'{parent_submitter.type().nameWithCategory()}::',
+            network_op_type=node.type().nameWithCategory(),
+        )

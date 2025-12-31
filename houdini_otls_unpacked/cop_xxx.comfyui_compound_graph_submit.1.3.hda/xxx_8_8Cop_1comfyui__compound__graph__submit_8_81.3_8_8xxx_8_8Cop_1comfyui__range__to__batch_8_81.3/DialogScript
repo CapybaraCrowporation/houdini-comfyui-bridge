@@ -1,0 +1,41 @@
+# Dialog script for xxx::Cop/comfyui_compound_graph_submit::1.3::xxx::comfyui_range_to_batch::1.3 automatically generated
+
+{
+    name	xxx::Cop/comfyui_compound_graph_submit::1.3::xxx::comfyui_range_to_batch::1.3
+    script	xxx::Cop/comfyui_compound_graph_submit::1.3::xxx::comfyui_range_to_batch::1.3
+    label	"ComfyUI Frame Range To Image Batch"
+
+    input	input1	Images
+    output	output1	"Image Batch"
+    signature	default	Default	{ RGBA }	{ RGBA }
+
+    help {
+	""
+    }
+
+    parm {
+        name    "f"
+        label   "Frame Range"
+        type    intvector2
+        size    2
+        default { "$FSTART" "$FEND" }
+        range   { -1 1 }
+        parmtag { "script_callback_language" "python" }
+    }
+    parm {
+        name    "bake_ocio"
+        label   "Bake OCIO into image (unckeck for utility images)"
+        type    toggle
+        default { "on" }
+        parmtag { "autoscope" "0000000000000000" }
+        parmtag { "script_callback_language" "python" }
+    }
+    parm {
+        name    "cui_o_meta_outtype_1"
+        label   "nonaurbusiness"
+        type    string
+        invisible
+        default { "IMAGE" }
+        parmtag { "script_callback_language" "python" }
+    }
+}
