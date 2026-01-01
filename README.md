@@ -53,7 +53,7 @@ Love this project? Help keep it alive and growing!
 ## 🎓 Enterprise training
 
 Get your team up to speed fast with hands-on, private training.
-[Book a session →](mailto:hcbridgep@gmail.com?subject=Enterprise%20Training%20Inquiry)
+Reach out to hcbridgep@gmail.com and let's chat!
 
 ---
 
