@@ -10,7 +10,8 @@
   💻 <a href="https://github.com/CapybaraCrowporation/houdini-comfyui-bridge/">Github</a> | 
   📑 <a href="https://dl.acm.org/doi/full/10.1145/3757371.3763259">Paper</a> | 
   📘 <a href="https://miro.com/app/board/uXjVIq_PjD0=/?share_link_id=820428212897">Miro Board Resources</a> | 
-  💬 <a href="https://discord.gg/gcrDwUBhnT">Discord</a>
+  💬 <a href="https://discord.gg/gcrDwUBhnT">Discord</a> |
+  🎬 <a href="https://www.youtube.com/@RafaelDrelich">YouTube Channel</a> 
 </p>
 
 ---
@@ -32,7 +33,7 @@ This is a toolset that allows you to bring the best of ComfyUI directly into Hou
 
 - **✨ Feature 2**: Import and export from comfyUI with ease. Generate images, meshes, audio and more.
 
-- **✨ Feature 3**: TOPs submitter allows users to develop custom pipelines that CG with Diffusion and Generative AI
+- **✨ Feature 3**: TOPs submitter allows users to develop custom pipelines that combine CG with diffusion and generative AI
 
 
 ---
