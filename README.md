@@ -11,7 +11,7 @@
   📑 <a href="https://dl.acm.org/doi/full/10.1145/3757371.3763259">Paper</a> | 
   📘 <a href="https://miro.com/app/board/uXjVIq_PjD0=/?share_link_id=820428212897">Miro Board Resources</a> | 
   💬 <a href="https://discord.gg/gcrDwUBhnT">Discord</a> |
-  🎬 <a href="https://www.youtube.com/@RafaelDrelich">YouTube Channel</a> 
+  🎬 <a href="https://www.youtube.com/@RafaelDrelich">YouTube Channel</a>  
 </p>
 
 ---
@@ -188,6 +188,7 @@ We'd love to hear from you!
 - **GitHub Issues**: [Report bugs or request features](https://github.com/CapybaraCrowporation/houdini-comfyui-bridge/issues)
 - **Discord**: <a href="https://discord.gg/gcrDwUBhnT">Join the community</a>
 - **LinkedIn**: [Reach Out!](https://www.linkedin.com/in/rafaeldrelich/)
+- **Mailing list**: [Join now to keep up with updates, training and new videos!](https://forms.gle/fvLBE1tL7LJdgrXX7)
 
 For business inquiries or partnership opportunities, please email:
 
