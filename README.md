@@ -53,7 +53,7 @@ Love this project? Help keep it alive and growing!
 ## 🎓 Enterprise training
 
 Get your team up to speed fast with hands-on, private training.
-Reach out to hcbridgep@gmail.com and let's chat!
+Reach out to rafael@hcbridge.ca and let's chat!
 
 ---
 
