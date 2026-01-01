@@ -35,7 +35,6 @@ This is a toolset that allows you to bring the best of ComfyUI directly into Hou
 
 - **✨ Feature 3**: TOPs submitter allows users to develop custom pipelines that combine CG with diffusion and generative AI
 
----
 
 ## 📰 Latest News
 
@@ -44,14 +43,12 @@ This is a toolset that allows you to bring the best of ComfyUI directly into Hou
 - **Nov 01, 2024**: 🚧 Hive Equinox, Hive AI presentations, demoing video workflows.
 - **May 15, 2025**: 💡 First public demonstration at Toronto Houdini User Group.
 
----
 
 ## ☕ Sponsors 
 
 Love this project? Help keep it alive and growing!
 
 
----
 
 ## 🎓 Enterprise training
 
