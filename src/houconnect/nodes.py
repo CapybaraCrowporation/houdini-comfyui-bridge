@@ -255,6 +255,46 @@ class HouStringToFile:
         return (os.path.relpath(full_out_path, folder_paths.get_output_directory()),)
 
 
+class HouCuiFixImageFix:
+    """
+    A custom ComfyUI node that batches exactly 5 images together.
+    """
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "image1": ("IMAGE",),
+            }
+        }
+
+    RETURN_TYPES = ("IMAGE",)
+    RETURN_NAMES = ("image",)
+    FUNCTION = "process"
+    CATEGORY = "image"
+
+    def process(self, image1):
+        """
+        fix improperly created image
+        """
+        if image1.ndim == 3:
+            # Add channel dimension and repeat to make RGB
+            image1 = image1.unsqueeze(-1).repeat(1, 1, 1, 3)
+        # Handle grayscale with channel dimension (4D: [batch, height, width, 1])
+        elif image1.ndim == 4 and image1.shape[-1] == 1:
+            # Repeat channel dimension to make RGB
+            image1 = image1.repeat(1, 1, 1, 3)
+        # RGB images are already correct (4D: [batch, height, width, 3])
+        elif image1.ndim == 4 and image1.shape[-1] == 3:
+            pass  # Already in correct format
+        else:
+            raise ValueError(
+                f"Image has unexpected shape {image1.shape}. "
+            )
+
+        return (image1,)
+
+
 # A dictionary that contains all nodes you want to export with their names
 # NOTE: names should be globally unique
 
@@ -266,6 +306,7 @@ NODE_CLASS_MAPPINGS = {
     "HouCuiCopyInputToOutput": HouCuiCopyInputToOutput,
     "HouStringPassThrough": HouStringPassThrough,
     "HouStringToFile": HouStringToFile,
+    "HouCuiFixImageFix": HouCuiFixImageFix,
 }
 
 # A dictionary that contains the friendly/humanly readable titles for the nodes
@@ -277,4 +318,5 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "HouCuiCopyInputToOutput": "Copy Input to Output",
     "HouStringPassThrough": "String Pass Through",
     "HouStringToFile": "String Save",
+    "HouCuiFixImageFix": "Fix Image Dimensions",
 }
