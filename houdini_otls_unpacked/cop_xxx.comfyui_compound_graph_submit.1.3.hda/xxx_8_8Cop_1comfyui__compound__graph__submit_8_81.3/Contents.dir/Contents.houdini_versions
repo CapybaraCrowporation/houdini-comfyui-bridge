@@ -1,24 +1,32 @@
 {
-	"values":["20.5.410"
+	"values":["21.0.512"
 	],
 	"indexes":{
-		"hdaroot/ropnet/render_me.userdata":0,
-		"hdaroot/result2/switch2.userdata":0,
-		"hdaroot/ropnet.userdata":0,
-		"hdaroot/result2/gltf1.userdata":0,
+		"hdaroot/propagate_fake_dep/fake_dependence.userdata":0,
 		"hdaroot/result2/non_loadable.userdata":0,
-		"hdaroot/graph.userdata":0,
+		"hdaroot/graph/inputs.userdata":0,
+		"hdaroot/result1.userdata":0,
+		"hdaroot/result2/switch2.userdata":0,
+		"hdaroot/inputs.userdata":0,
+		"hdaroot/graph/outputs.userdata":0,
+		"hdaroot/pseudoresult2.userdata":0,
+		"hdaroot/propagate_fake_dep/OUT.userdata":0,
+		"hdaroot/propagate_fake_dep/python1.userdata":0,
+		"hdaroot/result2/alembic1.userdata":0,
 		"hdaroot/prms.userdata":0,
+		"hdaroot/result2/null2.userdata":0,
+		"hdaroot/ropnet/render_me.userdata":0,
+		"hdaroot/propagate_fake_dep.userdata":0,
+		"hdaroot/result2/gltf1.userdata":0,
 		"hdaroot/result2.userdata":0,
 		"hdaroot/result2/file1.userdata":0,
-		"hdaroot/graph/outputs.userdata":0,
-		"hdaroot/graph/inputs.userdata":0,
-		"hdaroot/result2/alembic1.userdata":0,
-		"hdaroot/result2/null2.userdata":0,
-		"hdaroot/result1.userdata":0,
+		"hdaroot/propagate_fake_dep/switch1.userdata":0,
 		"hdaroot/result2/switch1.userdata":0,
-		"hdaroot/outputs.userdata":0,
-		"hdaroot/inputs.userdata":0,
-		"hdaroot/result2/out.userdata":0
+		"hdaroot/ropnet.userdata":0,
+		"hdaroot/pseudoresult1.userdata":0,
+		"hdaroot/result2/out.userdata":0,
+		"hdaroot/propagate_fake_dep/null1.userdata":0,
+		"hdaroot/graph.userdata":0,
+		"hdaroot/outputs.userdata":0
 	}
 }
