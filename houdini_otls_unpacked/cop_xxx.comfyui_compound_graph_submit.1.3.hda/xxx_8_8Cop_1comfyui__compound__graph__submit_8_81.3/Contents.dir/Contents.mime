@@ -2030,7 +2030,8 @@ for child in ass_node.children():
     pseudoresults.append(child)
 pseudoresults = sorted(pseudoresults, key=lambda x: x.name())
 
-compute_compound_graph_node(ass_node, override_result_loader_nodes=pseudoresults)
+with hou.InterruptableOperation('generating ComfyUI result...', 'working...', open_interrupt_dialog=False) as op:
+    compute_compound_graph_node(ass_node, override_result_loader_nodes=pseudoresults, long_op=op)
 
 
 geo.addAttrib(hou.attribType.Global, 'noop', '')"	)
