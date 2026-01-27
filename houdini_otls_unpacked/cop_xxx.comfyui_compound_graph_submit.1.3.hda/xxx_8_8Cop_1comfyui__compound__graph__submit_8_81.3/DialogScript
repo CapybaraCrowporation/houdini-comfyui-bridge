@@ -63,11 +63,25 @@
         }
     }
 
+    groupcollapsible {
+        name    "special"
+        label   "Special Features"
+
+        parm {
+            name    "do_realtime_cook"
+            label   "Realtime Cook"
+            type    toggle
+            default { "0" }
+            parmtag { "script_callback_language" "python" }
+        }
+    }
+
     parm {
         name    "compute"
         label   "Compute"
         type    button
         default { "0" }
+        hidewhen "{ do_realtime_cook == on }"
         parmtag { "script_callback" "hou.phm().submit_btn_callback(hou.pwd())" }
         parmtag { "script_callback_language" "python" }
     }

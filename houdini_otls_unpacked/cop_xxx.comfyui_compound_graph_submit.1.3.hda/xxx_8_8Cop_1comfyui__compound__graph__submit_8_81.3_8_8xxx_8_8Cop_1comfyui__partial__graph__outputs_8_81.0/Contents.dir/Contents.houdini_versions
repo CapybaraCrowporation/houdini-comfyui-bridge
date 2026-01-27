@@ -2,10 +2,10 @@
 	"values":["20.5.410"
 	],
 	"indexes":{
-		"hdaroot/graph/inputs.userdata":0,
 		"hdaroot/output1.userdata":0,
+		"hdaroot/graph/outputs.userdata":0,
 		"hdaroot/graph.userdata":0,
-		"hdaroot/input1.userdata":0,
-		"hdaroot/graph/outputs.userdata":0
+		"hdaroot/graph/inputs.userdata":0,
+		"hdaroot/input1.userdata":0
 	}
 }
