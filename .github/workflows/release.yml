@@ -18,7 +18,7 @@ jobs:
         run: |
           mv houdini houdini-comfyui
           python3 tools/prune_hdas.py --rules-file otl-deploy-rules houdini-comfyui/otls/
-          cp LICENSE houdini-comfyui/.
+          cp LICENSE.txt houdini-comfyui/.
 
           mkdir packages
           cat << EOF > packages/houdini-comfyui.json
@@ -33,7 +33,7 @@ jobs:
           # now comfy part
 
           mkdir houdini-comfyui-connection
-          cp -r src web __init__.py LICENSE houdini-comfyui-connection/.
+          cp -r src web __init__.py LICENSE.txt houdini-comfyui-connection/.
           zip -r comfy.zip houdini-comfyui-connection
 
           # now zip all for beta access
