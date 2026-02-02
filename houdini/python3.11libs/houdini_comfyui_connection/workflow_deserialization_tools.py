@@ -384,7 +384,7 @@ def _create_network_from_workflow_nodes(
             continue
         # TODO: there can be soo many specifics to how comfy's web interface interprets workflow json
         #  we here do it in a SIMPLIFIED way, so things MAY go wrong
-        input_name_to_link_id = {inp['name']: inp['link'] for inp in node_data['inputs']}
+        input_name_to_link_id = {inp['name']: inp['link'] for inp in node_data['inputs'] if inp['link'] is not None}
         values = node_data.get('widgets_values', {})
         if node_data.get('mode') == 4:  # TODO: no idea if this is a const value or a bit mask
             nodes[node_data['id']].bypass(True)
