@@ -184,7 +184,11 @@ def create_single_tool(graph: hou.Node, node_type: dict, interactive_kwargs=None
                 graph_node.parm(value_parm_name).set(meta_default)
         #
         elif isinstance(input_type, list) or input_type == 'COMBO':
-            # as far as i know, this can only be a list of strings
+            # COMBOs are mostly strings, but can be any base type
+            #  we treat them all as strings for simplicity,
+            #  but mark with cui_i_meta_convertedtype_ parm
+            #  how to cast the value when prompt is generated
+
             if isinstance(input_type, list):
                 value_options = input_type
                 value_options_default = value_options[0] if value_options else ''
@@ -194,6 +198,20 @@ def create_single_tool(graph: hou.Node, node_type: dict, interactive_kwargs=None
                 value_options_default = input_data[1].get('default', value_options_default)
 
             graph_node.parm(f'cui_i_value_type_{i+1}').set('text')
+            if isinstance(value_options_default, str):
+                graph_node.parm(f'cui_i_meta_convertedtype_{i+1}').set('text')
+            elif isinstance(value_options_default, int):
+                graph_node.parm(f'cui_i_meta_convertedtype_{i+1}').set('int')
+            elif isinstance(value_options_default, float):
+                graph_node.parm(f'cui_i_meta_convertedtype_{i+1}').set('float')
+            elif isinstance(value_options_default, bool):
+                graph_node.parm(f'cui_i_meta_convertedtype_{i+1}').set('bool')
+            else:
+                raise NotImplementedError(f'handling of COMBO of type ({type(value_options_default)}) is not implemented')
+            # now force all values to be ints
+            value_options = [str(x) for x in value_options]
+            value_options_default = str(value_options_default)
+
             if parm := graph_node.parm(f'cui_i_meta_usetextvals_{i+1}'):  # check for compat
                 parm.set(True)
             if parm := graph_node.parm(f'cui_i_meta_userdatatextvals_{i+1}'):  # check for compat
