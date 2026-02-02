@@ -531,13 +531,13 @@ def _set_compound_node_input_value(node: hou.Node, input_name: str, value):
         val_type = node_inner.evalParm(f'cui_i_value_type_{i+1}')
         # found i, now actually set the value
         if val_type == 'int':
-            node_inner.parm(f'cui_i_value_int_{i+1}').set(value)
+            node_inner.parm(f'cui_i_value_int_{i+1}').set(int(value))
         elif val_type == 'textint':
             node_inner.parm(f'cui_i_value_textint_{i+1}').set(str(value))
         elif val_type == 'float':
-            node_inner.parm(f'cui_i_value_float_{i+1}').set(value)
+            node_inner.parm(f'cui_i_value_float_{i+1}').set(float(value))
         elif val_type == 'text':
-            node_inner.parm(f'cui_i_value_text_{i+1}').set(value)
+            node_inner.parm(f'cui_i_value_text_{i+1}').set(str(value))
         elif val_type == 'bool':
             node_inner.parm(f'cui_i_value_bool_{i+1}').set(value)
         else:
