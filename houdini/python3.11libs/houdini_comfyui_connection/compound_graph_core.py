@@ -379,6 +379,17 @@ def process_graph_node(
                 value = subnode.evalParm(f'cui_i_value_float_{i}')
             elif inp_node_vtype == 'text':
                 value = subnode.evalParm(f'cui_i_value_text_{i}')
+                contype = subnode.evalParm(f'cui_i_meta_convertedtype_{i}')
+                if contype == 'int':
+                    value = int(value)
+                elif contype == 'float':
+                    value = float(value)
+                elif contype == 'text':
+                    pass
+                elif contype == 'bool':
+                    value = bool(value)
+                else:
+                    raise AssertionError('unreachable')
             elif inp_node_vtype == 'bool':
                 value = bool(subnode.evalParm(f'cui_i_value_bool_{i}'))
             else:
