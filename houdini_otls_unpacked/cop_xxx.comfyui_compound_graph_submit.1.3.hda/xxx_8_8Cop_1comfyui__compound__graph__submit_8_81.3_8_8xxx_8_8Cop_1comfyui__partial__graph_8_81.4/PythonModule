@@ -203,6 +203,9 @@ def update_input_text_values_callback(node, input_muliparm_index, *, update_tool
         values = input_def[1].get('options', [])
     else:
         raise RuntimeError('unexpected input value', values)
+    # force values to be strings, as we treat it as string combo box
+    # proper type conversion was already set at subnet wrapping time
+    values = [str(x) for x in values]
     values_changed = False
 
     # update values in partial graph
