@@ -400,7 +400,8 @@ def _create_network_from_workflow_nodes(
         for input_def in node_def.input_defs:
             input_name = input_def.name
             vals_to_post_skip = 0
-            if input_def.tags.get('control_after_generate', False):
+            special_names = ('seed',)  # these param names seem to be hardcoded to be treated to have control_after_generate
+            if input_def.tags.get('control_after_generate', False) or input_name in special_names:
                 # that means extra widget is created for the value that we ignore, if that input is not connected that is
                 vals_to_post_skip = 1
 
