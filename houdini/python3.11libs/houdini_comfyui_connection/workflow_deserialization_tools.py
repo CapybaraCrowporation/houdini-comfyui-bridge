@@ -396,7 +396,7 @@ def _create_network_from_workflow_nodes(
             node_def = subgraph_definitions[node_data['type']]
         else:
             raise RuntimeError(f'{node_data["type"]} is neither a known node definition, nor a subgraph definition')
-        
+
         for input_def in node_def.input_defs:
             input_name = input_def.name
             vals_to_post_skip = 0
@@ -408,19 +408,27 @@ def _create_network_from_workflow_nodes(
             if input_name in input_name_to_link_id:
                 if input_def.has_widget:
                     if isinstance(values, list):  # widget values are still present and need to be skipped
-                        for i in range(1 + vals_to_post_skip):
-                            values.pop(0)
+                        # apparently it is valid case for comfy to not have all widget values, so
+                        if len(values) > 0:
+                            for i in range(1 + vals_to_post_skip):
+                                values.pop(0)
                 link_id = input_name_to_link_id[input_name]
-                if link_id is None or link_id in ignored_links:
+                if link_id in ignored_links:
                     continue
                 (node1_id, node1_out), (node2_id, node2_inname) = link_id_to_nodes[link_id]
                 _connect_nodes(nodes[node1_id], node1_out, nodes[node2_id], node2_inname)
             elif input_def.has_widget:
                 if isinstance(values, list):
+                    # apparently it is valid case for comfy to not have all widget values, so
+                    if len(values) == 0:
+                        break
                     val = values.pop(0)
                     for i in range(vals_to_post_skip):
                         values.pop(0)
                 elif isinstance(values, dict):
+                    # unclear if it's a valid case to not have input_name in values, but let's assume it as such
+                    if input_name not in values:
+                        continue
                     val = values[input_name]
                 else:
                     raise NotImplementedError(f'don\'t know how to treat widgets_values of type "{type(values)}"')
