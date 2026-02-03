@@ -384,7 +384,7 @@ def _create_network_from_workflow_nodes(
             continue
         # TODO: there can be soo many specifics to how comfy's web interface interprets workflow json
         #  we here do it in a SIMPLIFIED way, so things MAY go wrong
-        input_name_to_link_id = {inp['name']: inp['link'] for inp in node_data['inputs']}
+        input_name_to_link_id = {inp['name']: inp['link'] for inp in node_data['inputs'] if inp['link'] is not None}
         values = node_data.get('widgets_values', {})
         if node_data.get('mode') == 4:  # TODO: no idea if this is a const value or a bit mask
             nodes[node_data['id']].bypass(True)
@@ -396,30 +396,39 @@ def _create_network_from_workflow_nodes(
             node_def = subgraph_definitions[node_data['type']]
         else:
             raise RuntimeError(f'{node_data["type"]} is neither a known node definition, nor a subgraph definition')
-        
+
         for input_def in node_def.input_defs:
             input_name = input_def.name
             vals_to_post_skip = 0
-            if input_def.tags.get('control_after_generate', False):
+            special_names = ('seed',)  # these param names seem to be hardcoded to be treated to have control_after_generate
+            if input_def.tags.get('control_after_generate', False) or input_name in special_names:
                 # that means extra widget is created for the value that we ignore, if that input is not connected that is
                 vals_to_post_skip = 1
 
             if input_name in input_name_to_link_id:
                 if input_def.has_widget:
                     if isinstance(values, list):  # widget values are still present and need to be skipped
-                        for i in range(1 + vals_to_post_skip):
-                            values.pop(0)
+                        # apparently it is valid case for comfy to not have all widget values, so
+                        if len(values) > 0:
+                            for i in range(1 + vals_to_post_skip):
+                                values.pop(0)
                 link_id = input_name_to_link_id[input_name]
-                if link_id is None or link_id in ignored_links:
+                if link_id in ignored_links:
                     continue
                 (node1_id, node1_out), (node2_id, node2_inname) = link_id_to_nodes[link_id]
                 _connect_nodes(nodes[node1_id], node1_out, nodes[node2_id], node2_inname)
             elif input_def.has_widget:
                 if isinstance(values, list):
+                    # apparently it is valid case for comfy to not have all widget values, so
+                    if len(values) == 0:
+                        break
                     val = values.pop(0)
                     for i in range(vals_to_post_skip):
                         values.pop(0)
                 elif isinstance(values, dict):
+                    # unclear if it's a valid case to not have input_name in values, but let's assume it as such
+                    if input_name not in values:
+                        continue
                     val = values[input_name]
                 else:
                     raise NotImplementedError(f'don\'t know how to treat widgets_values of type "{type(values)}"')
@@ -530,13 +539,13 @@ def _set_compound_node_input_value(node: hou.Node, input_name: str, value):
         val_type = node_inner.evalParm(f'cui_i_value_type_{i+1}')
         # found i, now actually set the value
         if val_type == 'int':
-            node_inner.parm(f'cui_i_value_int_{i+1}').set(value)
+            node_inner.parm(f'cui_i_value_int_{i+1}').set(int(value))
         elif val_type == 'textint':
             node_inner.parm(f'cui_i_value_textint_{i+1}').set(str(value))
         elif val_type == 'float':
-            node_inner.parm(f'cui_i_value_float_{i+1}').set(value)
+            node_inner.parm(f'cui_i_value_float_{i+1}').set(float(value))
         elif val_type == 'text':
-            node_inner.parm(f'cui_i_value_text_{i+1}').set(value)
+            node_inner.parm(f'cui_i_value_text_{i+1}').set(str(value))
         elif val_type == 'bool':
             node_inner.parm(f'cui_i_value_bool_{i+1}').set(value)
         else:

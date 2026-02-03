@@ -6,46 +6,8 @@ on:
 
 jobs:
   build:
-    name: Repackage
-    runs-on: ubuntu-latest
-    steps:
-      - name: "install deps"
-        run: |
-          sudo apt update
-          sudo apt install -y zip bash python3
-      - uses: actions/checkout@v4
-      - name: "zip all things"
-        run: |
-          mv houdini houdini-comfyui
-          python3 tools/prune_hdas.py --rules-file otl-deploy-rules houdini-comfyui/otls/
-          cp LICENSE.txt houdini-comfyui/.
-
-          mkdir packages
-          cat << EOF > packages/houdini-comfyui.json
-          {
-            "load_package_once": true,
-            "path": "\$HOUDINI_PACKAGE_PATH/../houdini-comfyui"
-          }
-          EOF
-
-          zip -r houdini.zip houdini-comfyui packages
-          
-          # now comfy part
-
-          mkdir houdini-comfyui-connection
-          cp -r src web __init__.py LICENSE.txt houdini-comfyui-connection/.
-          zip -r comfy.zip houdini-comfyui-connection
-
-          # now zip all for beta access
-          zip houdini-comfyui-connection-beta-${{github.ref_name}}.zip houdini.zip comfy.zip
-      - uses: actions/upload-artifact@v4
-        with:
-          name: "redist"
-          path: |
-            houdini.zip
-            comfy.zip
-            houdini-comfyui-connection-beta-${{github.ref_name}}.zip
-
+    uses: ./.github/workflows/build.yml
+    
   release:
     name: Create Release
     runs-on: ubuntu-latest

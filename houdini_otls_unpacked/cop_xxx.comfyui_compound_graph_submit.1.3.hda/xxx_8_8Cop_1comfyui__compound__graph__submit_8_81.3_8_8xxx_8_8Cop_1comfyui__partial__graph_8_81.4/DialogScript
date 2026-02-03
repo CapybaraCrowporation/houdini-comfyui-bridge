@@ -386,6 +386,19 @@
                     parmtag { "script_callback_language" "python" }
                 }
                 parm {
+                    name    "cui_i_meta_convertedtype_#"
+                    label   "Final Type"
+                    type    string
+                    default { "text" }
+                    hidewhen "{ cui_i_value_type_# != text }"
+                    menu {
+                        "int"       "int"
+                        "float"     "float"
+                        "text"      "text"
+                        "bool"      "bool"
+                    }
+                }
+                parm {
                     name    "cui_i_meta_isimage_#"
                     label   "Is Image"
                     type    toggle
