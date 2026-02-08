@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=70.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "houdini-comfyui-connection"
+version = "0.0.1"
+description = "Houdini connection plugins"
+license = { file = "LICENSE.txt"}
+
+[project.urls]
+Repository = "https://github.com/CapybaraCrowporation/houdini-comfyui-bridge"
+
+[tool.comfy]
+PublisherId = "capybaracrowporation"
+
