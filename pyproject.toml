@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "houdini-comfyui-connection"
-version = "0.0.1"
+version = "X.X.X"
 description = "Houdini connection plugins"
 license = { file = "LICENSE.txt"}
 
