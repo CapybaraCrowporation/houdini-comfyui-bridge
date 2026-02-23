@@ -13,4 +13,6 @@ Repository = "https://github.com/CapybaraCrowporation/houdini-comfyui-bridge"
 
 [tool.comfy]
 PublisherId = "capybaracrowporation"
+DisplayName = "houdini-comfyui-bridge"
+Icon = "https://avatars.githubusercontent.com/u/237842948"
 
