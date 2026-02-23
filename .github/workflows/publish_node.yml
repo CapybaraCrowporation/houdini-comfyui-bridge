@@ -1,0 +1,45 @@
+name: 📦 Publish to Comfy registry
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  issues: write
+
+jobs:
+  build:
+    uses: ./.github/workflows/build.yml
+    
+  publish-node:
+    name: Publish Custom Node to registry
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: apt stuff
+        run: |
+          sudo apt update
+          sudo apt install unzip sed
+      - name: get artifact
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+      - name: Filter repo
+        run: |
+          unzip artifacts/comfy.zip
+          rm -rf artifacts
+          mv houdini-comfyui-connection/* .
+          rm -rf houdini-comfyui-connection
+      - name: modify pyproject
+        run: |
+          ver=$(echo {{ github.ref_name }} | cut -dv -f2)
+          sed -i "s/X.X.X/${ver}/g" pyproject.toml
+      - name: test test test
+        run: |
+          ls -alhr
+      - name: Publish Custom Node
+        uses: Comfy-Org/publish-node-action@main
+        with:
+          skip_checkout: true
+          personal_access_token: ${{ secrets.REGISTRY_ACCESS_TOKEN }}

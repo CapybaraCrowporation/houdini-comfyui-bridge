@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=70.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "houdini-comfyui-connection"
+version = "X.X.X"
+description = "Houdini connection plugins"
+license = { file = "LICENSE.txt" }
+
+[project.urls]
+Repository = "https://github.com/CapybaraCrowporation/houdini-comfyui-bridge"
+"Bug Tracker" = "https://github.com/CapybaraCrowporation/houdini-comfyui-bridge/issues"
+
+[tool.comfy]
+PublisherId = "capybaracrowporation"
+DisplayName = "houdini-comfyui-bridge"
+Icon = "https://avatars.githubusercontent.com/u/237842948"
+

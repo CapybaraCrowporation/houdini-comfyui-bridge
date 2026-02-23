@@ -33,7 +33,7 @@ jobs:
           # now comfy part
 
           mkdir houdini-comfyui-connection
-          cp -r src web __init__.py LICENSE.txt houdini-comfyui-connection/.
+          cp -r src web __init__.py LICENSE.txt pyproject.toml houdini-comfyui-connection/.
           zip -r comfy.zip houdini-comfyui-connection
 
           # now zip all for beta access
