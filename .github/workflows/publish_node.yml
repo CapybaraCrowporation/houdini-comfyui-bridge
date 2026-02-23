@@ -24,6 +24,7 @@ jobs:
       - name: get artifact
         uses: actions/download-artifact@v4
         with:
+          name: "redist"
           path: artifacts
       - name: Filter repo
         run: |
