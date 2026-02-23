@@ -34,7 +34,7 @@ jobs:
           rm -rf houdini-comfyui-connection
       - name: modify pyproject
         run: |
-          ver=$(echo {{ github.ref_name }} | cut -dv -f2)
+          ver=$(echo ${{ github.ref_name }} | cut -dv -f2)
           sed -i "s/X.X.X/${ver}/g" pyproject.toml
       - name: test test test
         run: |
