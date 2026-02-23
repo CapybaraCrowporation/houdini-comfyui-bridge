@@ -6,10 +6,11 @@ build-backend = "setuptools.build_meta"
 name = "houdini-comfyui-connection"
 version = "X.X.X"
 description = "Houdini connection plugins"
-license = { file = "LICENSE.txt"}
+license = { file = "LICENSE.txt" }
 
 [project.urls]
 Repository = "https://github.com/CapybaraCrowporation/houdini-comfyui-bridge"
+"Bug Tracker" = "https://github.com/CapybaraCrowporation/houdini-comfyui-bridge/issues"
 
 [tool.comfy]
 PublisherId = "capybaracrowporation"
