@@ -73,12 +73,19 @@ class ResultNotFound(RuntimeError):
         self.res = res
 
 
-def submit_graph(host: str, graph_json_data: dict):
+def submit_graph(host: str, graph_json_data: dict, api_key: str|None = None):
+    data = {
+        'prompt': graph_json_data,
+    }
+    headers = {}
+    if api_key:
+        data['extra_data'] = {'api_key_comfy_org': api_key}
+        headers['X-API-Key'] = api_key
+    print('data', data)
     resp = requests.post(
         f'{host}/prompt',
-        json = {
-            'prompt': graph_json_data,
-        },
+        json = data,
+        headers = headers
     )
     
     if resp.status_code != 200:
@@ -126,9 +133,9 @@ def check_if_prompt_done_and_get_result(host: str, prompt_id: str, output_ids=No
 
 
 
-def submit_graph_and_get_result(host: str, graph_data: dict, long_op=None) -> tuple[dict, str]:
+def submit_graph_and_get_result(host: str, graph_data: dict, long_op=None, api_key: str|None = None) -> tuple[dict, str]:
     try:
-        prompt_id, errors = submit_graph(host, graph_data)
+        prompt_id, errors = submit_graph(host, graph_data, api_key=api_key)
     except RuntimeError as e:
         raise
 
