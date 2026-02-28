@@ -81,7 +81,6 @@ def submit_graph(host: str, graph_json_data: dict, api_key: str|None = None):
     if api_key:
         data['extra_data'] = {'api_key_comfy_org': api_key}
         headers['X-API-Key'] = api_key
-    print('data', data)
     resp = requests.post(
         f'{host}/prompt',
         json = data,
