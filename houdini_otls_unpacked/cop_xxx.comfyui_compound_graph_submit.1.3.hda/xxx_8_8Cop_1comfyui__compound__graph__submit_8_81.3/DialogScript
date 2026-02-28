@@ -68,6 +68,13 @@
         label   "Special Features"
 
         parm {
+            name    "comfyui_api_key"
+            label   "ComfyUI API key"
+            type    string
+            default { "$HCUI_API_KEY" }
+            parmtag { "script_callback_language" "python" }
+        }
+        parm {
             name    "do_realtime_cook"
             label   "Realtime Cook"
             type    toggle

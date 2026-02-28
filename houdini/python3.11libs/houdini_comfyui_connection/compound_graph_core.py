@@ -624,6 +624,7 @@ def submit_compound_graph(
     context_vars: dict[str, str|float|int]|None = None,
     reuse_upload_nodes: dict[GraphPorcessingInputKey, tuple[hou.Node, UploadInfo]]|None = None,
     explicit_roots: list[hou.Node]|None = None,
+    api_key: str|None = None,
 ) -> tuple[dict, str, dict[GraphPorcessingInputKey, tuple[hou.Node, UploadInfo]], list[str]]:
 
     graph, upload_nodes, outputs = construct_full_graph(output_node, upload_nodes=reuse_upload_nodes, explicit_cui_roots=explicit_roots, context_vars=context_vars, long_op=long_op)
@@ -661,7 +662,7 @@ def submit_compound_graph(
         )
 
     # TODO: provide output_ids!
-    res, prompt_id = submit_graph_and_get_result(host, graph, long_op=long_op)
+    res, prompt_id = submit_graph_and_get_result(host, graph, long_op=long_op, api_key=api_key)
     debug(f'result {prompt_id}:', res)
     return res, prompt_id, upload_nodes, outputs
 
@@ -677,7 +678,8 @@ def compute_compound_graph_node(node, long_op=None, override_output_node=None, o
         output_node = node.node('graph').node('outputs')
         if output_node is None:
             raise RuntimeError('not node "outputs" found in the graph')
-    res, prompt_id, upload_nodes, outputs = submit_compound_graph(host, output_node, long_op=long_op)
+    api_key = node.evalParm('comfyui_api_key')
+    res, prompt_id, upload_nodes, outputs = submit_compound_graph(host, output_node, long_op=long_op, api_key=api_key or None)
     
     # get result
     for i in range(len(override_result_loader_nodes) if override_result_loader_nodes else 2):
