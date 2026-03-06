@@ -212,6 +212,22 @@ def get_mask_save_graph(cui_image_prefix: str, node_key: str = "0", sort_order: 
         }
     }
 
+def get_video_save_graph(cui_image_prefix: str, node_key: str = "0", sort_order: int = 0) -> dict:
+    return {
+        node_key: {
+            "inputs": {
+                "filename_prefix": cui_image_prefix,
+                "format": "auto",
+                "codec": "auto",
+            },
+            "class_type": "SaveVideo",
+            "_meta": {
+                "_sort_order": sort_order,
+                "title": "Save Image",
+            }
+        }
+    }
+
 def get_string_save_graph(node_key: str = "0", sort_order: int = 0) -> dict:
     return {
         node_key: {
@@ -567,6 +583,9 @@ def construct_full_graph(
             elif output_type_name == 'STRING':
                 saving_graph.update(get_string_save_graph(f'{i}', i))
                 saving_inputs[(f'{i}', 'image_path')] = (in_source.node, in_source.output)
+            elif output_type_name == 'VIDEO':
+                saving_graph.update(get_video_save_graph(f'houdini-connection-todo-change-this-{i}', f'{i}', i))
+                saving_inputs[(f'{i}', 'video')] = (in_source.node, in_source.output)
             elif output_type_name in ('IMAGE', ''):  # for backwards compat treat empty type as image too
                 saving_graph.update(get_image_save_graph(f'houdini-connection-todo-change-this-{i}', f'{i}', i))
                 saving_inputs[(f'{i}', 'images')] = (in_source.node, in_source.output)
@@ -703,7 +722,11 @@ def compute_compound_graph_node(node, long_op=None, override_output_node=None, o
                 base_name, _, _ = outpath.name.rsplit('.', 2)
                 incoming_ext = data['filename'].rsplit('.', 1)[1] if '.' in data['filename'] else ''
                 local_path = outpath.with_name('.'.join((base_name, str(i), incoming_ext)))
-                debug(f'removing {local_path}')
+                outnode.setCachedUserData('comfyui_wrapper_downloaded_ext', incoming_ext)
+                if local_path != outpath:
+                    debug(f'preliminary removing {outpath}')
+                    outpath.unlink(missing_ok=True)  # that to not confuse ext selector in filename expression
+                debug(f'preliminary removing {local_path}')
                 local_path.unlink(missing_ok=True)  # remove existing before downloading new file
                 debug(f'downloading image {i} of batch: {local_path}')
                 download_result(host, data['filename'], data['subfolder'], local_path)
