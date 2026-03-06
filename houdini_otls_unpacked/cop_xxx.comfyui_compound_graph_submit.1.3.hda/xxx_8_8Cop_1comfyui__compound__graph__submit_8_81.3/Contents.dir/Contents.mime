@@ -439,6 +439,14 @@ Content-Type: text/plain
         parmtag { "script_callback_language" "python" }
     }
     parm {
+        name    "filename_base"
+        label   "filename_base"
+        type    geometry
+        default { "" }
+        parmtag { "filechooser_mode" "read" }
+        parmtag { "script_callback_language" "python" }
+    }
+    parm {
         name    "clonename"
         baseparm
         label   "Clone Name"
@@ -641,7 +649,8 @@ premultiplied	[ 0	locks=0 ]	(	"on"	)
 loadcamera	[ 0	locks=0 ]	(	"off"	)
 addaovs	[ 0	locks=0 ]	(	0	)
 aovs	[ 0	locks=0 ]	(	1	)
-filename_final	[ 0	locks=0 ]	(	`chs(\"../prms/filename_base\")`-$OS`chs(\"../prms/filename_suffix\")`.`chs(\"../image_batch_index\")`.png	)
+filename_final	[ 0	locks=0 ]	(	"`chs(\"filename_base\")`.`pythonexprs(\"hou.pwd().parent().hdaModule().helper_result_get_ext(hou.pwd()) or 'png'\")`"	)
+filename_base	[ 0	locks=0 ]	(	`chs(\"../prms/filename_base\")`-$OS`chs(\"../prms/filename_suffix\")`.`chs(\"../image_batch_index\")`	)
 aov1	[ 0	locks=0 ]	(	C	)
 type1	[ 0	locks=0 ]	(	"vector4"	)
 precision1	[ 0	locks=0 ]	(	"default"	)
