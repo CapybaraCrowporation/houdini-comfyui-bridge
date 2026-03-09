@@ -712,7 +712,8 @@ def compute_compound_graph_node(node, long_op=None, override_output_node=None, o
         
         if key not in res:
             raise ResultNotFound(key, res)
-        
+
+        delete_later = []
         if node.parm('image_batch_index') is None:
             # 1.2 compatibility
             download_result(host, res[key]['images'][0]['filename'], res[key]['images'][0]['subfolder'], outpath)
@@ -725,12 +726,18 @@ def compute_compound_graph_node(node, long_op=None, override_output_node=None, o
                 outnode.setCachedUserData('comfyui_wrapper_downloaded_ext', incoming_ext)
                 if local_path != outpath:
                     debug(f'preliminary removing {outpath}')
-                    outpath.unlink(missing_ok=True)  # that to not confuse ext selector in filename expression
+                    _delete_special(outpath, delete_later)  # that to not confuse ext selector in filename expression
                 debug(f'preliminary removing {local_path}')
-                local_path.unlink(missing_ok=True)  # remove existing before downloading new file
+                _delete_special(local_path, delete_later)  # remove existing before downloading new file
                 debug(f'downloading image {i} of batch: {local_path}')
                 download_result(host, data['filename'], data['subfolder'], local_path)
         outnode.parm('reload').pressButton()
+
+        for path in delete_later:
+            try:
+                path.unlink(missing_ok=True)
+            except OSError:
+                print(f'[WARNING] failed to remove garbage file: {str(path)}')
 
     if do_cleanup:
         image_infos = [x[1] for x in upload_nodes.values()]
@@ -762,3 +769,14 @@ def compute_compound_graph_node(node, long_op=None, override_output_node=None, o
         #  comfy backend cache does not check image existance, and there is no clear stable way of cleaning cache,
         #  so we have to leave output images as is for now
 
+def _delete_special(path: Path, delete_later: list[Path]):
+    try:
+        path.unlink(missing_ok=True)
+    except PermissionError:  # windows special case
+        newpath = path
+        for attempt in range(99999):
+            newpath = path.with_name(f'.__{"_" * attempt}{path.name}')
+            if not newpath.exists():
+                break
+        path.rename(newpath)
+        delete_later.append(newpath)
