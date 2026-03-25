@@ -2,10 +2,11 @@ import os
 import hou
 import traceback
 import json
+import re
 from houdini_comfyui_connection.graph_submission import BadInputSubstituteError, ResultNotFound, GraphValidationError, delete_input_image, delete_output_image, delete_prompt_history, download_result, submit_graph_and_get_result, FunctionalityNotAvailable, FailedToDeleteImage, delete_input_image, delete_output_image, delete_prompt_history
 from houdini_comfyui_connection.ui_tools import show_error
 from houdini_comfyui_connection.compound_graph_tools import update_comfy_nodes_definitions
-from houdini_comfyui_connection.compound_graph_core import SubmitVariableNotFoundError
+from houdini_comfyui_connection.compound_graph_core import SubmitVariableNotFoundError, set_download_shift, get_download_shift
 from houdini_comfyui_connection.compound_graph_core import compute_compound_graph_node as compute_node
 
 
@@ -56,19 +57,42 @@ def update_node_defs_btn_callback(node):
 
 def helper_result_get_ext(result_node: hou.Node) -> str|None:
     ext = result_node.cachedUserData('comfyui_wrapper_downloaded_ext')
+    # the whole concept of shift is there because sidefx cannot solve files being kept open on windows
+    #  therefore being undeletable
+    shift = get_download_shift(result_node)
     if ext is not None:
-        return ext
+        if shift is None:
+            return ext
+        return f'__{shift}__A_.{ext}'
     noext_path = result_node.evalParm('filename_base')
     base_dir = os.path.dirname(noext_path)
     base_name = os.path.basename(noext_path)
     if not os.path.exists(base_dir):
         return None
-    candidates = [os.path.splitext(x)[1][1:] for x in os.listdir(base_dir) if os.path.splitext(x)[0] == base_name]
+
+    candidates = []
+    max_shift = -1
+    for x in os.listdir(base_dir):
+        maybe_base_name, ext_with_dot = os.path.splitext(x)
+        ext = ext_with_dot[1:]
+        if m := re.match(r'^[\w-]+\.\d+\.__(\d+)__A_$', maybe_base_name):  # means we have a shift
+            found_base_name, _ = maybe_base_name.rsplit('.', 1)
+            found_shift = int(m.group(1))
+        else:
+            found_base_name = maybe_base_name
+            found_shift = -1
+        if found_base_name == base_name:
+            max_shift = max(found_shift, max_shift)
+            candidates.append((found_shift, ext))
     if len(candidates) == 0:
         return None
+    # only pick latest shift
+    candidates = [x for x in candidates if x[0] == max_shift]
     # having more than one candidate is not a standard case
     if len(candidates) > 1:
         print('warning: multiple file candidates for result load', candidates)
-    result_node.setCachedUserData('comfyui_wrapper_downloaded_ext', candidates[0])
-    return candidates[0]
-    
+    result_node.setCachedUserData('comfyui_wrapper_downloaded_ext', candidates[0][1])
+    if candidates[0][0] > -1:
+        set_download_shift(result_node, candidates[0][0])
+        return f'__{candidates[0][0]}__A_.{candidates[0][1]}'
+    return candidates[0][1]

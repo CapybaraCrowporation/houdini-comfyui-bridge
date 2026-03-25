@@ -212,6 +212,22 @@ def get_mask_save_graph(cui_image_prefix: str, node_key: str = "0", sort_order: 
         }
     }
 
+def get_video_save_graph(cui_image_prefix: str, node_key: str = "0", sort_order: int = 0) -> dict:
+    return {
+        node_key: {
+            "inputs": {
+                "filename_prefix": cui_image_prefix,
+                "format": "auto",
+                "codec": "auto",
+            },
+            "class_type": "SaveVideo",
+            "_meta": {
+                "_sort_order": sort_order,
+                "title": "Save Image",
+            }
+        }
+    }
+
 def get_string_save_graph(node_key: str = "0", sort_order: int = 0) -> dict:
     return {
         node_key: {
@@ -567,6 +583,9 @@ def construct_full_graph(
             elif output_type_name == 'STRING':
                 saving_graph.update(get_string_save_graph(f'{i}', i))
                 saving_inputs[(f'{i}', 'image_path')] = (in_source.node, in_source.output)
+            elif output_type_name == 'VIDEO':
+                saving_graph.update(get_video_save_graph(f'houdini-connection-todo-change-this-{i}', f'{i}', i))
+                saving_inputs[(f'{i}', 'video')] = (in_source.node, in_source.output)
             elif output_type_name in ('IMAGE', ''):  # for backwards compat treat empty type as image too
                 saving_graph.update(get_image_save_graph(f'houdini-connection-todo-change-this-{i}', f'{i}', i))
                 saving_inputs[(f'{i}', 'images')] = (in_source.node, in_source.output)
@@ -693,18 +712,23 @@ def compute_compound_graph_node(node, long_op=None, override_output_node=None, o
         
         if key not in res:
             raise ResultNotFound(key, res)
-        
+
         if node.parm('image_batch_index') is None:
             # 1.2 compatibility
             download_result(host, res[key]['images'][0]['filename'], res[key]['images'][0]['subfolder'], outpath)
         else:
             for i, data in enumerate(res[key].get('images', res[key].get('3d', ()))):
                 # we rely on batch id being last \.\d+\. in the filename
-                base_name, _, _ = outpath.name.rsplit('.', 2)
                 incoming_ext = data['filename'].rsplit('.', 1)[1] if '.' in data['filename'] else ''
-                local_path = outpath.with_name('.'.join((base_name, str(i), incoming_ext)))
-                debug(f'removing {local_path}')
-                local_path.unlink(missing_ok=True)  # remove existing before downloading new file
+                outnode.setCachedUserData('comfyui_wrapper_downloaded_ext', incoming_ext)
+                local_path = Path(outnode.evalParm('filename'))  # to eval expression
+                if local_path != outpath:
+                    debug(f'preliminary removing {outpath}')
+                    if not _try_remove_or_shift(outpath, outnode):  # that to not confuse ext selector in filename expression
+                        local_path = Path(outnode.evalParm('filename'))  # to eval expression
+                debug(f'preliminary removing {local_path}')
+                if not _try_remove_or_shift(local_path, outnode):  # remove existing before downloading new file
+                    local_path = Path(outnode.evalParm('filename'))  # to eval expression
                 debug(f'downloading image {i} of batch: {local_path}')
                 download_result(host, data['filename'], data['subfolder'], local_path)
         outnode.parm('reload').pressButton()
@@ -739,3 +763,23 @@ def compute_compound_graph_node(node, long_op=None, override_output_node=None, o
         #  comfy backend cache does not check image existance, and there is no clear stable way of cleaning cache,
         #  so we have to leave output images as is for now
 
+
+def _try_remove_or_shift(path: Path, result_node: hou.Node):
+    try:
+        path.unlink(missing_ok=True)
+        return True
+    except PermissionError:  # windows special case
+        set_download_shift(result_node, (get_download_shift(result_node) or 0) + 1)
+        # we could loop here, but that's too much logic, assume result directory is in consistent state
+        return False
+
+
+def get_download_shift(result_node: hou.Node) -> int|None:
+    return result_node.cachedUserData('comfyui_wrapper_downloaded_shift')
+
+
+def set_download_shift(result_node: hou.Node, shift: int|None):
+    if shift is None:
+        result_node.destroyCachedUserData('comfyui_wrapper_downloaded_shift', must_exist=False)
+    else:
+        result_node.setCachedUserData('comfyui_wrapper_downloaded_shift', shift)
