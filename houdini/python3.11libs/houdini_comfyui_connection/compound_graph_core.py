@@ -706,6 +706,9 @@ def compute_compound_graph_node(node, long_op=None, override_output_node=None, o
             long_op.updateLongProgress(-1, "Downloading result...")
         outnode = override_result_loader_nodes[i] if override_result_loader_nodes else node.node(f'result{i+1}')
         outpath = Path(outnode.evalParm('filename'))
+        outpath_base = Path(outnode.evalParm('filename_base'))
+        outname_base = outpath_base.name
+        outname_base_nobatch = outpath_base.name.rsplit('.', 1)[0]
         key = outputs[i]
         if key is None:  # not connected
             continue
@@ -717,19 +720,21 @@ def compute_compound_graph_node(node, long_op=None, override_output_node=None, o
             # 1.2 compatibility
             download_result(host, res[key]['images'][0]['filename'], res[key]['images'][0]['subfolder'], outpath)
         else:
-            for i, data in enumerate(res[key].get('images', res[key].get('3d', ()))):
+            for batchi, data in enumerate(res[key].get('images', res[key].get('3d', ()))):
                 # we rely on batch id being last \.\d+\. in the filename
                 incoming_ext = data['filename'].rsplit('.', 1)[1] if '.' in data['filename'] else ''
                 outnode.setCachedUserData('comfyui_wrapper_downloaded_ext', incoming_ext)
-                local_path = Path(outnode.evalParm('filename'))  # to eval expression
-                if local_path != outpath:
-                    debug(f'preliminary removing {outpath}')
-                    if not _try_remove_or_shift(outpath, outnode):  # that to not confuse ext selector in filename expression
-                        local_path = Path(outnode.evalParm('filename'))  # to eval expression
+                local_path = _get_local_path(outnode, batchi)  # to eval expression
+
+                outpath_with_batch = outpath.parent / outpath.name.replace(outname_base, outname_base_nobatch + f'.{batchi}')
+                if local_path != outpath_with_batch:
+                    debug(f'preliminary removing {outpath_with_batch}')
+                    if not _try_remove_or_shift(outpath_with_batch, outnode):  # that to not confuse ext selector in filename expression
+                        local_path = _get_local_path(outnode, batchi)  # to eval expression
                 debug(f'preliminary removing {local_path}')
                 if not _try_remove_or_shift(local_path, outnode):  # remove existing before downloading new file
-                    local_path = Path(outnode.evalParm('filename'))  # to eval expression
-                debug(f'downloading image {i} of batch: {local_path}')
+                    local_path = _get_local_path(outnode, batchi)  # to eval expression
+                debug(f'downloading image {batchi} of batch: {local_path}')
                 download_result(host, data['filename'], data['subfolder'], local_path)
         outnode.parm('reload').pressButton()
 
@@ -763,6 +768,12 @@ def compute_compound_graph_node(node, long_op=None, override_output_node=None, o
         #  comfy backend cache does not check image existance, and there is no clear stable way of cleaning cache,
         #  so we have to leave output images as is for now
 
+def _get_local_path(outnode, batchi):
+    local_path = Path(outnode.evalParm('filename'))
+    local_path_base = Path(outnode.evalParm('filename_base'))
+    local_name_base = local_path_base.name
+    local_name_base_nobatch = local_path_base.name.rsplit('.', 1)[0]
+    return local_path.parent / local_path.name.replace(local_name_base, local_name_base_nobatch + f'.{batchi}')
 
 def _try_remove_or_shift(path: Path, result_node: hou.Node):
     try:
