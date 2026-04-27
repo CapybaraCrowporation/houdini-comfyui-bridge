@@ -1,8 +1,9 @@
-import requests
 import json
 from pathlib import Path
 import time
 import hou
+
+from houdini_comfyui_connection.requester import Requester
 
 poll_interval = 1
 
@@ -73,20 +74,9 @@ class ResultNotFound(RuntimeError):
         self.res = res
 
 
-def submit_graph(host: str, graph_json_data: dict, api_key: str|None = None):
-    data = {
-        'prompt': graph_json_data,
-    }
-    headers = {}
-    if api_key:
-        data['extra_data'] = {'api_key_comfy_org': api_key}
-        headers['X-API-Key'] = api_key
-    resp = requests.post(
-        f'{host}/prompt',
-        json = data,
-        headers = headers
-    )
-    
+def submit_graph(requester: Requester, graph_json_data: dict):
+    resp = requester.prompt(graph_json_data)
+
     if resp.status_code != 200:
         if resp.status_code == 400:
             resp_data = resp.json()
@@ -102,9 +92,9 @@ def submit_graph(host: str, graph_json_data: dict, api_key: str|None = None):
     return resp_data['prompt_id'], resp_data['node_errors']
 
         
-def check_if_prompt_done_and_get_result(host: str, prompt_id: str, output_ids=None):
+def check_if_prompt_done_and_get_result(requester: Requester, prompt_id: str, output_ids=None):
     # otherwise check if it's running or queued
-    resp = requests.get(f'{host}/queue')
+    resp = requester.get('queue')
     if resp.status_code != 200:
         raise RuntimeError(f'oh no, server said nono {resp.status_code}')
     data = resp.json()
@@ -114,7 +104,7 @@ def check_if_prompt_done_and_get_result(host: str, prompt_id: str, output_ids=No
     
     # check if it's done
     # note, check order matters, the other way around we might get a race
-    resp = requests.get(f'{host}/history/{prompt_id}')
+    resp = requester.get(f'history/{prompt_id}')
     if resp.status_code != 200:
         raise RuntimeError(f'oh no, server said nono {resp.status_code}')
     data = resp.json()
@@ -132,9 +122,9 @@ def check_if_prompt_done_and_get_result(host: str, prompt_id: str, output_ids=No
 
 
 
-def submit_graph_and_get_result(host: str, graph_data: dict, long_op=None, api_key: str|None = None) -> tuple[dict, str]:
+def submit_graph_and_get_result(requester: Requester, graph_data: dict, long_op=None) -> tuple[dict, str]:
     try:
-        prompt_id, errors = submit_graph(host, graph_data, api_key=api_key)
+        prompt_id, errors = submit_graph(requester, graph_data)
     except RuntimeError as e:
         raise
 
@@ -146,22 +136,22 @@ def submit_graph_and_get_result(host: str, graph_data: dict, long_op=None, api_k
         if long_op:
             long_op.updateLongProgress(-1, "waiting for ComfyUI to finish")
         while True:
-            if (res := check_if_prompt_done_and_get_result(host, prompt_id)) is not None:
+            if (res := check_if_prompt_done_and_get_result(requester, prompt_id)) is not None:
                 break
             time.sleep(poll_interval)
             if long_op:
                 long_op.updateProgress()
     
     except hou.OperationInterrupted:
-        cancel_prompt(host, prompt_id)
+        cancel_prompt(requester, prompt_id)
         raise
 
     return res, prompt_id
 
 
-def download_result(host: str, filename: str, subfolder: str, dest_path: Path):
-    resp = requests.get(
-        f'{host}/view',
+def download_result(requester: Requester, filename: str, subfolder: str, dest_path: Path):
+    resp = requester.get(
+        'view',
         params = {
             'filename': filename,
             'subfolder': subfolder,
@@ -175,17 +165,17 @@ def download_result(host: str, filename: str, subfolder: str, dest_path: Path):
         f.write(resp.content)
 
 
-def delete_input_image(host: str, filename: str, subfolder: str):
-    return delete_image(host, filename, subfolder, 'input')
+def delete_input_image(requester: Requester, filename: str, subfolder: str):
+    return delete_image(requester, filename, subfolder, 'input')
 
 
-def delete_output_image(host: str, filename: str, subfolder: str):
-    return delete_image(host, filename, subfolder, 'output')
+def delete_output_image(requester: Requester, filename: str, subfolder: str):
+    return delete_image(requester, filename, subfolder, 'output')
 
 
-def delete_image(host: str, filename: str, subfolder: str, img_role: str):
-    resp = requests.delete(
-        f'{host}/sidefx_houdini/image',
+def delete_image(requester: Requester, filename: str, subfolder: str, img_role: str):
+    resp = requester.delete(
+        'sidefx_houdini/image',
         json = {
             'type': img_role,
             'image_name': filename,
@@ -201,9 +191,9 @@ def delete_image(host: str, filename: str, subfolder: str, img_role: str):
         raise RuntimeError(f'oh no, server said nono {resp.status_code}')
 
 
-def delete_prompt_history(host: str, prompt: str):
-    resp = requests.post(
-        f'{host}/history',
+def delete_prompt_history(requester: Requester, prompt: str):
+    resp = requester.post(
+        'history',
         json = {
             'delete': [prompt],
         }
@@ -212,9 +202,9 @@ def delete_prompt_history(host: str, prompt: str):
     if resp.status_code != 200:
         raise RuntimeError(f'oh no, server said nono {resp.status_code}')
 
-def cancel_prompt(host: str, prompt: str):
-    resp = requests.post(
-        f'{host}/sidefx_houdini/interrupt',
+def cancel_prompt(requester: Requester, prompt: str):
+    resp = requester.post(
+        'sidefx_houdini/interrupt',
         json = {
             'prompt_id': prompt
         }

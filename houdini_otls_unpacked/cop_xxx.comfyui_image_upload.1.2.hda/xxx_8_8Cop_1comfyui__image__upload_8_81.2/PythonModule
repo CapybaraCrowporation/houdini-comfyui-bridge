@@ -1,9 +1,11 @@
-import os
-import requests
+import sys
+import hou  # type:ignore
 import traceback
 import tempfile
 import shutil
 from pathlib import Path
+
+from houdini_comfyui_connection.requester import Requester
 from houdini_comfyui_connection.upload_common import upload_image
 
 generic_connection_error_text = "failed to connect to ComfyUI. be sure it's running and you have specified the correct address"
@@ -16,9 +18,9 @@ def _name_subdir_to_loadpath(image_name: str, subdir: str):
     return '/'.join((subdir, image_name))
 
 
-def create_loader(host: str, image_name: str, subdir: str):
-    resp = requests.post(
-        f'{host}/{route_base}/command/create_loader',
+def create_loader(requester: Requester, image_name: str, subdir: str):
+    resp = requester.post(
+        f'{route_base}/command/create_loader',
         json = {'image': _name_subdir_to_loadpath(image_name, subdir)},
     )
     
@@ -26,9 +28,9 @@ def create_loader(host: str, image_name: str, subdir: str):
         raise RuntimeError(f'oh no, server said nono {resp.status_code}')
         
         
-def signal_image_update(host: str, image_name: str, subdir: str):
-    resp = requests.post(
-        f'{host}/{route_base}/command/refresh_image',
+def signal_image_update(requester: Requester, image_name: str, subdir: str):
+    resp = requester.post(
+        f'{route_base}/command/refresh_image',
         json = {'image': _name_subdir_to_loadpath(image_name, subdir)},
     )
     
@@ -47,9 +49,10 @@ def comfyui_image_subdir(node) -> str:
     
     
 def upload_input(node):
-    host = node.evalParm('base_url').strip()
+    requester = node.hdaModule().create_requester_from_node(node)
+    Requester(node.evalParm('base_url'), api_key=node.evalParm('comfyui_api_key') or None)
     subdir = node.evalParm('cui_image_subdir').strip()
-    return upload_input_to(node, host, subdir, bake_cc=node.evalParm('bake_ocio'))
+    return upload_input_to(node, requester, subdir, bake_cc=node.evalParm('bake_ocio'))
 
     
 def get_image_name(node):
@@ -78,9 +81,9 @@ def unset_session_node(node):
         data.pop(node.sessionId())
 
     
-def upload_input_to(node, host: str, subdir: str, filename: str|None = None, *, frame: int|float|None = None, bake_cc: bool = True, override_source_filepath: Path|None = None):
+def upload_input_to(node, requester: Requester, subdir: str, filename: str|None = None, *, frame: int|float|None = None, bake_cc: bool = True, override_source_filepath: Path|None = None):
     if override_source_filepath is not None:
-        upload_image(host, override_source_filepath, subdir, filename)
+        upload_image(requester, override_source_filepath, subdir, filename)
         return
 
     rop_node = node.node('rop_image1')
@@ -101,13 +104,11 @@ def upload_input_to(node, host: str, subdir: str, filename: str|None = None, *, 
         )
     finally:
         unset_session_node(node)
-
-    host = host.rstrip('/ ')
     
     image_name = img_path.name
 
-    upload_image(host, img_path, subdir, image_name)
-    signal_image_update(host, image_name, subdir)
+    upload_image(requester, img_path, subdir, image_name)
+    signal_image_update(requester, image_name, subdir)
     
     shutil.rmtree(base_path)
 
@@ -115,7 +116,7 @@ def upload_input_to(node, host: str, subdir: str, filename: str|None = None, *, 
 def upload_callback(node):
     try:
         upload_input(node)
-    except OSError:
+    except OSError as e:
         if hou.isUIAvailable():
             hou.ui.displayMessage(generic_connection_error_text, title="oh no!", severity=hou.severityType.Error, details=traceback.format_exc())
         else:
@@ -123,14 +124,18 @@ def upload_callback(node):
 
     
 def create_loader_callback(node):
-    host = node.evalParm('base_url').strip().rstrip('/ ')
+    requester = node.hdaModule().create_requester_from_node(node)
     subdir = node.evalParm('cui_image_subdir').strip()
     img_name = get_image_name(node)
     
     try:
-        create_loader(host, img_name, subdir)
-    except OSError:
+        create_loader(requester, img_name, subdir)
+    except OSError as e:
         if hou.isUIAvailable():
             hou.ui.displayMessage(generic_connection_error_text, title="oh no!", severity=hou.severityType.Error, details=traceback.format_exc())
         else:
             print(generic_connection_error_text + ':' + str(e), file=sys.stderr, flush=True)
+
+
+def create_requester_from_node(node: hou.Node) -> Requester:
+    return Requester(node.evalParm('base_url'), api_key=node.evalParm('comfyui_api_key') or None)

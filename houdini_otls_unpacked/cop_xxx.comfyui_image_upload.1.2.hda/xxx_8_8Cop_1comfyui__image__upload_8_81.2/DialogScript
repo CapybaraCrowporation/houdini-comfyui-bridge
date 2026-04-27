@@ -41,6 +41,18 @@
         default { "1" }
         parmtag { "script_callback_language" "python" }
     }
+    groupcollapsible {
+        name    "special"
+        label   "Special Features"
+
+        parm {
+            name    "comfyui_api_key"
+            label   "ComfyUI API key"
+            type    string
+            default { "$HCUI_API_KEY" }
+            parmtag { "script_callback_language" "python" }
+        }
+    }
     parm {
         name    "upload"
         label   "Upload"

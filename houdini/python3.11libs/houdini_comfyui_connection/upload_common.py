@@ -1,16 +1,16 @@
-import requests
+from .requester import Requester
 from pathlib import Path
 
 
-def upload_image(host: str, file_path: Path, subdir: str, image_name: str|None):
+def upload_image(requester: Requester, file_path: Path, subdir: str, image_name: str|None):
     if image_name is None:
         image_name = file_path.name
         
     with open(file_path, 'rb') as f:
         file_data = f.read()
     
-    resp = requests.post(
-        f'{host}/upload/image',
+    resp = requester.post(
+        f'upload/image',
         files = {'image': (image_name, file_data)},
         data = {'subfolder': subdir, 'overwrite': '1'},
     )

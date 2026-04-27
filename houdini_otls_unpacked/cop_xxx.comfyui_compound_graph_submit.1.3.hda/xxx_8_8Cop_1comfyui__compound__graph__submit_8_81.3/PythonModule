@@ -3,7 +3,8 @@ import hou
 import traceback
 import json
 import re
-from houdini_comfyui_connection.graph_submission import BadInputSubstituteError, ResultNotFound, GraphValidationError, delete_input_image, delete_output_image, delete_prompt_history, download_result, submit_graph_and_get_result, FunctionalityNotAvailable, FailedToDeleteImage, delete_input_image, delete_output_image, delete_prompt_history
+from houdini_comfyui_connection.graph_submission import BadInputSubstituteError, ResultNotFound, GraphValidationError
+from houdini_comfyui_connection.requester import Requester
 from houdini_comfyui_connection.ui_tools import show_error
 from houdini_comfyui_connection.compound_graph_tools import update_comfy_nodes_definitions
 from houdini_comfyui_connection.compound_graph_core import SubmitVariableNotFoundError, set_download_shift, get_download_shift
@@ -44,8 +45,8 @@ def submit_btn_callback(node):
 def update_node_defs_btn_callback(node):
     try:
         with hou.InterruptableOperation('generating assets...', 'generating assets...', open_interrupt_dialog=True) as op:
-            host = node.evalParm('base_url').rstrip('/ ')
-            update_comfy_nodes_definitions(host, op,
+            requester = create_requester_from_node(node)
+            update_comfy_nodes_definitions(requester, op,
                 tool_name_prefix='xxx::Cop/comfyui_compound_graph_submit::1.3::',
                 network_op_type='xxx::Cop/comfyui_compound_graph_submit::1.3::xxx::Cop/comfyui_partial_graph::1.3',
                 network_output_op_type='xxx::Cop/comfyui_compound_graph_submit::1.3::xxx::Cop/comfyui_partial_graph_outputs::1.0::xxx::Cop/comfyui_util_token',
@@ -96,3 +97,7 @@ def helper_result_get_ext(result_node: hou.Node) -> str|None:
         set_download_shift(result_node, candidates[0][0])
         return f'__{candidates[0][0]}__A_.{candidates[0][1]}'
     return candidates[0][1]
+
+
+def create_requester_from_node(node: hou.Node) -> Requester:
+    return Requester(node.evalParm('base_url'), api_key=node.evalParm('comfyui_api_key') or None)

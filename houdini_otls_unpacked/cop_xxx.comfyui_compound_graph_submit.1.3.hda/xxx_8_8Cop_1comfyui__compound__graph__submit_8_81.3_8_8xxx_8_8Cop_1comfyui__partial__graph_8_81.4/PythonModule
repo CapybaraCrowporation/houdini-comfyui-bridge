@@ -4,6 +4,7 @@ import json
 from houdini_comfyui_connection.node_data import get_node_data, set_node_data
 from houdini_comfyui_connection.compound_graph_tools import get_single_node_definition, find_nearest_compound_graph_parent, update_comfy_nodes_definitions
 from houdini_comfyui_connection.compound_graph_core import title_to_key
+from houdini_comfyui_connection.requester import Requester
 from houdini_comfyui_connection.subnet_wrapper_helper import propagate_single_parameter
 
 
@@ -176,13 +177,13 @@ def update_input_text_values_callback(node, input_muliparm_index, *, update_tool
     parent_submitter = find_nearest_compound_graph_parent(node)
     assert parent_submitter is not None
 
-    host = parent_submitter.evalParm('base_url').rstrip('/')
+    requester = parent_submitter.hdaModule().create_requester_from_node(parent_submitter)
     graph = json.loads(node.evalParm('cui_graph'))
     node_data = graph[title_to_key(graph, node.evalParm(f'cui_i_node_title_{input_muliparm_index}'))]
     input_name = node.evalParm(f'cui_i_node_input_{input_muliparm_index}')
     node_type = node_data['class_type']
 
-    def_data = get_single_node_definition(host, node_type)
+    def_data = get_single_node_definition(requester, node_type)
 
     input_data = def_data.get('input', {})
     input_def = {
@@ -225,7 +226,7 @@ def update_input_text_values_callback(node, input_muliparm_index, *, update_tool
     # update tool
     if update_tool_also and values_changed:
         update_comfy_nodes_definitions(
-            host,
+            requester,
             None,
             tool_name_prefix=f'{parent_submitter.type().nameWithCategory()}::',
             network_op_type=node.type().nameWithCategory(),

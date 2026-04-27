@@ -3,6 +3,8 @@ import json
 import os
 import traceback
 import PIL
+
+from houdini_comfyui_connection.requester import Requester
 from houdini_comfyui_connection.workflow_deserialization_tools import create_network_from_prompt, create_network_from_workflow, MissingNodeDefinitionError
 
 
@@ -26,7 +28,7 @@ def dropAccept(file_list):
     parent_node = pane.pwd()
     if (gnode := parent_node.node('..')) is None or gnode.type().nameComponents()[2] != 'comfyui_compound_graph_submit':
         return False
-    host = gnode.evalParm('base_url').rstrip('/ ')
+    requester = gnode.hdaModule().create_requester_from_node(gnode)
 
     # we only accept single png file
     if len(file_list) != 1 or not file_list:
@@ -69,7 +71,7 @@ def dropAccept(file_list):
         # we prefer prompt if present as it's better supported for now
         if prompt:
             try:
-                nodes = create_network_from_prompt(host, parent_node, prompt)
+                nodes = create_network_from_prompt(requester, parent_node, prompt)
             except MissingNodeDefinitionError as e:
                 pack_name = None
                 if workflow and e.node_id is not None:
@@ -100,7 +102,7 @@ def dropAccept(file_list):
         else:
             # so no prompt provided, just the workflow
             try:
-                nodes = create_network_from_workflow(host, parent_node, workflow)
+                nodes = create_network_from_workflow(requester, parent_node, workflow)
             except MissingNodeDefinitionError as e:
                 hou.ui.displayMessage(f'Missing node type definition for "{e.node_type}" from node pack "{e.pack_name}"')
                 udp.do_undo_on_exit = True

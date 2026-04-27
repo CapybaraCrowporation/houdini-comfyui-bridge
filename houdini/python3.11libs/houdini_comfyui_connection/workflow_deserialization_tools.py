@@ -4,6 +4,7 @@ from itertools import chain, zip_longest
 from collections import OrderedDict
 
 from .compound_graph_tools import create_single_tool, get_node_definitions, DefinitionOverrideData, DefinitionOverrideConnectionData, MissingNodeDefinitionError, is_subgraph_wrapper, is_subnet_wrapper, subnet_wrapper_wrapped_node, convert_parm_to_input, partial_graph_input_to_parm_i
+from .requester import Requester
 from .subnet_wrapper_helper import propagate_single_parameter
 from .compound_graph_core import debug
 from .compound_graph_core_graph_helpers import follow_output_till_deadend_condition
@@ -54,8 +55,8 @@ class SubgraphDefinition(NodeDefinition):
     links_dict: dict[int, Link]
 
 
-def create_network_from_workflow(host: str, parent_node: hou.Node, workflow: dict) -> dict[str, hou.Node]:
-    node_definitions = _parse_node_data(get_node_definitions(host))
+def create_network_from_workflow(requester: Requester, parent_node: hou.Node, workflow: dict) -> dict[str, hou.Node]:
+    node_definitions = _parse_node_data(get_node_definitions(requester))
     subgraph_definitions = _parse_subgraph_data(workflow.get('definitions', {}).get('subgraphs', []))
     return _create_network_from_workflow_nodes(
         node_definitions,
@@ -469,8 +470,8 @@ def _set_node_input_value(node: hou.Node, input_name: str, value):
     else:
         raise RuntimeError('')
 
-def create_network_from_prompt(host: str, parent_node: hou.Node, prompt) -> dict[str, hou.Node]:
-    node_definitions = get_node_definitions(host)
+def create_network_from_prompt(requester: Requester, parent_node: hou.Node, prompt) -> dict[str, hou.Node]:
+    node_definitions = get_node_definitions(requester)
 
     nodes = {}
     for node_id, node_data in prompt.items():

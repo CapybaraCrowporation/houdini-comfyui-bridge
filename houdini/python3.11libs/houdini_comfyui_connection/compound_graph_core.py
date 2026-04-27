@@ -6,8 +6,9 @@ from pathlib import Path
 import json
 import re
 import uuid
-from houdini_comfyui_connection.graph_submission import BadInputSubstituteError, ResultNotFound, GraphValidationError, delete_input_image, delete_output_image, delete_prompt_history, download_result, submit_graph_and_get_result, FunctionalityNotAvailable, FailedToDeleteImage
+from houdini_comfyui_connection.graph_submission import ResultNotFound, delete_input_image, delete_prompt_history, download_result, submit_graph_and_get_result, FunctionalityNotAvailable, FailedToDeleteImage
 from .compound_graph_core_graph_helpers import follow_input_till_deadend
+from .requester import Requester
 
 
 class SubmitVariableNotFoundError(KeyError):
@@ -636,14 +637,13 @@ def construct_full_graph(
 
 
 def submit_compound_graph(
-    host: str,
+    requester: Requester,
     output_node: hou.Node,
     long_op: hou.InterruptableOperation|None = None,
     *,
     context_vars: dict[str, str|float|int]|None = None,
     reuse_upload_nodes: dict[GraphPorcessingInputKey, tuple[hou.Node, UploadInfo]]|None = None,
     explicit_roots: list[hou.Node]|None = None,
-    api_key: str|None = None,
 ) -> tuple[dict, str, dict[GraphPorcessingInputKey, tuple[hou.Node, UploadInfo]], list[str]]:
 
     graph, upload_nodes, outputs = construct_full_graph(output_node, upload_nodes=reuse_upload_nodes, explicit_cui_roots=explicit_roots, context_vars=context_vars, long_op=long_op)
@@ -674,20 +674,20 @@ def submit_compound_graph(
 
         upload_node.hdaModule().upload_input_to(
             upload_node,
-            host,
+            requester,
             subdir,
             filename,
             **kwargs,
         )
 
     # TODO: provide output_ids!
-    res, prompt_id = submit_graph_and_get_result(host, graph, long_op=long_op, api_key=api_key)
+    res, prompt_id = submit_graph_and_get_result(requester, graph, long_op=long_op)
     debug(f'result {prompt_id}:', res)
     return res, prompt_id, upload_nodes, outputs
 
 
 def compute_compound_graph_node(node, long_op=None, override_output_node=None, override_result_loader_nodes=None):
-    host = node.evalParm('base_url').rstrip('/ ')
+    requester = node.hdaModule().create_requester_from_node(node)
     
     do_cleanup = node.parm('cleanup_server_images').eval()
 
@@ -697,8 +697,7 @@ def compute_compound_graph_node(node, long_op=None, override_output_node=None, o
         output_node = node.node('graph').node('outputs')
         if output_node is None:
             raise RuntimeError('not node "outputs" found in the graph')
-    api_key = node.evalParm('comfyui_api_key')
-    res, prompt_id, upload_nodes, outputs = submit_compound_graph(host, output_node, long_op=long_op, api_key=api_key or None)
+    res, prompt_id, upload_nodes, outputs = submit_compound_graph(requester, output_node, long_op=long_op)
     
     # get result
     for i in range(len(override_result_loader_nodes) if override_result_loader_nodes else 2):
@@ -718,7 +717,7 @@ def compute_compound_graph_node(node, long_op=None, override_output_node=None, o
 
         if node.parm('image_batch_index') is None:
             # 1.2 compatibility
-            download_result(host, res[key]['images'][0]['filename'], res[key]['images'][0]['subfolder'], outpath)
+            download_result(requester, res[key]['images'][0]['filename'], res[key]['images'][0]['subfolder'], outpath)
         else:
             for batchi, data in enumerate(res[key].get('images', res[key].get('3d', ()))):
                 # we rely on batch id being last \.\d+\. in the filename
@@ -735,7 +734,7 @@ def compute_compound_graph_node(node, long_op=None, override_output_node=None, o
                 if not _try_remove_or_shift(local_path, outnode):  # remove existing before downloading new file
                     local_path = _get_local_path(outnode, batchi)  # to eval expression
                 debug(f'downloading image {batchi} of batch: {local_path}')
-                download_result(host, data['filename'], data['subfolder'], local_path)
+                download_result(requester, data['filename'], data['subfolder'], local_path)
         outnode.parm('reload').pressButton()
 
     if do_cleanup:
@@ -752,7 +751,7 @@ def compute_compound_graph_node(node, long_op=None, override_output_node=None, o
                     upload_subdir = ''
                     upload_filename = upload_data.filename
                 delete_input_image(
-                    host,
+                    requester,
                     upload_filename,
                     upload_subdir,
                 )
@@ -764,7 +763,7 @@ def compute_compound_graph_node(node, long_op=None, override_output_node=None, o
 
         if long_op:
             long_op.updateLongProgress(-1, "Cleaning up prompt history")
-        delete_prompt_history(host, prompt_id)
+        delete_prompt_history(requester, prompt_id)
         #  comfy backend cache does not check image existance, and there is no clear stable way of cleaning cache,
         #  so we have to leave output images as is for now
 
