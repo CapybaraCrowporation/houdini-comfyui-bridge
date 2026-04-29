@@ -57,14 +57,114 @@ class SubgraphDefinition(NodeDefinition):
 def create_network_from_workflow(host: str, parent_node: hou.Node, workflow: dict) -> dict[str, hou.Node]:
     node_definitions = _parse_node_data(get_node_definitions(host))
     subgraph_definitions = _parse_subgraph_data(workflow.get('definitions', {}).get('subgraphs', []))
+    nodes = workflow.get('nodes', [])
+    links = _parse_links(workflow.get('links', []))
+    nodes, links = _resolve_virtual_get_set(nodes, links)
     return _create_network_from_workflow_nodes(
         node_definitions,
         subgraph_definitions,
         parent_node,
-        workflow.get('nodes', []),
-        _parse_links(workflow.get('links', [])),
+        nodes,
+        links,
         set(),
     )
+
+
+def _resolve_virtual_get_set(
+    workflow_nodes: list,
+    workflow_links: dict[int, Link],
+    virtual_node_types: set[str] | None = None,
+) -> tuple[list, dict[int, Link]]:
+    """
+    Resolve SetNode/GetNode virtual connections into direct links.
+
+    SetNode and GetNode are frontend-only nodes (KJNodes and similar packs).
+    They have no Python backend and won't appear in /object_info, so the bridge
+    would crash with MissingNodeDefinitionError. This function pre-processes the
+    workflow to replace them with direct links before the main import loop runs.
+
+    A SetNode receives a value and names it; one or more GetNodes with the same
+    name produce that value elsewhere. There is no link between Set and Get in the
+    workflow JSON — the connection is implicit via widgets_values[0] (the name).
+
+    Result: SetNode/GetNode nodes are removed and synthetic direct links are
+    created from the Set's source to each Get's target(s).
+    """
+    if virtual_node_types is None:
+        virtual_node_types = {'SetNode', 'GetNode'}
+
+    set_nodes = [n for n in workflow_nodes if n.get('type') == 'SetNode']
+    get_nodes = [n for n in workflow_nodes if n.get('type') == 'GetNode']
+
+    if not set_nodes and not get_nodes:
+        return workflow_nodes, workflow_links
+
+    # name → (origin_id, origin_slot, type) from each SetNode's input link
+    set_sources: dict[str, tuple] = {}
+    for node in set_nodes:
+        name = node.get('widgets_values', [''])[0]
+        inputs = node.get('inputs', [])
+        if not inputs or inputs[0].get('link') is None:
+            debug(f'_resolve_virtual_get_set: SetNode id={node["id"]} has no input link, skipping')
+            continue
+        link_id = inputs[0]['link']
+        link = workflow_links.get(link_id)
+        if link is None:
+            debug(f'_resolve_virtual_get_set: SetNode id={node["id"]} link {link_id} not found, skipping')
+            continue
+        link_type = link.type if link.type != '*' else inputs[0].get('type', '*')
+        set_sources[name] = (link.origin_id, link.origin_slot, link_type)
+
+    # links going INTO virtual nodes must be removed (their targets no longer exist)
+    virtual_node_ids = {n['id'] for n in set_nodes + get_nodes}
+    links_to_remove = {
+        link_id
+        for link_id, link in workflow_links.items()
+        if link.target_id in virtual_node_ids
+    }
+
+    # links coming OUT OF GetNodes are rerouted in-place — same link ID so that
+    # node_data['inputs'][x]['link'] references still resolve correctly in the
+    # main import loop (which reads link IDs from the raw workflow node data)
+    rerouted_links: dict[int, Link] = {}
+
+    for node in get_nodes:
+        name = node.get('widgets_values', [''])[0]
+        source = set_sources.get(name)
+        if source is None:
+            print(f'[houdini-comfyui-bridge] WARNING: GetNode id={node["id"]} name={repr(name)} has no matching SetNode, connection dropped')
+            for output in node.get('outputs', []):
+                for link_id in (output.get('links') or []):
+                    links_to_remove.add(link_id)
+            continue
+        origin_id, origin_slot, link_type = source
+        for output in node.get('outputs', []):
+            for link_id in (output.get('links') or []):
+                link = workflow_links.get(link_id)
+                if link is None:
+                    continue
+                # reuse the same link ID — target node still references this ID
+                rerouted_links[link_id] = Link(
+                    link_id,
+                    origin_id,
+                    origin_slot,
+                    link.target_id,
+                    link.target_slot,
+                    link_type,
+                )
+
+    filtered_nodes = [n for n in workflow_nodes if n.get('type') not in virtual_node_types]
+    updated_links = {
+        lid: lnk
+        for lid, lnk in workflow_links.items()
+        if lid not in links_to_remove
+    }
+    updated_links.update(rerouted_links)
+
+    debug(f'_resolve_virtual_get_set: removed {len(set_nodes)} SetNodes, {len(get_nodes)} GetNodes, '
+          f'dropped {len(links_to_remove)} links, rerouted {len(rerouted_links)} links')
+
+    return filtered_nodes, updated_links
 
 
 def _parse_links(raw_links: list) -> dict[int, Link]:

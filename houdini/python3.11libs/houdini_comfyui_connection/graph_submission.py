@@ -1,8 +1,9 @@
-import requests
 import json
 from pathlib import Path
 import time
 import hou
+
+from houdini_comfyui_connection.requester import Requester
 
 poll_interval = 1
 
@@ -73,48 +74,50 @@ class ResultNotFound(RuntimeError):
         self.res = res
 
 
-def submit_graph(host: str, graph_json_data: dict, api_key: str|None = None):
-    data = {
-        'prompt': graph_json_data,
-    }
-    headers = {}
-    if api_key:
-        data['extra_data'] = {'api_key_comfy_org': api_key}
-        headers['X-API-Key'] = api_key
-    resp = requests.post(
-        f'{host}/prompt',
-        json = data,
-        headers = headers
-    )
-    
+def submit_graph(requester: Requester, graph_json_data: dict):
+    resp = requester.prompt(graph_json_data)
+
+    if resp.status_code == 429:
+        try:
+            body = resp.json()
+        except Exception:
+            body = resp.text
+        error_type = body.get('error', {}).get('type', '') if isinstance(body, dict) else ''
+        if error_type == 'PAYMENT_REQUIRED':
+            raise RuntimeError(f'cloud subscription required: {body}')
+        raise RuntimeError(f'cloud job queue is full (429): {body}')
+
     if resp.status_code != 200:
         if resp.status_code == 400:
             resp_data = resp.json()
             raise GraphValidationError(resp_data, graph_json_data)
         else:
             raise RuntimeError(f'oh no, server said nono {resp.status_code}')
-    
+
     resp_data = resp.json()
-    
+
     if 'error' in resp_data:
         raise RuntimeError(f'bad prompt: {resp_data}')
-        
-    return resp_data['prompt_id'], resp_data['node_errors']
+
+    return resp_data['prompt_id'], resp_data.get('node_errors', {})
 
         
-def check_if_prompt_done_and_get_result(host: str, prompt_id: str, output_ids=None):
-    # otherwise check if it's running or queued
-    resp = requests.get(f'{host}/queue')
+def check_if_prompt_done_and_get_result(requester: Requester, prompt_id: str, output_ids=None):
+    if requester.is_cloud:
+        return _cloud_check_if_prompt_done_and_get_result(requester, prompt_id, output_ids)
+
+    # local: check queue first, then history
+    resp = requester.get('queue')
     if resp.status_code != 200:
         raise RuntimeError(f'oh no, server said nono {resp.status_code}')
     data = resp.json()
     for prompt in data['queue_running'] + data['queue_pending']:
         if prompt[1] == prompt_id:
             return None
-    
+
     # check if it's done
     # note, check order matters, the other way around we might get a race
-    resp = requests.get(f'{host}/history/{prompt_id}')
+    resp = requester.get(f'history/{prompt_id}')
     if resp.status_code != 200:
         raise RuntimeError(f'oh no, server said nono {resp.status_code}')
     data = resp.json()
@@ -127,14 +130,41 @@ def check_if_prompt_done_and_get_result(host: str, prompt_id: str, output_ids=No
             for output_id in output_ids:
                 results[output_id] = outputs[output_id]
         return results
-        
-    raise RuntimeError('cannot find given prompt id on server')            
+
+    raise RuntimeError('cannot find given prompt id on server')
+
+
+def _cloud_check_if_prompt_done_and_get_result(requester: Requester, prompt_id: str, output_ids=None):
+    resp = requester.get(f'job/{prompt_id}/status')
+    if resp.status_code != 200:
+        raise RuntimeError(f'cloud status check failed: {resp.status_code} {resp.text}')
+    status_data = resp.json()
+    status = status_data.get('status')
+    print(f'[houdini-comfyui-bridge] cloud job status: {status_data}')
+    if status in ('failed', 'cancelled', 'error'):
+        raise RuntimeError(f'cloud job ended with status: {status}')
+    if status not in ('completed', 'success'):
+        return None
+
+    # completed — fetch outputs
+    resp = requester.get(f'jobs/{prompt_id}')
+    if resp.status_code != 200:
+        raise RuntimeError(f'cloud job fetch failed: {resp.status_code} {resp.text}')
+    data = resp.json()
+    print(f'[houdini-comfyui-bridge] cloud job result: {json.dumps(data, indent=2)}')
+    outputs = data.get('outputs')
+    if not outputs:
+        # status/jobs endpoints briefly out of sync — treat as still running
+        return None
+    if output_ids is None:
+        return {k: v for k, v in outputs.items()}
+    return {oid: outputs[oid] for oid in output_ids if oid in outputs}
 
 
 
-def submit_graph_and_get_result(host: str, graph_data: dict, long_op=None, api_key: str|None = None) -> tuple[dict, str]:
+def submit_graph_and_get_result(requester: Requester, graph_data: dict, long_op=None) -> tuple[dict, str]:
     try:
-        prompt_id, errors = submit_graph(host, graph_data, api_key=api_key)
+        prompt_id, errors = submit_graph(requester, graph_data)
     except RuntimeError as e:
         raise
 
@@ -146,22 +176,22 @@ def submit_graph_and_get_result(host: str, graph_data: dict, long_op=None, api_k
         if long_op:
             long_op.updateLongProgress(-1, "waiting for ComfyUI to finish")
         while True:
-            if (res := check_if_prompt_done_and_get_result(host, prompt_id)) is not None:
+            if (res := check_if_prompt_done_and_get_result(requester, prompt_id)) is not None:
                 break
             time.sleep(poll_interval)
             if long_op:
                 long_op.updateProgress()
     
     except hou.OperationInterrupted:
-        cancel_prompt(host, prompt_id)
+        cancel_prompt(requester, prompt_id)
         raise
 
     return res, prompt_id
 
 
-def download_result(host: str, filename: str, subfolder: str, dest_path: Path):
-    resp = requests.get(
-        f'{host}/view',
+def download_result(requester: Requester, filename: str, subfolder: str, dest_path: Path):
+    resp = requester.get(
+        'view',
         params = {
             'filename': filename,
             'subfolder': subfolder,
@@ -175,17 +205,20 @@ def download_result(host: str, filename: str, subfolder: str, dest_path: Path):
         f.write(resp.content)
 
 
-def delete_input_image(host: str, filename: str, subfolder: str):
-    return delete_image(host, filename, subfolder, 'input')
+def delete_input_image(requester: Requester, filename: str, subfolder: str):
+    return delete_image(requester, filename, subfolder, 'input')
 
 
-def delete_output_image(host: str, filename: str, subfolder: str):
-    return delete_image(host, filename, subfolder, 'output')
+def delete_output_image(requester: Requester, filename: str, subfolder: str):
+    return delete_image(requester, filename, subfolder, 'output')
 
 
-def delete_image(host: str, filename: str, subfolder: str, img_role: str):
-    resp = requests.delete(
-        f'{host}/sidefx_houdini/image',
+def delete_image(requester: Requester, filename: str, subfolder: str, img_role: str):
+    if requester.is_cloud:
+        return  # cloud manages its own storage
+
+    resp = requester.delete(
+        'sidefx_houdini/image',
         json = {
             'type': img_role,
             'image_name': filename,
@@ -201,9 +234,12 @@ def delete_image(host: str, filename: str, subfolder: str, img_role: str):
         raise RuntimeError(f'oh no, server said nono {resp.status_code}')
 
 
-def delete_prompt_history(host: str, prompt: str):
-    resp = requests.post(
-        f'{host}/history',
+def delete_prompt_history(requester: Requester, prompt: str):
+    if requester.is_cloud:
+        return  # cloud manages its own history
+
+    resp = requester.post(
+        'history',
         json = {
             'delete': [prompt],
         }
@@ -212,9 +248,12 @@ def delete_prompt_history(host: str, prompt: str):
     if resp.status_code != 200:
         raise RuntimeError(f'oh no, server said nono {resp.status_code}')
 
-def cancel_prompt(host: str, prompt: str):
-    resp = requests.post(
-        f'{host}/sidefx_houdini/interrupt',
+def cancel_prompt(requester: Requester, prompt: str):
+    if requester.is_cloud:
+        return  # cloud manages its own queue
+
+    resp = requester.post(
+        'sidefx_houdini/interrupt',
         json = {
             'prompt_id': prompt
         }
