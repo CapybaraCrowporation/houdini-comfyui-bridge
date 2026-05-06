@@ -1,8 +1,9 @@
 import json
 from pathlib import Path
 import time
-import hou
+import hou  # type:ignore
 
+from houdini_comfyui_connection.logging import debug
 from houdini_comfyui_connection.requester import Requester
 
 poll_interval = 1
@@ -105,19 +106,35 @@ def check_if_prompt_done_and_get_result(requester: Requester, prompt_id: str, ou
     # check if it's done
     # note, check order matters, the other way around we might get a race
     resp = requester.get(f'history/{prompt_id}')
+    legacy = True
+
+    if resp.status_code in (401, 404):  # hacky detect we are on comfy cloud
+        resp = requester.get(f'jobs/{prompt_id}')
+        legacy = False
+
     if resp.status_code != 200:
         raise RuntimeError(f'oh no, server said nono {resp.status_code}')
     data = resp.json()
-    if len(data) > 0:  # means it's in history, therefore done
-        results = {}
-        outputs = data[prompt_id]['outputs']
-        if output_ids is None:
-            results = {k: v for k, v in outputs.items()}
-        else:
-            for output_id in output_ids:
-                results[output_id] = outputs[output_id]
-        return results
-        
+    if legacy:
+        if len(data) > 0:  # means it's in history, therefore done
+            results = {}
+            outputs = data[prompt_id]['outputs']
+            if output_ids is None:
+                results = {k: v for k, v in outputs.items()}
+            else:
+                for output_id in output_ids:
+                    results[output_id] = outputs[output_id]
+            return results
+    else:
+        if data.get('status') in ('success', 'completed', 'failed', 'pending'):
+            results = {}
+            outputs = data['outputs']
+            if output_ids is None:
+                results = {k: v for k, v in outputs.items()}
+            else:
+                for output_id in output_ids:
+                    results[output_id] = outputs[output_id]
+            return results
     raise RuntimeError('cannot find given prompt id on server')            
 
 
@@ -183,7 +200,7 @@ def delete_image(requester: Requester, filename: str, subfolder: str, img_role: 
             }
         )
 
-    if resp.status_code == 405:
+    if resp.status_code in (405, 404):
         raise FunctionalityNotAvailable('your version of houdini-connection extension does not provide this functionality')
     if resp.status_code == 400:  # image do not exist or cannot be deleted
         raise FailedToDeleteImage(img_role, filename, subfolder)
