@@ -1,6 +1,6 @@
 import uuid
-import hou
-from houdini_comfyui_connection.compound_graph_core import GraphPartData, ImageInfo, GraphPorcessingInputKey, GraphProcessingContext, ImageType, get_output_index_from_input, NonGraphSource
+import hou  # type:ignore
+from houdini_comfyui_connection.compound_graph_core import GraphPartData, ImageInfo, GraphPorcessingInputKey, GraphProcessingContext, ImageType, get_output_index_from_input, NonGraphSource, UnresolvedPath
 
 
 comfyui_partial_graph_is_custom_node = True
@@ -36,7 +36,7 @@ def process_graph_node(
         if source_context in nodes_to_upload:
             image_name = nodes_to_upload[source_context][1].filename
         else:
-            image_name = f"{upload_node.node('DATA').evalParm('cui_image_subdir')}/{uuid.uuid4()}.png"
+            image_name = UnresolvedPath(f"{upload_node.node('DATA').evalParm('cui_image_subdir')}/{uuid.uuid4()}.png")
             nodes_to_upload[source_context] = (
                 upload_node,
                 ImageInfo(
@@ -88,7 +88,7 @@ def process_graph_node(
     )
 
 
-def _get_image_load_graph(nid: str, cui_image_path: str) -> dict:
+def _get_image_load_graph(nid: str, cui_image_path: UnresolvedPath) -> dict:
     return {
         nid: {
             "inputs": {
