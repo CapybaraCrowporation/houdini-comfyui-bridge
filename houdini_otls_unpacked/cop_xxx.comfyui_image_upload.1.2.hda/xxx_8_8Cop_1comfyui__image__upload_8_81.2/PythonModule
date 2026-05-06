@@ -81,7 +81,7 @@ def unset_session_node(node):
         data.pop(node.sessionId())
 
     
-def upload_input_to(node, requester: Requester, subdir: str, filename: str|None = None, *, frame: int|float|None = None, bake_cc: bool = True, override_source_filepath: Path|None = None):
+def upload_input_to(node, requester: Requester, subdir: str, filename: str|None = None, *, frame: int|float|None = None, bake_cc: bool = True, override_source_filepath: Path|None = None) -> tuple[str, str]:
     if override_source_filepath is not None:
         upload_image(requester, override_source_filepath, subdir, filename)
         return
@@ -107,10 +107,14 @@ def upload_input_to(node, requester: Requester, subdir: str, filename: str|None 
     
     image_name = img_path.name
 
-    upload_image(requester, img_path, subdir, image_name)
-    signal_image_update(requester, image_name, subdir)
+    image_name, subdir = upload_image(requester, img_path, subdir, image_name)
+    try:
+        signal_image_update(requester, image_name, subdir)
+    except RuntimeError as e:
+        print('failed to signal to bridge plugin on comfy side, is it not installed?', e)
     
     shutil.rmtree(base_path)
+    return image_name, subdir
 
     
 def upload_callback(node):
