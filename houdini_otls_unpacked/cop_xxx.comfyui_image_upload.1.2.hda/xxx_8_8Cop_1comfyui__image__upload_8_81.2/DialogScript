@@ -1,0 +1,68 @@
+# Dialog script for xxx::comfyui_image_upload::1.2 automatically generated
+
+{
+    name	xxx::comfyui_image_upload::1.2
+    script	xxx::comfyui_image_upload::1.0
+    label	"ComfyUI Image Upload"
+
+    input	input1	C
+    output	output1	C
+    signature	default	Default	{ RGBA }	{ RGBA }
+
+    help {
+	""
+    }
+
+    parm {
+        name    "base_url"
+        label   "ComfyUI Address"
+        type    string
+        default { "http://127.0.0.1:8188" }
+        parmtag { "script_callback_language" "python" }
+    }
+    parm {
+        name    "cui_image_subdir"
+        label   "Subdirectory"
+        type    string
+        default { "houdini_connect" }
+        parmtag { "script_callback_language" "python" }
+    }
+    parm {
+        name    "result_suffix"
+        label   "File Suffix"
+        type    string
+        default { "" }
+        parmtag { "script_callback_language" "python" }
+    }
+    parm {
+        name    "bake_ocio"
+        label   "Bake OCIO into image (unckeck for utility images)"
+        type    toggle
+        default { "1" }
+        parmtag { "script_callback_language" "python" }
+    }
+    parm {
+        name    "upload"
+        label   "Upload"
+        type    button
+        default { "0" }
+        parmtag { "autoscope" "0000000000000000" }
+        parmtag { "script_callback" "hou.phm().upload_callback(hou.pwd())" }
+        parmtag { "script_callback_language" "python" }
+        parmtag { "takecontrol" "always" }
+    }
+    parm {
+        name    "sepparm"
+        label   "Separator"
+        type    separator
+        default { "" }
+    }
+    parm {
+        name    "cui_create_loader"
+        label   "Create Image Loader in ComfyUI"
+        type    button
+        default { "0" }
+        parmtag { "script_callback" "hou.phm().create_loader_callback(hou.pwd())" }
+        parmtag { "script_callback_language" "python" }
+    }
+}
