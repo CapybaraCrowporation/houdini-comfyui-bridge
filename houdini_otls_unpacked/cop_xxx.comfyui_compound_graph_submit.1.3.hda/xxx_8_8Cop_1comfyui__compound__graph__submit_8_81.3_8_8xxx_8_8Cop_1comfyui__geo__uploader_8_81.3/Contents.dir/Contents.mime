@@ -438,7 +438,6 @@ Content-Type: text/plain
 {
 version 0.8
 execute	[ 0	locks=0 ]	(	0	)
-renderdialog	[ 0	locks=0 ]	(	0	)
 trange	[ 0	locks=0 ]	(	"off"	)
 f	[ 0	locks=0 ]	(	[ f1	1 ] 	[ f2	240 ] 	1	)
 take	[ 0	locks=0 ]	(	_current_	)
@@ -562,7 +561,6 @@ Content-Type: text/plain
 version 0.8
 execute	[ 0	locks=0 ]	(	0	)
 executebackground	[ 0	locks=0 ]	(	0	)
-renderdialog	[ 0	locks=0 ]	(	0	)
 trange	[ 0	locks=0 ]	(	"off"	)
 f	[ 0	locks=0 ]	(	[ f1	1 ] 	[ f2	240 ] 	1	)
 take	[ 0	locks=0 ]	(	_current_	)

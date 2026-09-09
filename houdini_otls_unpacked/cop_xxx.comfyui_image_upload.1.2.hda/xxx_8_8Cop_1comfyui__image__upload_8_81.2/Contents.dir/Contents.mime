@@ -266,7 +266,6 @@ version 0.8
 execute	[ 0	locks=0 ]	(	0	)
 renderpreview	[ 0	locks=0 ]	(	0	)
 executebackground	[ 0	locks=0 ]	(	0	)
-renderdialog	[ 0	locks=0 ]	(	0	)
 trange	[ 0	locks=0 ]	(	"off"	)
 f	[ 0	locks=0 ]	(	[ f1	0 ] 	[ f2	0 ] 	1	)
 take	[ 0	locks=0 ]	(	_current_	)

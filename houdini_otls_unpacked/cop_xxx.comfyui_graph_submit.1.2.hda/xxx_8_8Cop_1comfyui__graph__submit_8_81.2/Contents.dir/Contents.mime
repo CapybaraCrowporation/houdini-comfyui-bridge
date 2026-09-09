@@ -947,7 +947,6 @@ Content-Type: text/plain
 {
 version 0.8
 execute	[ 0	locks=0 ]	(	0	)
-renderdialog	[ 0	locks=0 ]	(	0	)
 }
 
 --HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
@@ -1025,7 +1024,6 @@ Content-Type: text/plain
 {
 version 0.8
 execute	[ 0	locks=0 ]	(	0	)
-renderdialog	[ 0	locks=0 ]	(	0	)
 trange	[ 0	locks=0 ]	(	"off"	)
 f	[ 0	locks=0 ]	(	[ f1	1 ] 	[ f2	240 ] 	1	)
 take	[ 0	locks=0 ]	(	_current_	)
