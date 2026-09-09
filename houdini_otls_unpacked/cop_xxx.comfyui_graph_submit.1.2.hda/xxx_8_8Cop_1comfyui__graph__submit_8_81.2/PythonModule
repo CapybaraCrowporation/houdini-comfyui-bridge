@@ -1,10 +1,9 @@
 import traceback
-import hou
-import requests
+import hou  # type:ignore
 import json
-import time
 from pathlib import Path
-from houdini_comfyui_connection.graph_submission import BadInputSubstituteError, ResultNotFound, FunctionalityNotAvailable, delete_output_image, submit_graph_and_get_result, download_result, delete_input_image, delete_output_image, delete_prompt_history
+from houdini_comfyui_connection.graph_submission import BadInputSubstituteError, ResultNotFound, FunctionalityNotAvailable, submit_graph_and_get_result, download_result, delete_input_image, delete_prompt_history
+from houdini_comfyui_connection.requester import Requester
 from houdini_comfyui_connection.ui_tools import show_error
 
     
@@ -20,7 +19,7 @@ def replace_params_in_graph(graph_data: dict, inputs_to_replace: dict):
 
         
 def compute_node(node, long_op=None):
-    host = node.evalParm('base_url').rstrip('/ ')
+    requester = Requester(node.evalParm('base_url'))
     graph_data = json.loads(node.evalParm('cui_graph'))
     do_cleanup = node.parm('cleanup_server_images').eval()
     
@@ -59,7 +58,7 @@ def compute_node(node, long_op=None):
             long_op.updateLongProgress(-1, "Cooking and Uploading inputs...")
             long_op.updateProgress(i / len(inputs_to_upload))
     # submit graph
-    res, prompt_id = submit_graph_and_get_result(host, graph_data, long_op)
+    res, prompt_id = submit_graph_and_get_result(requester, graph_data, long_op)
 
     assert res is not None
     
@@ -77,7 +76,7 @@ def compute_node(node, long_op=None):
         if key not in res:
             raise ResultNotFound(key, res)
             
-        download_result(host, res[key][0]['filename'], res[key][0]['subfolder'], outpath)
+        download_result(requester, res[key][0]['filename'], res[key][0]['subfolder'], outpath)
         outnode.parm('reload').pressButton()
 
     if do_cleanup:
@@ -88,7 +87,7 @@ def compute_node(node, long_op=None):
             upload_node = node.node(f'input_upload{input_num}')
             try:
                 delete_input_image(
-                    host,
+                    requester,
                     upload_node.hdaModule().comfyui_image_name(upload_node),
                     upload_node.hdaModule().comfyui_image_subdir(upload_node),
                 )
@@ -97,7 +96,7 @@ def compute_node(node, long_op=None):
 
         if long_op:
             long_op.updateLongProgress(-1, "Cleaning up prompt history")
-        delete_prompt_history(host, prompt_id)
+        delete_prompt_history(requester, prompt_id)
         #  comfy backend cache does not check image existance, and there is no clear stable way of cleaning cache,
         #  so we have to leave output images as is for now
 
@@ -124,17 +123,3 @@ def compute_btn_callback(node):
     except Exception as e:
         show_error(f'failed to submit graph: {e}', details=traceback.format_exc())
         return
-
-
-def test_get_prompt_btn_callback(node):
-    host = node.evalParm('base_url').rstrip('/ ')
-    prompt_id = node.evalParm('prompt_id')
-    
-    resp = requests.get(f'{host}/prompt')
-    print(resp.json())
-    
-    resp = requests.get(f'{host}/queue')
-    print(resp.json())
-    
-    resp = requests.get(f'{host}/history/{prompt_id}')
-    print(resp.json())

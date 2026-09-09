@@ -1,12 +1,8 @@
-import uuid
-import hou
-from pathlib import Path
-import shutil
-import tempfile
+import hou  # type:ignore
 from houdini_comfyui_connection.compound_graph_core import GraphPartData, GraphPorcessingInputKey, UploadInfo, get_output_index_from_input, process_graph_node as super_process_graph_node, submit_compound_graph
 from houdini_comfyui_connection.compound_graph_tools import subnet_wrapper_wrapped_node, find_nearest_compound_graph_parent
 from houdini_comfyui_connection.graph_submission import delete_prompt_history
-from houdini_comfyui_connection.upload_common import upload_image
+from houdini_comfyui_connection.requester import Requester
 
 comfyui_partial_graph_is_custom_node = True
 
@@ -39,10 +35,10 @@ def process_graph_node(
     if local_outputs:
         comp_parent = find_nearest_compound_graph_parent(subnode)
         assert comp_parent is not None
-        host = comp_parent.evalParm('base_url').rstrip('/ ')
+        requester = comp_parent.hdaModule().create_requester_from_node(comp_parent)
         do_cleanup = comp_parent.parm('cleanup_server_images').eval()
         res, prompt_id, _, outputs = submit_compound_graph(
-            host,
+            requester,
             None,
             long_op,
             context_vars=context_vars,
@@ -60,7 +56,7 @@ def process_graph_node(
                     else:
                         context_vars[varname_base] = str(val)
         if do_cleanup:
-            delete_prompt_history(host, prompt_id)
+            delete_prompt_history(requester, prompt_id)
 
     node_to_graph[subnode] = GraphPartData(
         _get_passthrough_graph('0'),

@@ -1,0 +1,14 @@
+Operator:     xxx::comfyui_image_upload::1.2
+Label:        ComfyUI Image Upload
+Path:         oplib:/xxx::Cop/comfyui_image_upload::1.2?xxx::Cop/comfyui_image_upload::1.2
+Icon:         COP_xxx-comfyui_image_upload-1.0
+Table:        Cop
+License:      
+Extra:        
+User:         
+Inputs:       0 to 1
+Subnet:       true
+Python:       false
+Empty:        false
+Modified:     Fri Jul 11 23:36:26 2025
+

@@ -1,0 +1,145 @@
+import sys
+import hou  # type:ignore
+import traceback
+import tempfile
+import shutil
+from pathlib import Path
+
+from houdini_comfyui_connection.requester import Requester
+from houdini_comfyui_connection.upload_common import upload_image
+
+generic_connection_error_text = "failed to connect to ComfyUI. be sure it's running and you have specified the correct address"
+route_base = 'sidefx_houdini'
+
+
+def _name_subdir_to_loadpath(image_name: str, subdir: str):
+    if not subdir:
+        return image_name
+    return '/'.join((subdir, image_name))
+
+
+def create_loader(requester: Requester, image_name: str, subdir: str):
+    resp = requester.post(
+        f'{route_base}/command/create_loader',
+        json = {'image': _name_subdir_to_loadpath(image_name, subdir)},
+    )
+    
+    if resp.status_code != 200 or resp.json().get('status') != 'ok':
+        raise RuntimeError(f'oh no, server said nono {resp.status_code}')
+        
+        
+def signal_image_update(requester: Requester, image_name: str, subdir: str):
+    resp = requester.post(
+        f'{route_base}/command/refresh_image',
+        json = {'image': _name_subdir_to_loadpath(image_name, subdir)},
+    )
+    
+    if resp.status_code != 200 or resp.json().get('status') != 'ok':
+        raise RuntimeError(f'oh no, server said nono {resp.status_code}')
+
+
+def comfyui_image_path(node):
+    subdir = comfyui_image_subdir(node)
+    img_name = comfyui_image_name(node)
+    return f'{subdir}/{img_name}'
+
+
+def comfyui_image_subdir(node) -> str:
+    return node.evalParm('cui_image_subdir').strip()
+    
+    
+def upload_input(node):
+    requester = node.hdaModule().create_requester_from_node(node)
+    Requester(node.evalParm('base_url'), api_key=node.evalParm('comfyui_api_key') or None)
+    subdir = node.evalParm('cui_image_subdir').strip()
+    return upload_input_to(node, requester, subdir, bake_cc=node.evalParm('bake_ocio'))
+
+    
+def get_image_name(node):
+    # TODO: deprecate this in favor of comfyui_image_name
+    suffix = node.evalParm('result_suffix')
+    return 'imgtemp' + node.path().replace('/', '-') + (f'.{suffix}' if suffix else '') + '.png'
+
+    
+def comfyui_image_name(node):
+    return get_image_name(node)
+    
+def set_session_parm(node, parm_name, parm_value):
+    if not hasattr(hou.session, '__xxx_comfyui_image_upload__'):
+        data = {}
+        hou.session.__xxx_comfyui_image_upload__ = data
+    else:
+        data = hou.session.__xxx_comfyui_image_upload__
+    data.setdefault(node.sessionId(), {})[parm_name] = parm_value
+
+
+def unset_session_node(node):
+    if not hasattr(hou.session, '__xxx_comfyui_image_upload__'):
+        return
+    data = hou.session.__xxx_comfyui_image_upload__
+    if node.sessionId() in data:
+        data.pop(node.sessionId())
+
+    
+def upload_input_to(node, requester: Requester, subdir: str, filename: str|None = None, *, frame: int|float|None = None, bake_cc: bool = True, override_source_filepath: Path|None = None) -> tuple[str, str]:
+    if override_source_filepath is not None:
+        upload_image(requester, override_source_filepath, subdir, filename)
+        return
+
+    rop_node = node.node('rop_image1')
+    base = tempfile.gettempdir()
+
+    base_path = Path(tempfile.mkdtemp('-hou-connection'))
+    img_path = base_path / (filename or get_image_name(node))
+    if frame is not None:
+        frame_range = (frame, frame)
+    else:
+        frame_range = ()
+    # hack to override cc. IS NOT THREADSAFE, RELIES ON GLOBAL STATE!!
+    set_session_parm(node, 'colorconversion', 1 if bake_cc else 2)  # 1 is bake, 2 is raw
+    try:
+        rop_node.render(
+            frame_range=frame_range,
+            output_file=str(img_path),
+        )
+    finally:
+        unset_session_node(node)
+    
+    image_name = img_path.name
+
+    image_name, subdir = upload_image(requester, img_path, subdir, image_name)
+    try:
+        signal_image_update(requester, image_name, subdir)
+    except RuntimeError as e:
+        print('failed to signal to bridge plugin on comfy side, is it not installed?', e)
+    
+    shutil.rmtree(base_path)
+    return image_name, subdir
+
+    
+def upload_callback(node):
+    try:
+        upload_input(node)
+    except OSError as e:
+        if hou.isUIAvailable():
+            hou.ui.displayMessage(generic_connection_error_text, title="oh no!", severity=hou.severityType.Error, details=traceback.format_exc())
+        else:
+            print(generic_connection_error_text + ':' + str(e), file=sys.stderr, flush=True)
+
+    
+def create_loader_callback(node):
+    requester = node.hdaModule().create_requester_from_node(node)
+    subdir = node.evalParm('cui_image_subdir').strip()
+    img_name = get_image_name(node)
+    
+    try:
+        create_loader(requester, img_name, subdir)
+    except OSError as e:
+        if hou.isUIAvailable():
+            hou.ui.displayMessage(generic_connection_error_text, title="oh no!", severity=hou.severityType.Error, details=traceback.format_exc())
+        else:
+            print(generic_connection_error_text + ':' + str(e), file=sys.stderr, flush=True)
+
+
+def create_requester_from_node(node: hou.Node) -> Requester:
+    return Requester(node.evalParm('base_url'), api_key=node.evalParm('comfyui_api_key') or None)

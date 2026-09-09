@@ -1,9 +1,10 @@
 import uuid
-import hou
+import hou  # type:ignore
 from pathlib import Path
 import shutil
 import tempfile
-from houdini_comfyui_connection.compound_graph_core import GeometryUploadInfo, UploadInfo, GraphPartData, GraphPorcessingInputKey, GraphProcessingContext, ImageType, get_output_index_from_input, NonGraphSource
+from houdini_comfyui_connection.compound_graph_core import GeometryUploadInfo, UploadInfo, GraphPartData, GraphPorcessingInputKey, GraphProcessingContext, UnresolvedPath
+from houdini_comfyui_connection.requester import Requester
 from houdini_comfyui_connection.upload_common import upload_image
 
 comfyui_partial_graph_is_custom_node = True
@@ -44,9 +45,9 @@ def process_graph_node(
     if source_context in nodes_to_upload:
         image_name = nodes_to_upload[source_context][1].filename
     else:
-        image_name = f'{uuid.uuid4()}.{ext}'
+        image_name = UnresolvedPath(f'{uuid.uuid4()}.{ext}')
         if subdir_name := subnode.evalParm('cui_image_subdir'):
-            image_name = f'{subdir_name}/{image_name}'
+            image_name = UnresolvedPath(f'{subdir_name}/{image_name}')
         nodes_to_upload[source_context] = (
             subnode,
             GeometryUploadInfo(
@@ -62,9 +63,7 @@ def process_graph_node(
         {},
     )
 
-def upload_input_to(node: hou.Node, host: str, subdir: str, filename: str):
-    host = host.rstrip('/ ')
-
+def upload_input_to(node: hou.Node, requester: Requester, subdir: str, filename: str) -> tuple[str, str]:
     # cook and upload
     geo_type = get_geo_type(node)
     if geo_type == 'glb':
@@ -81,12 +80,14 @@ def upload_input_to(node: hou.Node, host: str, subdir: str, filename: str):
         output_file=str(file_path),
     )
 
-    upload_image(host, file_path, subdir, filename)
+    ret = upload_image(requester, file_path, subdir, filename)
 
     shutil.rmtree(base_path)
 
+    return ret
 
-def _get_path_to_abs_graph(nid: str, text: str) -> dict:
+
+def _get_path_to_abs_graph(nid: str, text: UnresolvedPath) -> dict:
     return {
         nid: {
             'inputs': {

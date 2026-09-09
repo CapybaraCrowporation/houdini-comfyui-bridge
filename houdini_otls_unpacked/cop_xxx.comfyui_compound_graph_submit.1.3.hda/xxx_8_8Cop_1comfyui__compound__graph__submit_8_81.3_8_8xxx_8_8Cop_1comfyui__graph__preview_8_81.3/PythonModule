@@ -1,7 +1,7 @@
 import hou
 import traceback
 import json
-from houdini_comfyui_connection.graph_submission import BadInputSubstituteError, ResultNotFound, GraphValidationError, delete_input_image, delete_output_image, delete_prompt_history, download_result, submit_graph_and_get_result, FunctionalityNotAvailable, FailedToDeleteImage, delete_input_image, delete_output_image, delete_prompt_history
+from houdini_comfyui_connection.graph_submission import BadInputSubstituteError, ResultNotFound, GraphValidationError
 from houdini_comfyui_connection.ui_tools import show_error
 from houdini_comfyui_connection.compound_graph_tools import update_comfy_nodes_definitions, find_nearest_compound_graph_parent
 from houdini_comfyui_connection.compound_graph_core import compute_compound_graph_node

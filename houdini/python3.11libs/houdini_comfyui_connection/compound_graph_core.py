@@ -6,9 +6,10 @@ from pathlib import Path
 import json
 import re
 import uuid
-from houdini_comfyui_connection.graph_submission import BadInputSubstituteError, ResultNotFound, GraphValidationError, delete_input_image, delete_output_image, delete_prompt_history, download_result, submit_graph_and_get_result, FunctionalityNotAvailable, FailedToDeleteImage
+from houdini_comfyui_connection.graph_submission import ResultNotFound, delete_input_image, delete_prompt_history, download_result, submit_graph_and_get_result, FunctionalityNotAvailable, FailedToDeleteImage
 from .compound_graph_core_graph_helpers import follow_input_till_deadend
-
+from .requester import Requester
+from .logging import debug
 
 class SubmitVariableNotFoundError(KeyError):
     """
@@ -29,9 +30,23 @@ class GraphPartData:
     params: dict[tuple[str, str], int|float|str]  # (node KEY, input) -> override value
 
 
+class UnresolvedPath:
+    def __init__(self, init_path: str|None = None):
+        self.__path = init_path
+
+    def replace_path(self, path: str):
+        self.__path = path
+
+    def resolve(self) -> str:
+        return str(self)
+
+    def __str__(self):
+        return self.__path
+
+
 @dataclass
 class UploadInfo:
-    filename: str
+    filename: UnresolvedPath
     frame: int|float|None
     was_uploaded: bool = field(default=False, init=False)
 
@@ -76,18 +91,24 @@ class NonGraphSource:
     image_type: ImageType
 
 
-debug = lambda *args, **kwargs: ()
-def _debug(msg, *args):
-    from pprint import pprint
-    print(f'[CUI_DEBUG] {msg}')
-    if args:
-        if len(args) == 1:
-            args = args[0]
-        pprint(args)
-
-if os.environ.get('HCUI_DEBUG', '0') == '1':
-    debug = _debug
-
+def resolve_unresolved_strings(data):
+    replaces = {}
+    if isinstance(data, dict):
+        iterator = data.items()
+    elif isinstance(data, list):
+        iterator = enumerate(data)
+    else:
+        raise RuntimeError(f'wrong type of data: {type(data)}')
+    for k, v in iterator:
+        if isinstance(v, UnresolvedPath):
+            replaces[k] = v.resolve()
+        elif isinstance(v, tuple):
+            replaces[k] = list(v)
+            resolve_unresolved_strings(replaces[k])  # also make lists mutable for ease of traversal
+        elif isinstance(v, (list, dict)):
+            resolve_unresolved_strings(v)
+    for k, v in replaces.items():
+        data[k] = v
 
 def get_output_index_from_input(subnode: hou.Node, input_index: int) -> CompoundGraphSource|NonGraphSource|None:
     """
@@ -137,7 +158,7 @@ def title_to_key(graph: dict, title: str) -> str:
     raise KeyError(f'node with title {title} not found')
 
 
-def get_image_load_graph(cui_image_path: str) -> dict:
+def get_image_load_graph(cui_image_path: str|UnresolvedPath) -> dict:
     return {
         "0": {
             "inputs": {
@@ -151,7 +172,7 @@ def get_image_load_graph(cui_image_path: str) -> dict:
     }
 
 
-def get_mask_load_graph(cui_image_path: str) -> dict:
+def get_mask_load_graph(cui_image_path: str|UnresolvedPath) -> dict:
     return {
         "1": {
             "inputs": {
@@ -353,7 +374,7 @@ def process_graph_node(
             if source_context in nodes_to_upload:
                 image_name = nodes_to_upload[source_context][1].filename
             else:
-                image_name = f"houdini_comfyui_connection/{uuid.uuid4()}.png"
+                image_name = UnresolvedPath(f"houdini_comfyui_connection/{uuid.uuid4()}.png")
                 nodes_to_upload[source_context] = (upload_node, ImageInfo(image_name, source_context.context.frame, needs_cc))
             # need to create loader for that new image
             if input_type in ('IMAGE', ''):  # treat empty as image for compat for now
@@ -493,7 +514,7 @@ def combine_graph_parts(node_to_graph: dict[hou.Node, GraphPartData]) -> tuple[d
     return new_graph, param_overrides
 
 
-def _expand_val(text: str, context_vars: dict[str, str|float|int], upload_nodes: dict[GraphPorcessingInputKey, tuple[hou.Node, UploadInfo]]) -> str:
+def _expand_val(text: str, context_vars: dict[str, str|float|int], upload_nodes: dict[GraphPorcessingInputKey, tuple[hou.Node, UploadInfo]]) -> str|UnresolvedPath:
     magic_string = ':#:cuiinputfrom:#:'
     if not text.startswith(magic_string):
         try:
@@ -636,18 +657,16 @@ def construct_full_graph(
 
 
 def submit_compound_graph(
-    host: str,
+    requester: Requester,
     output_node: hou.Node,
     long_op: hou.InterruptableOperation|None = None,
     *,
     context_vars: dict[str, str|float|int]|None = None,
     reuse_upload_nodes: dict[GraphPorcessingInputKey, tuple[hou.Node, UploadInfo]]|None = None,
     explicit_roots: list[hou.Node]|None = None,
-    api_key: str|None = None,
 ) -> tuple[dict, str, dict[GraphPorcessingInputKey, tuple[hou.Node, UploadInfo]], list[str]]:
 
     graph, upload_nodes, outputs = construct_full_graph(output_node, upload_nodes=reuse_upload_nodes, explicit_cui_roots=explicit_roots, context_vars=context_vars, long_op=long_op)
-    debug('full graph:', graph)
 
     for upload_node, image_info in (x for x in upload_nodes.values()):
         if image_info.was_uploaded:
@@ -655,7 +674,7 @@ def submit_compound_graph(
         image_info.was_uploaded = True
         if long_op:
             long_op.updateLongProgress(-1, "Cooking and Uploading inputs...")
-        subdir, filename = image_info.filename.rsplit('/', 1) if '/' in image_info.filename else ('', image_info.filename)
+        subdir, filename = res_fname.rsplit('/', 1) if '/' in (res_fname := image_info.filename.resolve()) else ('', res_fname)
         kwargs = {}
         if isinstance(image_info, ImageInfo):
             kwargs = {
@@ -672,22 +691,25 @@ def submit_compound_graph(
         else:
             raise NotImplementedError(f'upload for type "{image_info}" is not implemented')
 
-        upload_node.hdaModule().upload_input_to(
+        final_name, final_subdir = upload_node.hdaModule().upload_input_to(
             upload_node,
-            host,
+            requester,
             subdir,
             filename,
             **kwargs,
         )
+        image_info.filename.replace_path(f'{final_subdir}/{final_name}' if final_subdir else final_name)
 
     # TODO: provide output_ids!
-    res, prompt_id = submit_graph_and_get_result(host, graph, long_op=long_op, api_key=api_key)
+    resolve_unresolved_strings(graph)
+    debug('full graph:', graph)
+    res, prompt_id = submit_graph_and_get_result(requester, graph, long_op=long_op)
     debug(f'result {prompt_id}:', res)
     return res, prompt_id, upload_nodes, outputs
 
 
 def compute_compound_graph_node(node, long_op=None, override_output_node=None, override_result_loader_nodes=None):
-    host = node.evalParm('base_url').rstrip('/ ')
+    requester = node.hdaModule().create_requester_from_node(node)
     
     do_cleanup = node.parm('cleanup_server_images').eval()
 
@@ -697,8 +719,7 @@ def compute_compound_graph_node(node, long_op=None, override_output_node=None, o
         output_node = node.node('graph').node('outputs')
         if output_node is None:
             raise RuntimeError('not node "outputs" found in the graph')
-    api_key = node.evalParm('comfyui_api_key')
-    res, prompt_id, upload_nodes, outputs = submit_compound_graph(host, output_node, long_op=long_op, api_key=api_key or None)
+    res, prompt_id, upload_nodes, outputs = submit_compound_graph(requester, output_node, long_op=long_op)
     
     # get result
     for i in range(len(override_result_loader_nodes) if override_result_loader_nodes else 2):
@@ -718,7 +739,7 @@ def compute_compound_graph_node(node, long_op=None, override_output_node=None, o
 
         if node.parm('image_batch_index') is None:
             # 1.2 compatibility
-            download_result(host, res[key]['images'][0]['filename'], res[key]['images'][0]['subfolder'], outpath)
+            download_result(requester, res[key]['images'][0]['filename'], res[key]['images'][0]['subfolder'], outpath)
         else:
             for batchi, data in enumerate(res[key].get('images', res[key].get('3d', ()))):
                 # we rely on batch id being last \.\d+\. in the filename
@@ -735,7 +756,7 @@ def compute_compound_graph_node(node, long_op=None, override_output_node=None, o
                 if not _try_remove_or_shift(local_path, outnode):  # remove existing before downloading new file
                     local_path = _get_local_path(outnode, batchi)  # to eval expression
                 debug(f'downloading image {batchi} of batch: {local_path}')
-                download_result(host, data['filename'], data['subfolder'], local_path)
+                download_result(requester, data['filename'], data['subfolder'], local_path)
         outnode.parm('reload').pressButton()
 
     if do_cleanup:
@@ -746,13 +767,13 @@ def compute_compound_graph_node(node, long_op=None, override_output_node=None, o
                 long_op.updateProgress(i / len(image_infos))
 
             try:
-                if '/' in upload_data.filename:  # not os.path.split cuz it's not os-specific
-                    upload_subdir, upload_filename = upload_data.filename.rsplit('/', 1)
+                if '/' in str(upload_data.filename):  # not os.path.split cuz it's not os-specific
+                    upload_subdir, upload_filename = str(upload_data.filename).rsplit('/', 1)
                 else:
                     upload_subdir = ''
-                    upload_filename = upload_data.filename
+                    upload_filename = str(upload_data.filename)
                 delete_input_image(
-                    host,
+                    requester,
                     upload_filename,
                     upload_subdir,
                 )
@@ -764,7 +785,7 @@ def compute_compound_graph_node(node, long_op=None, override_output_node=None, o
 
         if long_op:
             long_op.updateLongProgress(-1, "Cleaning up prompt history")
-        delete_prompt_history(host, prompt_id)
+        delete_prompt_history(requester, prompt_id)
         #  comfy backend cache does not check image existance, and there is no clear stable way of cleaning cache,
         #  so we have to leave output images as is for now
 

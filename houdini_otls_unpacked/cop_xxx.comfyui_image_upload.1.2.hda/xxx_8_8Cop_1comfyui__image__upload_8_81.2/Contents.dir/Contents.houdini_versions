@@ -1,0 +1,13 @@
+{
+	"values":["20.5.410"
+	],
+	"indexes":{
+		"hdaroot/noop_to_avoid_error.userdata":0,
+		"hdaroot/output1.userdata":0,
+		"hdaroot/DATA.userdata":0,
+		"hdaroot/input1.userdata":0,
+		"hdaroot/rop_image1.userdata":0,
+		"hdaroot/OUT.userdata":0,
+		"hdaroot/rgbatorgb1.userdata":0
+	}
+}
