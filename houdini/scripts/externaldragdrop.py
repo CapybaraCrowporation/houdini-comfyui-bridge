@@ -2,7 +2,7 @@ import hou
 import json
 import os
 import traceback
-import PIL
+from PIL import Image
 
 from houdini_comfyui_connection.requester import Requester
 from houdini_comfyui_connection.workflow_deserialization_tools import create_network_from_prompt, create_network_from_workflow, MissingNodeDefinitionError
@@ -38,9 +38,9 @@ def dropAccept(file_list):
 
     if file_ext == '.png':
         try:
-            img = PIL.Image.open(file_list[0])
-        except:
-            print(f'failed to open image {file_list[0]}')
+            img = Image.open(file_list[0])
+        except Exception as e:
+            print(f'failed to open image {file_list[0]}', e)
             return True  # we don't want houdini to open that image as hip file, do we
 
         try:
