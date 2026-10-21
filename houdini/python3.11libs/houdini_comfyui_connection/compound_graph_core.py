@@ -10,6 +10,8 @@ from houdini_comfyui_connection.graph_submission import ResultNotFound, delete_i
 from .compound_graph_core_graph_helpers import follow_input_till_deadend
 from .requester import Requester
 from .logging import debug
+from .comfy_types import is_generic, is_3d_type, houdini_image_upload_kind
+from .glb_tools import extract_glb_textures
 
 class SubmitVariableNotFoundError(KeyError):
     """
@@ -343,12 +345,18 @@ def process_graph_node(
         return process_graph_node(subnode.inputs()[0] if len(subnode.inputs()) else None, node_to_graph, nodes_to_upload, context_vars, long_op=long_op)
         
     graph = json.loads(subnode.evalParm('cui_graph'))
+    # branches a switch won't select are not traversed nor linked
+    skip_input_names = get_unselected_switch_inputs(subnode) | get_inactive_inputs(subnode)
     # process all input nodes
     input_nodes = []
     for i, input_node_maybe in enumerate(subnode.inputConnectors()):
         input_nodes.append(None)  # extend list straight away
         if not input_node_maybe:  # if nothing is plugged - skip
             continue
+        if skip_input_names:
+            parm_i = get_graph_input_num_from_node_input(subnode, i)
+            if parm_i is not None and subnode.evalParm(f'cui_i_node_input_{parm_i}') in skip_input_names:
+                continue
         #input_node = input_node_maybe[0].inputNode()
         #process_graph_node(input_node, node_to_graph, nodes_to_upload)
         # we don't use on houdini's notion of inputs, as our inputs can be hidden inside assets, and connected through nulls
@@ -377,9 +385,10 @@ def process_graph_node(
                 image_name = UnresolvedPath(f"houdini_comfyui_connection/{uuid.uuid4()}.png")
                 nodes_to_upload[source_context] = (upload_node, ImageInfo(image_name, source_context.context.frame, needs_cc))
             # need to create loader for that new image
-            if input_type in ('IMAGE', ''):  # treat empty as image for compat for now
+            upload_kind = houdini_image_upload_kind(input_type)
+            if upload_kind == 'IMAGE':
                 img_load_graph = get_image_load_graph(image_name)
-            elif input_type == 'MASK':
+            elif upload_kind == 'MASK':
                 img_load_graph = get_mask_load_graph(image_name)
             else:
                 raise NotImplementedError(f'don\'t know how to upload input type "{input_type}"')
@@ -403,6 +412,8 @@ def process_graph_node(
     for i in range(1, 1+subnode.evalParm('cui_inputs')):
         inp_node_title = subnode.evalParm(f'cui_i_node_title_{i}')
         inp_node_input = subnode.evalParm(f'cui_i_node_input_{i}')
+        if inp_node_input in skip_input_names:  # unselected switch branch / inactive dynamic combo option
+            continue
         inp_node_vtype = subnode.evalParm(f'cui_i_value_type_{i}')
         inp_node_orig_vtype = subnode.evalParm(f'cui_i_meta_orig_value_type_{i}')
         if not inp_node_vtype.startswith('input'):
@@ -477,6 +488,119 @@ def _try_get_input_value(node: hou.Node, value_type: str, input_number: int) -> 
     elif value_type == 'bool':
         return bool(parm.evalAsInt())
     return parm.eval()
+
+
+def _get_static_input_value(node: hou.Node, parm_i: int):
+    """
+    value of a partial graph node input if it is known before execution:
+    either a plain parameter, or a wire that dead-ends in a subgraph parameter.
+    returns None when the value comes from another comfy node or cannot be determined
+    """
+    value_type = node.evalParm(f'cui_i_value_type_{parm_i}')
+    if value_type == 'bool':
+        return bool(node.evalParm(f'cui_i_value_bool_{parm_i}'))
+    if value_type in ('int', 'float', 'text'):
+        return node.evalParm(f'cui_i_value_{value_type}_{parm_i}')
+    if not value_type.startswith('input'):
+        return None
+    input_idx = int(value_type[5:]) - 1
+    if get_output_index_from_input(node, input_idx) is not None:
+        return None  # driven by another comfy node or an image
+    orig_type = node.evalParm(f'cui_i_meta_orig_value_type_{parm_i}')
+    if not orig_type or orig_type.startswith('input'):
+        return None
+    deadend = follow_input_till_deadend(node, input_idx)
+    if deadend is None:
+        return None
+    return _try_get_input_value(deadend[0], orig_type, deadend[1])
+
+
+def get_unselected_switch_inputs(node: hou.Node) -> set[str]:
+    """
+    for comfy core Switch (switch/on_true/on_false) with a statically known switch value
+    returns the name of the branch that will NOT be used.
+    comfy validates every linked node even behind lazy inputs, so an unused branch
+    with missing inputs (like an unconnected mask) would fail the whole prompt
+    """
+    if node.parm('cui_inputs') is None:
+        return set()
+    name_to_i = {node.evalParm(f'cui_i_node_input_{i}'): i for i in range(1, 1 + node.evalParm('cui_inputs'))}
+    if not {'switch', 'on_true', 'on_false'} <= name_to_i.keys():
+        return set()
+    value = _get_static_input_value(node, name_to_i['switch'])
+    if value is None:
+        return set()
+    return {'on_false'} if value else {'on_true'}
+
+
+def get_inactive_inputs(node: hou.Node) -> set[str]:
+    """
+    names of flattened DynamicCombo sub-inputs that belong to a non-selected option.
+    those must not be sent to comfy (nor traversed)
+    """
+    if node.parm('cui_inputs') is None:
+        return set()
+    data = node.userData('_hou_cui_dynamic_conditions')
+    if not data:
+        return set()
+    conditions: dict[str, list] = json.loads(data)
+    name_to_i = {node.evalParm(f'cui_i_node_input_{i}'): i for i in range(1, 1 + node.evalParm('cui_inputs'))}
+    cache: dict[str, object] = {}
+
+    def combo_value(name):
+        if name not in cache:
+            i = name_to_i.get(name)
+            cache[name] = None if i is None else _get_static_input_value(node, i)
+        return cache[name]
+
+    def holds(condition_list) -> bool:
+        for combo_name, key in condition_list:
+            value = combo_value(combo_name)
+            if value is None:
+                continue  # selection not known statically, assume active
+            if str(value) != str(key):
+                return False
+        return True
+
+    return {name for name, condition_lists in conditions.items() if not any(holds(c) for c in condition_lists)}
+
+
+def resolve_output_type(node: hou.Node, output_index: int, _depth: int = 0) -> str|None:
+    """
+    returns comfy type of node's output.
+    generic outputs (V3 MatchType, like the core Switch node) take the concrete type
+    from whatever is plugged into the node's generic inputs, recursively (switch into switch etc)
+    """
+    parm = node.parm(f'cui_o_meta_outtype_{output_index + 1}')
+    if parm is None:
+        return None
+    out_type = parm.evalAsString()
+    if not is_generic(out_type) or _depth > 32 or node.parm('cui_inputs') is None:
+        return out_type
+
+    unselected = get_unselected_switch_inputs(node)
+
+    candidates: list[tuple[str, str]] = []  # (input name, resolved type)
+    for i in range(1, 1 + node.evalParm('cui_inputs')):
+        intype_parm = node.parm(f'cui_i_meta_intype_{i}')
+        value_type = node.evalParm(f'cui_i_value_type_{i}')
+        if intype_parm is None or not value_type.startswith('input') or not is_generic(intype_parm.evalAsString()):
+            continue
+        if node.evalParm(f'cui_i_node_input_{i}') in unselected:
+            continue
+        source = get_output_index_from_input(node, int(value_type[5:]) - 1)
+        if source is None:
+            continue
+        if isinstance(source, NonGraphSource):
+            resolved = 'IMAGE'  # plain houdini images are always uploaded as images into generic inputs
+        else:
+            resolved = resolve_output_type(source.node, source.output, _depth + 1)
+        if resolved and not is_generic(resolved):
+            candidates.append((node.evalParm(f'cui_i_node_input_{i}'), resolved))
+
+    if candidates:
+        return candidates[0][1]
+    return out_type
 
 
 def combine_graph_parts(node_to_graph: dict[hou.Node, GraphPartData]) -> tuple[dict, dict[str, dict[str, int|float|str|list]]]:
@@ -588,14 +712,14 @@ def construct_full_graph(
                 continue
             process_graph_node(in_source.node, node_to_graph, upload_nodes, context_vars, long_op=long_op)
 
-            output_type_name = None
-            if typeparm := in_source.node.parm(f'cui_o_meta_outtype_{in_source.output + 1}'):
-                output_type_name = typeparm.eval()
-            
+            output_type_name = resolve_output_type(in_source.node, in_source.output)
+            if output_type_name and ',' in output_type_name:  # multi-type output, pick the first concrete one
+                output_type_name = output_type_name.split(',')[0].strip()
+
             if output_type_name == 'TRIMESH':
                 saving_graph.update(get_hy3d_save_graph(f'houdini-connection-todo-change-this-{i}', f'input1_{i}', f'{i}', i))
                 saving_inputs[(f'input1_{i}', 'trimesh')] = (in_source.node, in_source.output)
-            elif output_type_name == 'MESH':
+            elif is_3d_type(output_type_name):  # MESH and every FILE_3D* flavour (glb, fbx, splats, point clouds...) go through SaveGLB
                 saving_graph.update(get_mesh_save_graph(f'houdini-connection-todo-change-this-{i}', f'{i}', i))
                 saving_inputs[(f'{i}', 'mesh')] = (in_source.node, in_source.output)
             elif output_type_name == 'MASK':
@@ -611,6 +735,9 @@ def construct_full_graph(
                 saving_graph.update(get_image_save_graph(f'houdini-connection-todo-change-this-{i}', f'{i}', i))
                 saving_inputs[(f'{i}', 'images')] = (in_source.node, in_source.output)
             else:
+                if is_generic(output_type_name):
+                    raise TypeError(f'cannot figure out what to save for output "{in_source.node.path()}" output {in_source.output + 1}: '
+                                    f'it has a generic type "{output_type_name}" and nothing typed is connected to its inputs')
                 raise TypeError(f'saving of input type "{output_type_name}" is not implemented')
 
         
@@ -757,6 +884,8 @@ def compute_compound_graph_node(node, long_op=None, override_output_node=None, o
                     local_path = _get_local_path(outnode, batchi)  # to eval expression
                 debug(f'downloading image {batchi} of batch: {local_path}')
                 download_result(requester, data['filename'], data['subfolder'], local_path)
+                if local_path.suffix.lower() == '.glb':
+                    _unpack_glb_textures(local_path)
         outnode.parm('reload').pressButton()
 
     if do_cleanup:
@@ -788,6 +917,21 @@ def compute_compound_graph_node(node, long_op=None, override_output_node=None, o
         delete_prompt_history(requester, prompt_id)
         #  comfy backend cache does not check image existance, and there is no clear stable way of cleaning cache,
         #  so we have to leave output images as is for now
+
+def _unpack_glb_textures(glb_path: Path):
+    """
+    houdini's gltf importer can't use textures embedded in a glb, so write them next to it.
+    never fails the run: a problem here only means textures stay embedded
+    """
+    try:
+        written = extract_glb_textures(glb_path)
+        if written:
+            debug(f'unpacked {len(written)} textures from {glb_path}:', [p.name for p in written])
+    except PermissionError as e:
+        print(f'[WARNING] could not write textures for {glb_path} (file in use?): {e}')
+    except Exception as e:
+        print(f'[WARNING] could not unpack textures from {glb_path}: {e}')
+
 
 def _get_local_path(outnode, batchi):
     local_path = Path(outnode.evalParm('filename'))

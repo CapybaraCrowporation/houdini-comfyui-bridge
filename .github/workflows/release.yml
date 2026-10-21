@@ -18,6 +18,8 @@ jobs:
           path: artifacts
       - uses: softprops/action-gh-release@v2
         with:
+          # tags with a suffix (v0.6.10-preview, v0.7.0-beta) are published as pre-releases, never as "Latest"
+          prerelease: ${{ contains(github.ref_name, '-') }}
           files: |
             artifacts/redist/houdini.zip
             artifacts/redist/comfy.zip

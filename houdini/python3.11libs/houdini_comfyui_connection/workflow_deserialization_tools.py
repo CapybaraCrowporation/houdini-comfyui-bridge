@@ -1,3 +1,4 @@
+import json
 import hou  # type:ignore
 from dataclasses import dataclass
 from itertools import chain, zip_longest
@@ -8,6 +9,7 @@ from .requester import Requester
 from .subnet_wrapper_helper import propagate_single_parameter
 from .compound_graph_core import debug
 from .compound_graph_core_graph_helpers import follow_output_till_deadend_condition
+from .comfy_types import DYNAMICCOMBO, iter_section_inputs
 
 @dataclass
 class InputDef:
@@ -18,6 +20,7 @@ class InputDef:
     tags: dict[str, bool|int|float|str]
     link_ids: list[int]
     has_widget: bool
+    label: str|None = None  # display label, comfy subgraphs let users rename inputs
 
 @dataclass
 class OutputDef:
@@ -93,7 +96,28 @@ def _parse_links(raw_links: list) -> dict[int, Link]:
         return links
 
 def _infer_haswidget_from_type(type_name: str|list) -> bool:
-    return type_name in ('INT', 'FLOAT', 'STRING', 'BOOLEAN', 'COMBO') or isinstance(type_name, list)
+    return type_name in ('INT', 'FLOAT', 'STRING', 'BOOLEAN', 'COMBO', 'COLOR') or isinstance(type_name, list)
+
+
+def _is_value_only_widget(input_def: 'InputDef') -> bool:
+    """
+    widgets that occupy a slot in widgets_values but cannot be set on houdini side
+    (3d viewport state, other frontend-only socketless widgets)
+    """
+    if input_def.has_widget:
+        return False
+    if input_def.type == 'LOAD_3D':
+        return True
+    tags = input_def.tags if isinstance(input_def.tags, dict) else {}
+    return bool(tags.get('socketless') or tags.get('widgetType'))
+
+
+def _extra_widget_values_count(input_def: 'InputDef') -> int:
+    """
+    hidden companion widgets frontend stores right after an input's value (e.g. LoadImage "upload")
+    """
+    tags = input_def.tags if isinstance(input_def.tags, dict) else {}
+    return sum(1 for k, v in tags.items() if k.endswith('_upload') and v is True)
 
 
 def _parse_subgraph_data(data: list[dict]) -> dict[str, SubgraphDefinition]:
@@ -115,6 +139,7 @@ def _parse_subgraph_data(data: list[dict]) -> dict[str, SubgraphDefinition]:
                 {},
                 int_data['linkIds'],
                 _infer_haswidget_from_type(int_data['type']),
+                int_data.get('label'),
             ))
         output_defs = []
         for out_data in sub_data['outputs']:
@@ -126,6 +151,7 @@ def _parse_subgraph_data(data: list[dict]) -> dict[str, SubgraphDefinition]:
                 {},
                 out_data['linkIds'],
             ))
+            output_defs[-1].tags['label'] = out_data.get('label')
         nodes = sub_data['nodes']
         links = _parse_links(sub_data['links'])
 
@@ -221,8 +247,10 @@ def _create_subgraph(
 
     subnet.parm('inputs').set(len(subgraph_def.input_defs))
     subnet.parm('outputs').set(len(subgraph_def.output_defs))
+    # connections are matched by comfy input name, labels are only for display
+    subnet.setUserData('comfyui_subgraph_input_names', json.dumps([x.name for x in subgraph_def.input_defs]))
     for i, input_def in enumerate(subgraph_def.input_defs):
-        subnet.parm(f'inputlabel{i+1}').set(input_def.name)
+        subnet.parm(f'inputlabel{i+1}').set(input_def.label or input_def.name)
         inp_type = 'vector2'
         if input_def.type == 'IMAGE':
             inp_type = 'vector4'
@@ -244,7 +272,7 @@ def _create_subgraph(
                 node_id_to_data[link_data.target_id]['inputs'][link_data.target_slot]['name']
             )
     for i, output_def in enumerate(subgraph_def.output_defs):
-        subnet.parm(f'outputlabel{i+1}').set(output_def.name)
+        subnet.parm(f'outputlabel{i+1}').set(output_def.tags.get('label') or output_def.name)
         out_type = 'vector2'
         if output_def.type == 'IMAGE':
             out_type = 'vector4'
@@ -279,7 +307,10 @@ def _create_subgraph(
         parm_template = propagate_single_parameter(inner_pg_node, i+1, inner_i, also_connect_node_to_it=False, ignore_unkonwn_types=True, ptg_owner=subnet)
         if parm_template is None:
             continue
-        parm_template.setConditional(hou.parmCondType.HideWhen, "{ hasinput(0) == 1 }")
+        if input_def.label:
+            parm_template.setLabel(input_def.label)
+        # hide the parm only when ITS OWN input is wired
+        parm_template.setConditional(hou.parmCondType.HideWhen, f"{{ hasinput({i}) == 1 }}")
         ptg.appendToFolder('Inputs', parm_template)
 
     subnet.setParmTemplateGroup(ptg)
@@ -321,7 +352,7 @@ def _create_network_from_workflow_nodes(
     debug('ignored links:', ignored_links)
     link_id_to_nodes = {
         link_id: (
-            (link.origin_id, node_id_to_data[link.origin_id]['outputs'][link.origin_slot].get('slot_index', 0)),
+            (link.origin_id, node_id_to_data[link.origin_id]['outputs'][link.origin_slot].get('slot_index', link.origin_slot)),
             (link.target_id, node_id_to_data[link.target_id]['inputs'][link.target_slot]['name'])
         ) for link_id, link in workflow_links.items() if link_id not in ignored_links
     }
@@ -387,6 +418,9 @@ def _create_network_from_workflow_nodes(
         #  we here do it in a SIMPLIFIED way, so things MAY go wrong
         input_name_to_link_id = {inp['name']: inp['link'] for inp in node_data['inputs'] if inp['link'] is not None}
         values = node_data.get('widgets_values', {})
+        if node_data.get('widgets_values_named') and node_data['type'] not in subgraph_definitions:
+            # newer frontends store widget values by name too - authoritative, immune to hidden widgets shifting positions
+            values = dict(node_data['widgets_values_named'])
         if node_data.get('mode') == 4:  # TODO: no idea if this is a const value or a bit mask
             nodes[node_data['id']].bypass(True)
         
@@ -398,16 +432,31 @@ def _create_network_from_workflow_nodes(
         else:
             raise RuntimeError(f'{node_data["type"]} is neither a known node definition, nor a subgraph definition')
 
+        def connect_by_name(name):
+            link_id = input_name_to_link_id[name]
+            if link_id in ignored_links:
+                return
+            (node1_id, node1_out), (node2_id, node2_inname) = link_id_to_nodes[link_id]
+            _connect_nodes(nodes[node1_id], node1_out, nodes[node2_id], node2_inname)
+
         for input_def in node_def.input_defs:
             input_name = input_def.name
+            if input_def.type == DYNAMICCOMBO and is_subnet_wrapper(nodes[node_data['id']]):
+                # selector value is followed by the values of the selected option's widgets
+                _consume_dynamic_combo(nodes[node_data['id']], input_name, input_def.tags, values, input_name_to_link_id, connect_by_name)
+                continue
             vals_to_post_skip = 0
             special_names = ('seed',)  # these param names seem to be hardcoded to be treated to have control_after_generate
-            if input_def.tags.get('control_after_generate', False) or input_name in special_names:
+            # promoted widgets on a subgraph node do NOT store the extra control_after_generate value
+            is_subgraph_node = isinstance(node_def, SubgraphDefinition)
+            if not is_subgraph_node and (input_def.tags.get('control_after_generate', False) or input_name in special_names):
                 # that means extra widget is created for the value that we ignore, if that input is not connected that is
                 vals_to_post_skip = 1
+            vals_to_post_skip += _extra_widget_values_count(input_def)
+            value_only = _is_value_only_widget(input_def)
 
             if input_name in input_name_to_link_id:
-                if input_def.has_widget:
+                if input_def.has_widget or value_only:
                     if isinstance(values, list):  # widget values are still present and need to be skipped
                         # apparently it is valid case for comfy to not have all widget values, so
                         if len(values) > 0:
@@ -434,26 +483,94 @@ def _create_network_from_workflow_nodes(
                 else:
                     raise NotImplementedError(f'don\'t know how to treat widgets_values of type "{type(values)}"')
                 _set_node_input_value(nodes[node_data['id']], input_name, val)
+            elif value_only and isinstance(values, list):
+                # occupies positions in widgets_values, but there is nothing to set on houdini side
+                for _ in range(1 + vals_to_post_skip):
+                    if values:
+                        values.pop(0)
 
     return nodes
+
+
+def _pop_widget_value(values, name) -> tuple[bool, object]:
+    """
+    (found, value) from a widgets_values list (positional, consumed) or dict (by name)
+    """
+    if isinstance(values, list):
+        if not values:
+            return False, None
+        return True, values.pop(0)
+    if isinstance(values, dict):
+        if name in values:
+            return True, values[name]
+    return False, None
+
+
+def _consume_dynamic_combo(node: hou.Node, name: str, tags: dict, values, input_name_to_link_id: dict, connect) -> None:
+    """
+    comfy frontend stores a DynamicCombo as its selected key followed by the selected option's widget values.
+    nested combos recurse with dotted names, the same way comfy names them in the prompt
+    """
+    if name in input_name_to_link_id:
+        connect(name)
+    found, key = _pop_widget_value(values, name)
+    if not found:
+        return
+    if name not in input_name_to_link_id:
+        _set_node_input_value(node, name, key)
+    option = next((o for o in tags.get('options', []) if str(o.get('key')) == str(key)), None)
+    if option is None:
+        return
+    for nested_name, nested_data, _ in iter_section_inputs(option.get('inputs', {})):
+        full_name = f'{name}.{nested_name}'
+        nested_type = nested_data[0]
+        nested_tags = nested_data[1] if len(nested_data) > 1 and isinstance(nested_data[1], dict) else {}
+        if nested_type == DYNAMICCOMBO:
+            _consume_dynamic_combo(node, full_name, nested_tags, values, input_name_to_link_id, connect)
+            continue
+        has_widget = _infer_haswidget_from_type(nested_type)
+        extra_values = 1 if nested_tags.get('control_after_generate') else 0
+        if full_name in input_name_to_link_id:
+            if has_widget and isinstance(values, list):
+                for _ in range(1 + extra_values):
+                    _pop_widget_value(values, full_name)
+            connect(full_name)
+            continue
+        if not has_widget:
+            continue
+        found, value = _pop_widget_value(values, full_name)
+        if not found:
+            return
+        if isinstance(values, list):
+            for _ in range(extra_values):
+                _pop_widget_value(values, full_name)
+        _set_node_input_value(node, full_name, value)
 
 
 def _connect_nodes(in_node: hou.Node, in_output_id: int, out_node: hou.Node, out_input_name):
     # output ids in comfy terms are same as in hou wrapper terms, so we can just use in_output_id
     if is_subgraph_wrapper(out_node):
-        for i in range(out_node.evalParm('inputs')):
-            if out_node.evalParm(f'inputlabel{i+1}') == out_input_name:
-                out_node.setInput(i, in_node, in_output_id)
+        for i in _subgraph_input_indices(out_node, out_input_name):
+            out_node.setInput(i, in_node, in_output_id)
     elif is_subnet_wrapper(out_node):
         _connect_compound_nodes(in_node, in_output_id, out_node, out_input_name)
     else:
         raise RuntimeError('cannot connect to node', out_node)
 
 
+def _subgraph_input_indices(node: hou.Node, input_name: str) -> list[int]:
+    """
+    subnet input indices that correspond to comfy subgraph input name.
+    uses stored names, falls back to labels for subnets created by older versions
+    """
+    if names_data := node.userData('comfyui_subgraph_input_names'):
+        return [i for i, name in enumerate(json.loads(names_data)) if name == input_name]
+    return [i for i in range(node.evalParm('inputs')) if node.evalParm(f'inputlabel{i+1}') == input_name]
+
+
 def _set_node_input_value(node: hou.Node, input_name: str, value):
     if is_subgraph_wrapper(node):
-        for i in range(node.evalParm('inputs')):
-            if node.evalParm(f'inputlabel{i+1}') == input_name:
+        for i in _subgraph_input_indices(node, input_name):
                 #input_type = node.evalParm(f'input_meta_typename_{i+1}')
                 debug(f'setting subgraph parm: {node.path()}, {i+1} to {repr(value)}')
                 parm = node.parm(f'input_parm_{i+1}')

@@ -6,7 +6,8 @@ import hou  # type:ignore
 import coptoolutils  # type:ignore
 import json
 from itertools import chain
-from .compound_graph_core import get_output_index_from_input, CompoundGraphSource
+from .compound_graph_core import get_output_index_from_input, CompoundGraphSource, resolve_output_type
+from .comfy_types import is_compatible, is_image_like, split_type, is_generic, CONTAINER_TYPES, expand_inputs
 from .requester import Requester
 
 # it seeems that houdini treats ints in parms as floats?
@@ -53,9 +54,13 @@ def create_single_tool(graph: hou.Node, node_type: dict, interactive_kwargs=None
     else:
         graph_node = graph.createNode('comfyui_partial_graph')
 
-    required_input_order = node_type['input_order'].get('required', [])
-    optional_input_order = node_type['input_order'].get('optional', [])
-    graph_node.parm('cui_inputs').set(len(required_input_order) + len(optional_input_order))
+    # V3 dynamic inputs (DynamicCombo, Autogrow) are flattened into plain inputs with comfy's dotted names
+    workflow_input_names = list(extra_workflow_data.inputs.keys()) if extra_workflow_data else []
+    flat_inputs, dynamic_conditions = expand_inputs(node_type, workflow_input_names)
+    graph_node.parm('cui_inputs').set(len(flat_inputs))
+    if dynamic_conditions:
+        # which combo selection each nested input depends on, used at submit time to send only active ones
+        graph_node.setUserData('_hou_cui_dynamic_conditions', json.dumps(dynamic_conditions))
     node_type_name = node_type['name']
     node_display_name = node_type.get('display_name') or node_type_name
     node_title = node_type_name
@@ -72,13 +77,7 @@ def create_single_tool(graph: hou.Node, node_type: dict, interactive_kwargs=None
 
     next_free_input = 0
     i = -1
-    for i, input_name in enumerate(chain(required_input_order, optional_input_order)):
-        # since input names are unique among required and optional - we can do the trick below
-        input_data = node_type.get('input', {}).get('required', {}).get(
-            input_name,
-            node_type.get('input', {}).get('optional', {}).get(input_name)
-        )
-        assert input_data is not None
+    for i, (input_name, input_data) in enumerate(flat_inputs):
 
         graph_node.parm(f'cui_i_node_title_{i+1}').set(node_title)
         graph_node.parm(f'cui_i_node_input_{i+1}').set(input_name)
@@ -91,6 +90,15 @@ def create_single_tool(graph: hou.Node, node_type: dict, interactive_kwargs=None
 
         # input_data is a list of 1 or 2 values
         input_type = input_data[0]
+
+        # generic inputs (V3 MatchType, "*") - if the workflow already knows the concrete type, use it,
+        #  so houdini sockets get the right signature (MASK stays mono, IMAGE rgba etc)
+        generic_resolved = False
+        if is_generic(input_type) and input_name in workflow_inputs:
+            wf_type = workflow_inputs[input_name].type
+            if isinstance(wf_type, str) and wf_type and not is_generic(wf_type) and wf_type not in CONTAINER_TYPES:
+                input_type = wf_type
+                generic_resolved = True
 
         if isinstance(input_type, str):
             graph_node.parm(f'cui_i_meta_intype_{i+1}').set(input_type)
@@ -106,7 +114,11 @@ def create_single_tool(graph: hou.Node, node_type: dict, interactive_kwargs=None
             force_input_to_be_wire = input_data[1].get('forceInput', False) if input_data and len(input_data) > 1 and isinstance(input_data[1], dict) else False
         
         input_metadata_unknown = False
-        if input_type == 'INT':
+        if generic_resolved:
+            # generic inputs are always wires, even if they carry INT/STRING etc
+            force_input_to_be_wire = True
+            input_metadata_unknown = True
+        elif input_type == 'INT':
             big_vals_string_workaround_needed = False
             if len(input_data) > 1:
                 meta_hint = input_data[1].get('tooltip')
@@ -155,7 +167,7 @@ def create_single_tool(graph: hou.Node, node_type: dict, interactive_kwargs=None
             if meta_max is not None:
                 graph_node.parm(f'cui_i_meta_floatrange_{i+1}y').set(meta_max)
         #
-        elif input_type == 'STRING':
+        elif input_type in ('STRING', 'COLOR'):  # COLOR is a "#rrggbb" string widget
             graph_node.parm(f'cui_i_value_type_{i+1}').set('text')
             graph_node.parm(f'cui_i_meta_textvals_{i+1}').set(0)
             
@@ -274,7 +286,7 @@ def create_single_tool(graph: hou.Node, node_type: dict, interactive_kwargs=None
         graph_node.parm(f'cui_o_node_title_{i+1}').set(node_title)
         graph_node.parm(f'cui_o_node_output_{i+1}').set(i)
         graph_node.parm(f'cui_o_meta_outputname_{i+1}').set(output_name)
-        graph_node.parm(f'cui_o_meta_isimage_{i+1}').set(output_type in ('IMAGE', 'MASK'))
+        graph_node.parm(f'cui_o_meta_isimage_{i+1}').set(is_image_like(output_type))
         graph_node.parm(f'cui_o_meta_outtype_{i+1}').set(output_type)
 
     graph_node.parm('cui_graph').set(json.dumps(
@@ -305,10 +317,10 @@ def create_single_tool(graph: hou.Node, node_type: dict, interactive_kwargs=None
 
 
 def _extra_input_proc(graph_node, i, input_type):
-    graph_node.parm(f'cui_i_meta_isimage_{i+1}').set(input_type in ('IMAGE', 'MASK'))
+    graph_node.parm(f'cui_i_meta_isimage_{i+1}').set(is_image_like(input_type))
     # ffs, i don't qute understand, do we need mask transform or no?
     #  judjing from some tests - no, masks need to go raw
-    if input_type == 'MASK':
+    if split_type(input_type) == {'MASK'}:
         graph_node.parm(f'cui_i_meta_bakecc_{i+1}').set(False)
 
 
@@ -596,15 +608,13 @@ def partial_node_rewire_callback(node, event_type, input_index, **kwargs):
         innode, out_index = (maybe_out.node, maybe_out.output)
         # now check input type
         # note, we always get partial graph node with this method, not subnet, so we access it's parms directly
-        if parm := innode.parm(f'cui_o_meta_outtype_{out_index+1}'):
-            out_type = parm.eval()
-            if not out_type:
-                # type not set, ignore
-                return
-        else:
-            # no type metadata parm, just ignore
+        # generic outputs (like core Switch) are resolved through whatever feeds them
+        out_type = resolve_output_type(innode, out_index)
+        if not out_type:
+            # type not set or no type metadata parm, ignore
             return
-        
-        if out_type != input_type:
+
+        # handles multi-types ("IMAGE,MASK"), "*" and V3 MatchType inputs/outputs
+        if not is_compatible(out_type, input_type):
             # disconnec!
             node.setInput(input_index, None)
